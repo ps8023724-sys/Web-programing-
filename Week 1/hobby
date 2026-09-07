@@ -1,1 +1,16 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Hobby</title>
+</head>
+<body>
+  <h1>Reading</h1>
+  <h2>Why I Love It</h2>
+  <p>Reading help me understands <strong> how other people view the world</strong>.
+     It calms my mind and allows me to gain a better judgement.</p>
+  <h2>How to Start</h2>
+  <p>You can start by picking up a tiny novel of your interest. The <em>fantasy novels</em>
+     are the easiest way to enjoy reading.</p>
+</body>
+</html>
