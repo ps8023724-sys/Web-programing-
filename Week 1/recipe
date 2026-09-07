@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasta Recipe</title>
+</head>
+<body>
+  <h1>How to Make Pasta</h1>
+
+  <h2>What You Need</h2>
+  <ul>
+    <li>200g dried pasta</li>
+    <li>1 liter water</li>
+    <li>1 teaspoon salt</li>
+    <li>2 tablespoons olive oil</li>
+    <li>Grated parmesan cheese</li>
+  </ul>
+
+  <h2>Steps</h2>
+  <ol>
+    <li>Fill a pot with water and add salt.</li>
+    <li>Bring the water to a boil and add the pasta — cook for <strong>exactly 8 minutes</strong> to avoid overcooking.</li>
+    <li>Stir occasionally to prevent the pasta from sticking together.</li>
+    <li>Drain the pasta and save a little cooking water for the sauce.</li>
+    <li>Toss the pasta with olive oil and sprinkle with parmesan. For extra flavor, stir <em>al dente</em> pasta water into the sauce.</li>
+  </ol>
+</body>
+</html>
