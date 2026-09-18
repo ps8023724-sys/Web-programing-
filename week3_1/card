@@ -1,1 +1,72 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Box Model Visualization</title>
+ 
+<style>
+body {
+font-family: Arial, sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+background-color: #f3f4f6;
+}
+ 
+.margin {
+background-color: #fbbf24;
+padding: 40px;
+text-align: center;
+}
+ 
+.border {
+background-color: #64748b;
+padding: 30px;
+color: white;
+}
+ 
+.padding {
+background-color: #7dd3fc;
+padding: 30px;
+color: black;
+}
+ 
+.content {
+background-color: #a78bfa;
+padding: 30px;
+color: white;
+font-weight: bold;
+}
+ 
+.label {
+display: block;
+font-size: 12px;
+font-weight: bold;
+margin-bottom: 10px;
+text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+ 
+<div class="margin">
+<span class="label">🟡 Margin</span>
+ 
+<div class="border">
+<span class="label">⬛ Border</span>
+ 
+<div class="padding">
+<span class="label">🔵 Padding</span>
+ 
+<div class="content">
+🟣 Content
+</div>
+ 
+</div>
+</div>
+ 
+</div>
+ 
+</body>
+</html>
