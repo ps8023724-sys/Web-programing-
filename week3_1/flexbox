@@ -1,1 +1,64 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexbox Navigation Bar</title>
+ 
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+ 
+body {
+font-family: sans-serif;
+}
+ 
+nav {
+background-color: #1e293b;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 15px 30px;
+}
+ 
+.logo {
+color: white;
+font-weight: bold;
+text-decoration: none;
+font-size: 1.5rem;
+}
+ 
+.nav-links {
+display: flex;
+gap: 25px;
+}
+ 
+.nav-links a {
+color: white;
+text-decoration: none;
+}
+ 
+.nav-links a:hover {
+color: #10B981;
+}
+</style>
+</head>
+ 
+<body>
+ 
+<nav>
+#WebPro</a>
+ 
+<div class="nav-links">
+#Home</a>
+#Topics</a>
+#Quiz</a>
+#About</a>
+</div>
+</nav>
+ 
+</body>
+</html>
