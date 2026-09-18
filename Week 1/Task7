@@ -1,1 +1,36 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Favourites</title>
+</head>
+<body>
 
+  <h1>My Favourites</h1>
+
+  <div class="card">
+    <h2>The perks of being a wallflower</h2>
+    <img src="https://picsum.photos/300/200?random=1" alt="Favourite book">
+    <p><strong>The perks of being a wallflower</strong> is a YA novel that I read recently during vacation. The plot of the book is <em>heavy and heart-touching</em>.</p>
+    <a href="https://www.goodreads.the perks of being a wallflower.com/" target="_blank">Learn more</a>
+  </div>
+
+  <div class="card">
+    <h2>how I met your mother</h2>
+    <img src="https://picsum.photos/300/200?random=2" alt="Favourite film or show">
+    <p><strong> how I met your mother</strong> is an American television sitcom. It follows a group of friends and their journey of finding a life partner.</p>
+    <a href="https://www.netflix.com/kr-en/title/70153404" target="_blank">Learn more</a>
+  </div>
+
+  <div class="card">
+    <h2>Wikipedia</h2>
+    <img src="https://picsum.photos/300/200?random=3" alt="Favourite website">
+    <p><strong>Instagram</strong>is my favorite website where I spend most of my time catching up with my friends. I can <em>build an online platform to connect with many people.</em>.</p>
+    <a href="https://www.instagram.com/" target="_blank">Learn more</a>
+  </div>
+
+</body>
+</html>
+```
