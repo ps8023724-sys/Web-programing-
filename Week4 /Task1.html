@@ -1,1 +1,15 @@
+const btn = document.querySelector("#clicker");
+const countEl = document.querySelector("#count");
+const msg = document.querySelector("#message");
 
+let count = 0;
+
+btn.addEventListener("click", function () {
+    count++;
+    countEl.textContent = count;
+
+    if (count >=5) {
+        btn.classList.add("done");
+        msg.textContent = "Congratulations! You reached 5 clicks!";
+    }
+});
