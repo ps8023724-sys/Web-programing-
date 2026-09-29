@@ -1,1 +1,25 @@
+const search = document.querySelector("#search");
+const students = document.querySelectorAll(".student");
+const noResults = document.querySelector("#no-results");
 
+search.addEventListener("input", function (e) {
+    const term = e.target.value.toLowerCase();
+    let found = false;
+
+    students.forEach(function (student) {
+        const name = student.dataset.name.toLowerCase();
+
+        if (name.includes(term)) {
+            student.style.display = "";
+            found = true;
+        } else {
+            student.style.display = "none";
+        }
+    });
+
+    if (found) {
+        noResults.style.display = "none";
+    } else {
+        noResults.style.display = "";
+    }
+});
