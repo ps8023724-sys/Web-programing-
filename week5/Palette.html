@@ -1,1 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f3ff;
+            color: #30264a;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #716b88;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .color-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .color-box {
+            height: 220px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-box:hover {
+            transform: scale(0.96);
+        }
+
+        .color-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5px;
+            padding: 12px 8px;
+        }
+
+        .hex-code {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .copy-button {
+            border: none;
+            border-radius: 6px;
+            background-color: #eee9ff;
+            color: #5944a5;
+            padding: 7px;
+            cursor: pointer;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        #generateButton {
+            background-color: #7155c8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #generateButton:hover {
+            background-color: #5840a5;
+        }
+
+        #message {
+            min-height: 24px;
+            text-align: center;
+            color: #5944a5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #716b88;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            .palette {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .color-box {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Color Palette Studio</h1>
+        <p>Discover beautiful colors for your creative projects.</p>
+    </header>
+
+    <main class="container">
+
+        <section class="palette" id="palette">
+        </section>
+
+        <div class="controls">
+            <button id="generateButton">
+                🎨 Generate New Palette
+            </button>
+            <p>Click a color or its Copy button to copy its HEX code.</p>
+        </div>
+
+        <p id="message" aria-live="polite"></p>
+
+    </main>
+
+    <footer>
+        Made with HTML, CSS and JavaScript
+    </footer>
+
+    <script>
+        const palette = document.getElementById("palette");
+        const generateButton =
+            document.getElementById("generateButton");
+        const message = document.getElementById("message");
+
+        const numberOfColors = 5;
+
+        function generateRandomColor() {
+            const characters = "0123456789ABCDEF";
+            let color = "#";
+
+            for (let i = 0; i < 6; i++) {
+                const randomIndex =
+                    Math.floor(Math.random() * 16);
+
+                color += characters[randomIndex];
+            }
+
+            return color;
+        }
+
+        function generatePalette() {
+            palette.innerHTML = "";
+            message.textContent = "";
+
+            for (let i = 0; i < numberOfColors; i++) {
+                const color = generateRandomColor();
+
+                const card = document.createElement("div");
+                card.className = "color-card";
+
+                const colorBox = document.createElement("div");
+                colorBox.className = "color-box";
+                colorBox.style.backgroundColor = color;
+                colorBox.title = "Click to copy " + color;
+
+                const colorInfo = document.createElement("div");
+                colorInfo.className = "color-info";
+
+                const hexCode = document.createElement("span");
+                hexCode.className = "hex-code";
+                hexCode.textContent = color;
+
+                const copyButton = document.createElement("button");
+                copyButton.className = "copy-button";
+                copyButton.textContent = "Copy";
+                copyButton.type = "button";
+
+                async function copyColor() {
+                    try {
+                        await navigator.clipboard.writeText(color);
+                        message.textContent = color + " copied!";
+                    } catch (error) {
+                        message.textContent =
+                            "Copy unavailable. Your color code is " + color;
+                    }
+                }
+
+                colorBox.addEventListener("click", copyColor);
+                copyButton.addEventListener("click", copyColor);
+
+                colorInfo.appendChild(hexCode);
+                colorInfo.appendChild(copyButton);
+
+                card.appendChild(colorBox);
+                card.appendChild(colorInfo);
+
+                palette.appendChild(card);
+            }
+        }
+
+        generateButton.addEventListener("click", generatePalette);
+
+        generatePalette();
+    </script>
+
+</body>
+</html>
 
