@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Basics</title>
+</head>
+<body>
+  <h1>JavaScript Basics</h1>
+  <p>Basic examples of JavaScript, conditions, and loops.</p>
+
+  <h2>Changing Content</h2>
+  <p id="text">Original text</p>
+  <button onclick="changeText()">Change Text</button>
+
+  <h2>Reading User Input</h2>
+  <input type="text" id="nameInput" placeholder="Your name">
+  <button onclick="greet()">Greet</button>
+  <p id="greeting"></p>
+
+  <h2>Condition (if / else)</h2>
+  <input type="number" id="score" placeholder="Enter a score">
+  <button onclick="checkScore()">Check</button>
+  <p id="scoreResult"></p>
+
+  <h2>Loop (for)</h2>
+  <input type="number" id="loopNumber" placeholder="Enter a number">
+  <button onclick="runLoop()">Run</button>
+  <p id="loopResult"></p>
+
+  <h2>Loop Through an Array</h2>
+  <ul id="fruitList"></ul>
+
+  <h2>localStorage</h2>
+  <p>Saved name: <span id="savedName"></span></p>
+
+  <script>
+    // Changing content
+    function changeText() {
+      document.getElementById("text").textContent = "The text has been changed!";
+    }
+
+    // Reading user input
+    function greet() {
+      const name = document.getElementById("nameInput").value;
+      document.getElementById("greeting").textContent = "Hello, " + name + "!";
+    }
+
+    // Condition
+    function checkScore() {
+      const score = Number(document.getElementById("score").value);
+      let message;
+      if (score >= 90) {
+        message = "Excellent!";
+      } else if (score >= 50) {
+        message = "Pass";
+      } else {
+        message = "Fail";
+      }
+      document.getElementById("scoreResult").textContent = message;
+    }
+
+    // Loop
+    function runLoop() {
+      const n = Number(document.getElementById("loopNumber").value);
+      let output = "";
+      for (let i = 1; i <= n; i++) {
+        output = output + i + " ";
+      }
+      document.getElementById("loopResult").textContent = output;
+    }
+
+    // Array loop
+    const fruits = ["apple", "banana", "cherry"];
+    const list = document.getElementById("fruitList");
+    for (let i = 0; i < fruits.length; i++) {
+      const li = document.createElement("li");
+      li.textContent = fruits[i];
+      list.appendChild(li);
+    }
+
+    // localStorage
+    localStorage.setItem("name", "Shrestha Puja");
+    document.getElementById("savedName").textContent = localStorage.getItem("name");
+  </script>
+</body>
+</html>

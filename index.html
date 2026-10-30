@@ -1,66 +1,340 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Web Programming Assignments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Programming | Shrestha Puja</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #FAF8FC;
+            color: #39314D;
+            font-family: "DM Sans", sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: min(1080px, 90%);
+            margin: auto;
+        }
+
+        header {
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E9E5F2;
+        }
+
+        .brand {
+            color: #55458C;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 15px;
+        }
+
+        .header-note {
+            color: #91889F;
+            font-size: 12px;
+        }
+
+        .hero {
+            padding: 85px 0 65px;
+            max-width: 750px;
+        }
+
+        .eyebrow {
+            color: #8061AE;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        h1, h2, h3 {
+            font-family: "Playfair Display", Georgia, serif;
+        }
+
+        h1 {
+            color: #55458C;
+            font-size: clamp(42px, 7vw, 68px);
+            line-height: 1.12;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: #777083;
+            max-width: 580px;
+            font-size: 15px;
+        }
+
+        .hero-line {
+            width: 55px;
+            height: 3px;
+            background: #A994D0;
+            margin-top: 28px;
+        }
+
+        .section-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .section-top h2 {
+            color: #55458C;
+            font-size: 30px;
+        }
+
+        .section-top p {
+            color: #958DA1;
+            font-size: 13px;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding-bottom: 70px;
+        }
+
+        .week-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: white;
+            border: 1px solid #EAE5F2;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.25s ease;
+        }
+
+        .week-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 30px rgba(75, 57, 112, 0.10);
+            border-color: #CFC2E5;
+        }
+
+        .cover {
+            height: 145px;
+            padding: 20px;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            background: #E9E5F7;
+        }
+
+        .cover span {
+            font-family: "Playfair Display", Georgia, serif;
+            color: #55458C;
+            font-size: 48px;
+            line-height: 1;
+        }
+
+        .cover small {
+            color: #756395;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cover.c2 { background: #EEE8F5; }
+        .cover.c3 { background: #E5EAF3; }
+        .cover.c4 { background: #F0E8F0; }
+        .cover.c5 { background: #E8E9F4; }
+        .cover.c6 { background: #E4EDF0; }
+        .cover.c7 { background: #F1EBDD; }
+        .cover.c8 { background: #EAE5F3; }
+
+        .week-info {
+            padding: 19px 20px 21px;
+        }
+
+        .week-info h3 {
+            font-size: 20px;
+            color: #55458C;
+            margin-bottom: 5px;
+        }
+
+        .week-info p {
+            color: #91899D;
+            font-size: 12px;
+        }
+
+        .week-info .open {
+            display: block;
+            margin-top: 17px;
+            color: #8061AE;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .about {
+            background: #F0ECF8;
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 55px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .about h2 {
+            color: #55458C;
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .about p {
+            color: #766D87;
+            font-size: 13px;
+            max-width: 550px;
+        }
+
+        .student-detail {
+            color: #766D87;
+            font-size: 11px;
+            text-align: right;
+            white-space: nowrap;
+            line-height: 1.9;
+        }
+
+        footer {
+            border-top: 1px solid #E9E5F2;
+            padding: 22px 0 30px;
+            display: flex;
+            justify-content: space-between;
+            color: #A29AAA;
+            font-size: 11px;
+        }
+
+        @media (max-width: 800px) {
+            .week-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero { padding: 65px 0 50px; }
+        }
+
+        @media (max-width: 520px) {
+            .week-grid { grid-template-columns: 1fr; }
+            .about { flex-direction: column; align-items: flex-start; }
+            .student-detail { text-align: left; }
+            .section-top { align-items: flex-start; flex-direction: column; }
+            .header-note { display: none; }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Web Programming Assignments</h1>
+<div class="container">
 
-    <h2>Week 1</h2>
-    <a href="Week%201/profile.html">profile</a><br>
-    <a href="Week%201/recipe.html">recipe</a><br>
-    <a href="Week%201/hobby.html">hobby</a><br>
-    <a href="Week%201/navigation.html">navigation</a><br>
-    <a href="Week%201/task1.html">task 1</a><br>
-    <a href="Week%201/Task7.html">Task 7</a><br>
-    <a href="Week%201/Image.html">Image</a><br>
+    <header>
+        <div class="brand">PORTFOLIO / WEB PROGRAMMING</div>
+        <div class="header-note">A collection of my learning and projects</div>
+    </header>
 
-   <h2>Week 2</h2>
-<a href="week%202/task1.html">task 1</a><br>
-<a href="week%202/task2.html">task 2</a><br>
-<a href="week%202/task3.html">task 3</a><br>
-<a href="week%202/task4.html">task 4</a><br>
-<a href="week%202/task5.html">task 5</a><br>
-<a href="week%202/task6.html">task 6</a><br>
-<a href="week%202/task7.html">task 7</a><br>
-<a href="week%202/task8.html">task 8</a><br>
+    <main>
+        <section class="hero">
+            <div class="eyebrow">Student Developer Portfolio</div>
+            <h1>Web Programming<br>Projects & Practice</h1>
+            <p>
+                A collection of my work throughout the course —
+                from my first HTML exercises to interactive projects
+                built with CSS, JavaScript, and APIs.
+            </p>
+            <div class="hero-line"></div>
+        </section>
 
-    <h2>Week 3 - Assignment 1</h2>
-<a href="week3_1/task1.html">task 1</a><br>
-<a href="week3_1/task2.html">task 2</a><br>
-<a href="week3_1/task3.html">task 3</a><br>
-<a href="week3_1/task4.html">task 4</a><br>
-<a href="week3_1/task5.html">task 5</a><br>
-<a href="week3_1/task6.html">task 6</a><br>
-<a href="week3_1/task7.html">task 7</a><br>
-<a href="week3_1/task8.html">task 8</a><br>
+        <section>
+            <div class="section-top">
+                <div>
+                    <div class="eyebrow">The collection</div>
+                    <h2>My Assignments</h2>
+                </div>
+                <p>Select a week to explore its projects.</p>
+            </div>
 
-    <h2>Week 3 - Assignment 2</h2>
-<a href="week3_2/task1.html">task 1</a><br>
-<a href="week3_2/task2.html">task 2</a><br>
-<a href="week3_2/task3.html">task 3</a><br>
-<a href="week3_2/task4.html">task 4</a><br>
-<a href="week3_2/task5.html">task 5</a><br>
-<a href="week3_2/task6.html">task 6</a><br>
-<a href="week3_2/task7.html">task 7</a><br>
+            <div class="week-grid">
 
-    <h2>Week 4</h2>
-<a href="week4/Task1.html">Task 1</a><br>
-<a href="week4/Task2.html">Task 2</a><br>
-<a href="week4/Task3.html">Task 3</a><br>
-<a href="week4/Task4.html">Task 4</a><br>
+                <a class="week-card" href="week.html?week=week1">
+                    <div class="cover"><span>01</span><small>Getting started</small></div>
+                    <div class="week-info"><h3>Week 1</h3><p>HTML fundamentals</p><span class="open">Explore week ↗</span></div>
+                </a>
 
-    
-<h2>Week 5</h2>
-<ul>
-    <li><a href="week5/Palette.html">Color Palette Generator</a></li>
-</ul>
+                <a class="week-card" href="week.html?week=week2">
+                    <div class="cover c2"><span>02</span><small>Building blocks</small></div>
+                    <div class="week-info"><h3>Week 2</h3><p>HTML practice</p><span class="open">Explore week ↗</span></div>
+                </a>
 
-<h2>Week 6</h2>
-<ul>
-    <li><a href="week6/Fetcher.html">Random Joke Fetcher</a></li>
-</ul>
-    
+                <a class="week-card" href="week.html?week=week3_1">
+                    <div class="cover c3"><span>03</span><small>Part one</small></div>
+                    <div class="week-info"><h3>Week 3 — Assignment 1</h3><p>HTML exercises</p><span class="open">Explore week ↗</span></div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week3_2">
+                    <div class="cover c4"><span>03</span><small>Part two</small></div>
+                    <div class="week-info"><h3>Week 3 — Assignment 2</h3><p>HTML exercises</p><span class="open">Explore week ↗</span></div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week4">
+                    <div class="cover c5"><span>04</span><small>Practice</small></div>
+                    <div class="week-info"><h3>Week 4</h3><p>HTML tasks</p><span class="open">Explore week ↗</span></div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week5">
+                    <div class="cover c6"><span>05</span><small>JavaScript</small></div>
+                    <div class="week-info"><h3>Week 5</h3><p>JavaScript practice</p><span class="open">Explore week ↗</span></div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week6">
+                    <div class="cover c7"><span>06</span><small>Working with APIs</small></div>
+                    <div class="week-info"><h3>Week 6</h3><p>API-based projects</p><span class="open">Explore week ↗</span></div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week7">
+                    <div class="cover c8"><span>07</span><small>Open Library</small></div>
+                    <div class="week-info"><h3>Week 7</h3><p>Working with external data</p><span class="open">Explore week ↗</span></div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week8">
+                    <div class="cover"><span>08</span><small>Forms & validation</small></div>
+                    <div class="week-info"><h3>Week 8 — Part 1</h3><p>HTML forms and CSS</p><span class="open">Explore week ↗</span></div>
+                </a>
+
+            </div>
+        </section>
+
+        <section class="about">
+            <div>
+                <h2>A little about this portfolio</h2>
+                <p>
+                    This website brings together my weekly assignments
+                    and projects as I continue learning web programming.
+                    Each folder represents another step in that journey.
+                </p>
+            </div>
+            <div class="student-detail">
+                <strong>Shrestha Puja</strong><br>
+                Student ID · 202537250
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>Web Programming Portfolio</span>
+        <span>2026 · Gachon University</span>
+    </footer>
+
+</div>
 </body>
 </html>

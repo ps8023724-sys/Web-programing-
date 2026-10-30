@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiskers - Cat Explorer</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 20px;
+            font-family: Arial, sans-serif;
+            background: #faf6ff;
+            color: #44364f;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #e9dafa, #f9e7ef);
+            border-radius: 22px;
+            margin-bottom: 28px;
+        }
+
+        .logo {
+            font-size: 42px;
+        }
+
+        header h1 {
+            font-size: 36px;
+            color: #704b83;
+            margin: 10px 0;
+        }
+
+        header p {
+            color: #806b89;
+            line-height: 1.6;
+        }
+
+        .search-section {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(90, 60, 110, 0.07);
+            margin-bottom: 25px;
+        }
+
+        .search-section h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #704b83;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 13px 15px;
+            border: 1px solid #dfd1e8;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #a77bc0;
+            box-shadow: 0 0 0 3px #f1e5f8;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 13px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #9870ae;
+            color: white;
+        }
+
+        button:hover {
+            background: #79518f;
+        }
+
+        .quick-search {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .quick-search span {
+            color: #887792;
+            font-size: 13px;
+        }
+
+        .quick-search button {
+            background: #f2eaf7;
+            color: #79518f;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .quick-search button:hover {
+            background: #e5d4ef;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin: 25px 0 15px;
+        }
+
+        .section-heading h2 {
+            color: #704b83;
+            font-size: 21px;
+        }
+
+        #status {
+            color: #8b7295;
+            font-size: 13px;
+            margin: 15px 0;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .cat-card {
+            background: white;
+            border-radius: 17px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(90, 60, 110, 0.09);
+            transition: transform 0.2s;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cat-photo {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            background: #eee5f2;
+            display: block;
+        }
+
+        .cat-content {
+            padding: 19px;
+        }
+
+        .cat-content h3 {
+            color: #704b83;
+            font-size: 21px;
+            margin: 0 0 10px;
+        }
+
+        .origin {
+            display: inline-block;
+            background: #f2eaf7;
+            color: #79518f;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .cat-content p {
+            color: #776d7d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .cat-detail {
+            border-top: 1px solid #f0eaf3;
+            padding-top: 12px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #75677e;
+            line-height: 1.8;
+        }
+
+        .cat-detail strong {
+            color: #704b83;
+        }
+
+        .empty {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            color: #887792;
+            grid-column: 1 / -1;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #9a8ca0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 550px) {
+            header h1 {
+                font-size: 29px;
+            }
+
+            .search-row {
+                flex-direction: column;
+            }
+
+            .search-row button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">🐱</div>
+        <h1>Whiskers Cat Explorer</h1>
+        <p>
+            A little corner of the internet dedicated to cats.
+            Discover different breeds, their personalities, and adorable photos!
+        </p>
+    </header>
+
+    <section class="search-section">
+        <h2>🔎 Find Your Favourite Cat</h2>
+
+        <div class="search-row">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search a breed, e.g. Persian..."
+            >
+            <button onclick="searchCats()">Search</button>
+        </div>
+
+        <div class="quick-search">
+            <span>Try:</span>
+            <button onclick="quickSearch('Persian')">Persian</button>
+            <button onclick="quickSearch('Siamese')">Siamese</button>
+            <button onclick="quickSearch('Bengal')">Bengal</button>
+            <button onclick="quickSearch('Maine Coon')">Maine Coon</button>
+            <button onclick="showAll()">Show All</button>
+        </div>
+    </section>
+
+    <div class="section-heading">
+        <h2>🐾 Meet the Cats</h2>
+    </div>
+
+    <div id="status">Loading cat breeds...</div>
+
+    <div class="cat-grid" id="catGrid">
+        <div class="empty">🐾 Finding adorable cats...</div>
+    </div>
+
+    <footer>
+        Cat breed information and images powered by TheCatAPI
+    </footer>
+
+</div>
+
+<script>
+    const API_KEY = "DEMO-API-KEY";
+    const API_URL = "https://api.thecatapi.com/v1";
+
+    let allBreeds = [];
+
+    async function getBreeds() {
+        const response = await fetch(
+            `${API_URL}/breeds?limit=100`,
+            {
+                headers: {
+                    "x-api-key": API_KEY
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not load cat breeds.");
+        }
+
+        return await response.json();
+    }
+
+    async function getCatImage(breedId) {
+        const response = await fetch(
+            `${API_URL}/images/search?breed_ids=${encodeURIComponent(breedId)}&limit=1`,
+            {
+                headers: {
+                    "x-api-key": API_KEY
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not load cat photo.");
+        }
+
+        const images = await response.json();
+
+        return images.length > 0 ? images[0].url : "";
+    }
+
+    function createCard(breed) {
+        const card = document.createElement("article");
+        card.className = "cat-card";
+
+        const photo = document.createElement("img");
+        photo.className = "cat-photo";
+        photo.alt = breed.name + " cat";
+
+        photo.src = breed.image?.url ||
+            "https://placehold.co/600x400/f2eaf7/79518f?text=Cat+Photo";
+
+        const content = document.createElement("div");
+        content.className = "cat-content";
+
+        const title = document.createElement("h3");
+        title.textContent = breed.name;
+
+        const origin = document.createElement("span");
+        origin.className = "origin";
+        origin.textContent = "🌍 " + (breed.origin || "Unknown origin");
+
+        const description = document.createElement("p");
+        description.textContent =
+            breed.description || "A lovely cat breed to discover!";
+
+        const details = document.createElement("div");
+        details.className = "cat-detail";
+
+        const temperament = document.createElement("p");
+        temperament.innerHTML = "<strong>Personality:</strong> ";
+        temperament.appendChild(
+            document.createTextNode(breed.temperament || "Not available")
+        );
+
+        const lifespan = document.createElement("p");
+        lifespan.innerHTML = "<strong>Life span:</strong> ";
+        lifespan.appendChild(
+            document.createTextNode(
+                breed.life_span ? breed.life_span + " years" : "Not available"
+            )
+        );
+
+        details.appendChild(temperament);
+        details.appendChild(lifespan);
+
+        content.appendChild(title);
+        content.appendChild(origin);
+        content.appendChild(description);
+        content.appendChild(details);
+
+        card.appendChild(photo);
+        card.appendChild(content);
+
+        if (!breed.image?.url) {
+            getCatImage(breed.id)
+                .then(url => {
+                    if (url) photo.src = url;
+                })
+                .catch(error => console.log(error));
+        }
+
+        return card;
+    }
+
+    function displayBreeds(breeds) {
+        const grid = document.getElementById("catGrid");
+        grid.innerHTML = "";
+
+        if (breeds.length === 0) {
+            grid.innerHTML = `
+                <div class="empty">
+                    😿 No matching breeds found.
+                    Try another name!
+                </div>
+            `;
+            return;
+        }
+
+        breeds.forEach(breed => {
+            grid.appendChild(createCard(breed));
+        });
+    }
+
+    function searchCats() {
+        const input = document
+            .getElementById("searchInput")
+            .value.trim()
+            .toLowerCase();
+
+        if (!input) {
+            displayBreeds(allBreeds.slice(0, 9));
+            document.getElementById("status").textContent =
+                "Showing 9 cat breeds. Enter a name to search.";
+            return;
+        }
+
+        const results = allBreeds.filter(breed =>
+            breed.name.toLowerCase().includes(input)
+        );
+
+        displayBreeds(results);
+
+        document.getElementById("status").textContent =
+            `Found ${results.length} matching breed(s).`;
+    }
+
+    function quickSearch(name) {
+        document.getElementById("searchInput").value = name;
+        searchCats();
+    }
+
+    function showAll() {
+        document.getElementById("searchInput").value = "";
+        displayBreeds(allBreeds.slice(0, 9));
+
+        document.getElementById("status").textContent =
+            "Showing 9 cat breeds.";
+    }
+
+    async function loadCats() {
+        const status = document.getElementById("status");
+        const grid = document.getElementById("catGrid");
+
+        status.textContent = "Loading cat breeds...";
+        grid.innerHTML = `
+            <div class="empty">🐱 Loading adorable cats...</div>
+        `;
+
+        try {
+            allBreeds = await getBreeds();
+
+            displayBreeds(allBreeds.slice(0, 9));
+
+            status.textContent =
+                `Successfully loaded ${allBreeds.length} cat breeds.`;
+
+        } catch (error) {
+            console.error(error);
+
+            status.textContent = "Unable to load cat breeds.";
+
+            grid.innerHTML = `
+                <div class="empty">
+                    😿 We couldn't connect to the cat API.
+                    Please check your internet connection or API key
+                    and refresh the page.
+                </div>
+            `;
+        }
+    }
+
+    document.getElementById("searchInput")
+        .addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                searchCats();
+            }
+        });
+
+    loadCats();
+</script>
+
+</body>
+</html>

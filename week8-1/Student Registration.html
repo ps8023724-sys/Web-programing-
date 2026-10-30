@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gachon Student Registration</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e9e5f7, #e5effb);
+            min-height: 100vh;
+            padding: 40px 15px;
+            color: #35304a;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(55, 45, 90, 0.12);
+        }
+
+        .header {
+            background: linear-gradient(120deg, #55458c, #8872bd);
+            color: white;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #eee9fa;
+        }
+
+        form {
+            padding: 35px;
+        }
+
+        .section-title {
+            color: #64518e;
+            font-size: 19px;
+            margin-bottom: 22px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee9f6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #514a63;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #ddd8e8;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fff;
+            color: #423b50;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #8872bd;
+            box-shadow: 0 0 0 3px rgba(136, 114, 189, 0.12);
+        }
+
+        input:invalid:not(:placeholder-shown) {
+            border-color: #dc7777;
+        }
+
+        input:valid:not(:placeholder-shown) {
+            border-color: #6ab68b;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 65px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            color: #8067a8;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .hint {
+            color: #9992a5;
+            font-size: 12px;
+            margin-top: 7px;
+        }
+
+        .slider-box {
+            background: #f8f6fc;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .slider-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .slider-heading label {
+            margin: 0;
+        }
+
+        .experience-value {
+            color: #7659a9;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        input[type="range"] {
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            accent-color: #8067b0;
+            cursor: pointer;
+        }
+
+        input[type="range"]:focus {
+            box-shadow: none;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #9992a5;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .terms {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .terms input {
+            width: 17px;
+            height: 17px;
+            accent-color: #8067b0;
+            cursor: pointer;
+        }
+
+        .terms label {
+            margin: 0;
+            font-weight: normal;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .terms a {
+            color: #8067b0;
+            text-decoration: none;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(120deg, #655092, #9278c2);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(101, 80, 146, 0.25);
+        }
+
+        #message {
+            display: none;
+            padding: 14px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: center;
+            background: #e9f8ef;
+            color: #268252;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: #aaa2b2;
+            font-size: 12px;
+            background: #faf9fc;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 25px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .header {
+                padding: 28px 18px;
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Gachon Student Registration</h1>
+            <p>Take the first step toward your future. Fill in your information below.</p>
+        </div>
+
+        <form id="registrationForm">
+
+            <!-- PERSONAL INFORMATION -->
+            <h2 class="section-title">01. Personal Information</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter your full name"
+                        minlength="2"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="studentId">Student ID</label>
+                    <input
+                        type="text"
+                        id="studentId"
+                        placeholder="Enter student ID"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input
+                        type="date"
+                        id="dob"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="major">Major</label>
+                    <select id="major" required>
+                        <option value="">Select your major</option>
+                        <option>Computer Engineering</option>
+                        <option>Software Engineering</option>
+                        <option>Business Administration</option>
+                        <option>Electrical Engineering</option>
+                        <option>Artificial Intelligence</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- ACCOUNT INFORMATION -->
+            <h2 class="section-title" style="margin-top: 20px;">
+                02. Account Information
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="example@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="At least 8 characters"
+                            minlength="8"
+                            required
+                        >
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            onclick="togglePassword()"
+                            id="toggleBtn"
+                        >Show</button>
+                    </div>
+                    <p class="hint">Minimum 8 characters.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="010-1234-5678"
+                        pattern="010-[0-9]{4}-[0-9]{4}"
+                        title="Enter your phone number in the format 010-1234-5678"
+                        required
+                    >
+                    <p class="hint">Format: 010-1234-5678</p>
+                </div>
+
+            </div>
+
+            <!-- CODING EXPERIENCE -->
+            <h2 class="section-title" style="margin-top: 20px;">
+                03. Coding Experience
+            </h2>
+
+            <div class="slider-box">
+
+                <div class="slider-heading">
+                    <label for="experience">
+                        Years of Coding Experience
+                    </label>
+
+                    <span class="experience-value" id="experienceValue">
+                        0 years
+                    </span>
+                </div>
+
+                <input
+                    type="range"
+                    id="experience"
+                    min="0"
+                    max="20"
+                    value="0"
+                    step="1"
+                >
+
+                <div class="slider-labels">
+                    <span>0 years</span>
+                    <span>10 years</span>
+                    <span>20 years</span>
+                </div>
+
+            </div>
+
+            <!-- TERMS -->
+            <div class="terms">
+                <input
+                    type="checkbox"
+                    id="agree"
+                    required
+                >
+                <label for="agree">
+                    I agree to the <a href="#terms">terms and conditions</a>.
+                </label>
+            </div>
+
+            <button type="submit" class="register-btn">
+                Register Now →
+            </button>
+
+            <div id="message">
+                ✓ Registration completed successfully!
+            </div>
+
+        </form>
+
+        <footer>
+            Gachon University · Student Registration Portal
+        </footer>
+
+    </div>
+
+    <script>
+        // Update the coding experience slider
+        const experience = document.getElementById("experience");
+        const experienceValue = document.getElementById("experienceValue");
+
+        experience.addEventListener("input", function() {
+            experienceValue.textContent = this.value + " years";
+        });
+
+        // Show or hide password
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const button = document.getElementById("toggleBtn");
+
+            if (password.type === "password") {
+                password.type = "text";
+                button.textContent = "Hide";
+            } else {
+                password.type = "password";
+                button.textContent = "Show";
+            }
+        }
+
+        // Handle form submission
+        document.getElementById("registrationForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                document.getElementById("message").style.display = "block";
+
+                document.getElementById("message").scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest"
+                });
+            });
+
+        // Prevent selecting a future date of birth
+        document.getElementById("dob").max =
+            new Date().toISOString().split("T")[0];
+    </script>
+
+</body>
+</html>

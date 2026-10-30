@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Counter</title>
+</head>
+<body>
+  <h1>Counter: <span id="count">0</span></h1>
+
+  <button onclick="add()">+ Add</button>
+  <button onclick="subtract()">- Subtract</button>
+  <button onclick="reset()">Reset</button>
+
+  <script>
+    let count = 0;
+
+    function show() {
+      document.getElementById("count").textContent = count;
+    }
+
+    function add() {
+      count = count + 1;
+      show();
+    }
+
+    function subtract() {
+      count = count - 1;
+      show();
+    }
+
+    function reset() {
+      count = 0;
+      show();
+    }
+  </script>
+</body>
+</html>

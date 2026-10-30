@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Country Lookup</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #e3ecfa, #f5f7fb);
+      margin: 0;
+      padding: 40px 16px;
+      min-height: 100vh;
+    }
+
+    .card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    h1 { margin: 0 0 20px; color: #1b2a41; }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .row input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 1px solid #c9ced6;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .row input:focus {
+      border-color: #0b6bcb;
+      box-shadow: 0 0 0 3px rgba(11, 107, 203, 0.15);
+    }
+
+    button {
+      background: #0b6bcb;
+      color: #fff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #0955a3; }
+
+    #status {
+      color: #555;
+      min-height: 1.4em;
+      margin: 8px 0 16px;
+    }
+
+    #status.error { color: #b00020; }
+
+    .country {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #e5e8ee;
+      border-radius: 12px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .country:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .country img {
+      width: 110px;
+      height: 75px;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .country h3 {
+      margin: 0 0 8px;
+      color: #1b2a41;
+    }
+
+    .country p {
+      margin: 3px 0;
+      color: #444;
+      font-size: 15px;
+    }
+
+    @media (max-width: 480px) {
+      .row { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Country Lookup</h1>
+
+    <div class="row">
+      <input id="query" type="text"
+        placeholder="Search a country, e.g. Korea">
+      <button id="btn">Search</button>
+    </div>
+
+    <p id="status">Search for a country to see its information.</p>
+    <div id="results"></div>
+  </div>
+
+  <script>
+    const statusEl = document.getElementById("status");
+    const resultsEl = document.getElementById("results");
+    const inputEl = document.getElementById("query");
+
+    function setStatus(text, isError = false) {
+      statusEl.textContent = text;
+      statusEl.className = isError ? "error" : "";
+    }
+
+    function addLine(parent, label, value) {
+      const p = document.createElement("p");
+      p.textContent = label + ": " + value;
+      parent.appendChild(p);
+    }
+
+    async function searchCountry() {
+      const name = inputEl.value.trim();
+      resultsEl.innerHTML = "";
+
+      if (name === "") {
+        setStatus("Please enter a country name.", true);
+        return;
+      }
+
+      setStatus("Searching...", false);
+
+      try {
+        const url =
+          "https://api.restcountries.com/countries/v5/name?q=" +
+          encodeURIComponent(name) +
+          "&response_fields=names.common,names.official,codes.alpha_2,capitals,population";
+
+        const response = await fetch(url, {
+          headers: {
+            "Authorization": "Bearer rc_live_demo"
+          }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || result.errors) {
+          throw new Error(
+            result.errors?.[0]?.message || "Unable to retrieve countries."
+          );
+        }
+
+        const countries = result.data.objects || [];
+
+        if (countries.length === 0) {
+          setStatus("No matching countries found.", true);
+          return;
+        }
+
+        setStatus(
+          "Found " + countries.length + " matching countries.",
+          false
+        );
+
+        countries.forEach(country => {
+          const box = document.createElement("div");
+          box.className = "country";
+
+          const flag = document.createElement("img");
+          const code = country.codes?.alpha_2?.toLowerCase();
+
+          if (code) {
+            flag.src =
+              "https://flags.restcountries.com/v5/w320/" + code + ".png";
+          }
+
+          flag.alt = "Flag of " + country.names.common;
+
+          const info = document.createElement("div");
+
+          const title = document.createElement("h3");
+          title.textContent = country.names.official ||
+                              country.names.common;
+
+          info.appendChild(title);
+
+          addLine(
+            info,
+            "Capital",
+            country.capitals?.join(", ") || "N/A"
+          );
+
+          addLine(
+            info,
+            "Population",
+            country.population != null
+              ? country.population.toLocaleString()
+              : "N/A"
+          );
+
+          box.appendChild(flag);
+          box.appendChild(info);
+          resultsEl.appendChild(box);
+        });
+
+      } catch (error) {
+        console.error(error);
+        setStatus("Request failed: " + error.message, true);
+      }
+    }
+
+    document.getElementById("btn")
+      .addEventListener("click", searchCountry);
+
+    inputEl.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        searchCountry();
+      }
+    });
+  </script>
+</body>
+</html>
