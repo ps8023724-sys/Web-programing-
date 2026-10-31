@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgraded Student Registration</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px 15px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e9e5f7, #d7cbea);
+            color: #40345d;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 38px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(85, 69, 140, 0.15);
+        }
+
+        .tag {
+            color: #8061ae;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            color: #55458c;
+            margin: 12px 0;
+            font-size: 30px;
+        }
+
+        .intro {
+            color: #777087;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        fieldset {
+            border: 1px solid #e4deef;
+            border-radius: 13px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        legend {
+            padding: 0 10px;
+            color: #8061ae;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .field {
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-weight: bold;
+        }
+
+        input:not([type="range"]):not([type="checkbox"]),
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1.5px solid #ded6eb;
+            border-radius: 9px;
+            font-size: 15px;
+            background: #fff;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #8061ae;
+            box-shadow: 0 0 0 3px rgba(128, 97, 174, 0.10);
+        }
+
+        .valid {
+            border-color: #36a477 !important;
+        }
+
+        .invalid {
+            border-color: #d65c70 !important;
+        }
+
+        .feedback {
+            min-height: 17px;
+            margin-top: 6px;
+            font-size: 13px;
+        }
+
+        .error {
+            color: #c04459;
+        }
+
+        .success-text {
+            color: #27845e;
+        }
+
+        .range-heading {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: #8061ae;
+            cursor: pointer;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0 8px;
+            font-weight: normal;
+        }
+
+        .terms input {
+            margin-top: 3px;
+            accent-color: #8061ae;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #8061ae;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #55458c;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 18px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 23px;
+            }
+
+            fieldset {
+                padding: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="tag">WEEK 8-2 · FINAL EXERCISE</div>
+
+    <h1>Student Registration</h1>
+
+    <p class="intro">
+        Join our student community! Please complete all the required
+        information correctly.
+    </p>
+
+    <form id="registrationForm" novalidate>
+
+        <!-- PERSONAL INFORMATION -->
+        <fieldset>
+            <legend>Personal Information</legend>
+
+            <div class="field">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName"
+                       placeholder="Enter your full name"
+                       required>
+                <div class="feedback" id="nameFeedback"
+                     aria-live="polite"></div>
+            </div>
+
+            <div class="field">
+                <label for="studentId">Student ID *</label>
+                <input type="text" id="studentId"
+                       placeholder="Enter 9 digits"
+                       maxlength="9"
+                       inputmode="numeric"
+                       required>
+                <div class="feedback" id="idFeedback"
+                     aria-live="polite"></div>
+            </div>
+
+            <div class="field">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob">
+            </div>
+
+            <div class="field">
+                <label for="major">Major *</label>
+                <select id="major" required>
+                    <option value="">Select your major</option>
+                    <option value="Computer Engineering">
+                        Computer Engineering
+                    </option>
+                    <option value="Business Administration">
+                        Business Administration
+                    </option>
+                    <option value="Software Engineering">
+                        Software Engineering
+                    </option>
+                    <option value="Electrical Engineering">
+                        Electrical Engineering
+                    </option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="feedback" id="majorFeedback"
+                     aria-live="polite"></div>
+            </div>
+        </fieldset>
+
+        <!-- ACCOUNT INFORMATION -->
+        <fieldset>
+            <legend>Account Information</legend>
+
+            <div class="field">
+                <label for="password">Password *</label>
+                <input type="password" id="password"
+                       placeholder="At least 8 characters"
+                       required
+                       aria-describedby="passwordFeedback">
+                <div class="feedback" id="passwordFeedback"
+                     aria-live="polite"></div>
+            </div>
+
+            <div class="field">
+                <label for="confirmPassword">Confirm Password *</label>
+                <input type="password" id="confirmPassword"
+                       placeholder="Enter password again"
+                       required
+                       aria-describedby="confirmFeedback">
+                <div class="feedback" id="confirmFeedback"
+                     aria-live="polite"></div>
+            </div>
+
+            <div class="field">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone"
+                       placeholder="010-1234-5678">
+                <div class="feedback" id="phoneFeedback"
+                     aria-live="polite"></div>
+            </div>
+        </fieldset>
+
+        <!-- ADDITIONAL INFORMATION -->
+        <fieldset>
+            <legend>Additional Information</legend>
+
+            <div class="field">
+                <div class="range-heading">
+                    <label for="experience">Years of Coding Experience</label>
+                    <span id="yearsValue">0 years</span>
+                </div>
+
+                <input type="range" id="experience"
+                       min="0" max="10" value="0">
+            </div>
+
+            <div class="field">
+                <label class="terms" for="terms">
+                    <input type="checkbox" id="terms" required>
+                    <span>I agree to the terms and conditions *</span>
+                </label>
+
+                <div class="feedback" id="termsFeedback"
+                     aria-live="polite"></div>
+            </div>
+        </fieldset>
+
+        <button type="submit">Submit Registration</button>
+
+        <div id="result" aria-live="polite"></div>
+
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById("registrationForm");
+
+    const fullName = document.getElementById("fullName");
+    const studentId = document.getElementById("studentId");
+    const major = document.getElementById("major");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const phone = document.getElementById("phone");
+    const terms = document.getElementById("terms");
+
+    const result = document.getElementById("result");
+
+    // Display validation feedback
+    function showFeedback(input, feedbackId, message, isValid) {
+        const feedback = document.getElementById(feedbackId);
+
+        input.classList.remove("valid", "invalid");
+
+        if (message === "") {
+            feedback.textContent = "";
+            feedback.className = "feedback";
+            return;
+        }
+
+        if (isValid) {
+            input.classList.add("valid");
+            feedback.textContent = "✓ " + message;
+            feedback.className = "feedback success-text";
+        } else {
+            input.classList.add("invalid");
+            feedback.textContent = message;
+            feedback.className = "feedback error";
+        }
+    }
+
+    // Full name validation
+    function validateName() {
+        const valid = fullName.value.trim().length > 0;
+
+        showFeedback(
+            fullName,
+            "nameFeedback",
+            fullName.value === "" ? "Please enter your full name." :
+            fullName.value.trim() === "" ? "Please enter your full name." :
+            "Name looks good!",
+            valid
+        );
+
+        return valid;
+    }
+
+    // Student ID validation
+    function validateId() {
+        const valid = /^\d{9}$/.test(studentId.value);
+
+        showFeedback(
+            studentId,
+            "idFeedback",
+            valid ? "Student ID is valid." :
+            "Student ID must contain exactly 9 digits.",
+            valid
+        );
+
+        return valid;
+    }
+
+    // Major validation
+    function validateMajor() {
+        const valid = major.value !== "";
+
+        showFeedback(
+            major,
+            "majorFeedback",
+            valid ? "Major selected." : "Please select your major.",
+            valid
+        );
+
+        return valid;
+    }
+
+    // Password validation
+    function validatePassword() {
+        const valid = password.value.length >= 8;
+
+        showFeedback(
+            password,
+            "passwordFeedback",
+            valid ? "Password length looks good!" :
+            "Password must contain at least 8 characters.",
+            valid
+        );
+
+        return valid;
+    }
+
+    // Confirm password validation
+    function validateConfirm() {
+        const valid = confirmPassword.value !== "" &&
+                      confirmPassword.value === password.value &&
+                      password.value.length >= 8;
+
+        showFeedback(
+            confirmPassword,
+            "confirmFeedback",
+            valid ? "Passwords match!" :
+            "Passwords do not match.",
+            valid
+        );
+
+        return valid;
+    }
+
+    // Phone number validation
+    function validatePhone() {
+        if (phone.value.trim() === "") {
+            showFeedback(phone, "phoneFeedback", "", false);
+            return true;
+        }
+
+        const valid = /^010-\d{4}-\d{4}$/.test(phone.value);
+
+        showFeedback(
+            phone,
+            "phoneFeedback",
+            valid ? "Phone number looks good!" :
+            "Use the format 010-1234-5678.",
+            valid
+        );
+
+        return valid;
+    }
+
+    // Terms validation
+    function validateTerms() {
+        const valid = terms.checked;
+        const feedback = document.getElementById("termsFeedback");
+
+        feedback.textContent = valid ? "" :
+            "You must agree to the terms.";
+
+        feedback.className = valid ? "feedback" : "feedback error";
+
+        return valid;
+    }
+
+    // Real-time event listeners
+    fullName.addEventListener("input", validateName);
+    studentId.addEventListener("input", validateId);
+    major.addEventListener("change", validateMajor);
+
+    password.addEventListener("input", function() {
+        validatePassword();
+
+        if (confirmPassword.value !== "") {
+            validateConfirm();
+        }
+    });
+
+    confirmPassword.addEventListener("input", validateConfirm);
+    phone.addEventListener("input", validatePhone);
+    terms.addEventListener("change", validateTerms);
+
+    // Coding experience slider
+    const experience = document.getElementById("experience");
+    const yearsValue = document.getElementById("yearsValue");
+
+    experience.addEventListener("input", function() {
+        yearsValue.textContent = experience.value + " years";
+    });
+
+    // Form submission
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        result.textContent = "";
+        result.className = "";
+
+        const valid =
+            validateName() &&
+            validateId() &&
+            validateMajor() &&
+            validatePassword() &&
+            validateConfirm() &&
+            validatePhone() &&
+            validateTerms();
+
+        if (valid) {
+            result.textContent =
+                "Registration completed successfully!";
+            result.className = "success-text";
+
+            form.reset();
+
+            document.querySelectorAll(".feedback").forEach(function(item) {
+                item.textContent = "";
+                item.className = "feedback";
+            });
+
+            document.querySelectorAll("input, select").forEach(function(item) {
+                item.classList.remove("valid", "invalid");
+            });
+
+            yearsValue.textContent = "0 years";
+        } else {
+            result.textContent =
+                "Please correct the highlighted fields before submitting.";
+            result.className = "error";
+        }
+    });
+
+</script>
+
+</body>
+</html>

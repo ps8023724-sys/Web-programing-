@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E2 - Email Validation</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e9e5f7, #cfc2e8);
+            color: #40345d;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 460px;
+            padding: 38px;
+            background: #fff;
+            border-radius: 22px;
+            box-shadow: 0 15px 40px rgba(85, 69, 140, 0.15);
+        }
+
+        .eyebrow {
+            color: #8061ae;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            margin: 14px 0 10px;
+            color: #55458c;
+            font-size: 29px;
+        }
+
+        .description {
+            color: #777087;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1dced;
+            border-radius: 11px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #8061ae;
+        }
+
+        input.valid-ok {
+            border-color: #36a477;
+            background: #f5fff9;
+        }
+
+        input.valid-err {
+            border-color: #d65c70;
+            background: #fff7f8;
+        }
+
+        .status {
+            min-height: 24px;
+            margin-top: 13px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status.valid-ok {
+            color: #27845e;
+        }
+
+        .status.valid-err {
+            color: #c04459;
+        }
+
+        .hint {
+            margin-top: 22px;
+            padding: 13px;
+            background: #f5f2fb;
+            border-radius: 10px;
+            color: #766a91;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+        <div class="eyebrow">WEEK 8-2 · EXERCISE E2</div>
+
+        <h1>Email Checker</h1>
+
+        <p class="description">
+            Enter your email address to check whether it is correctly formatted.
+        </p>
+
+        <label for="email">Email Address</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="yourname@example.com"
+        >
+
+        <div id="status" class="status" aria-live="polite">
+            Waiting for your email...
+        </div>
+
+        <div class="hint">
+            <strong>Tip:</strong> A valid email should contain a username,
+            an @ symbol, and a domain name.
+        </div>
+    </main>
+
+    <script>
+        const emailInput = document.getElementById("email");
+        const status = document.getElementById("status");
+
+        emailInput.addEventListener("input", function() {
+
+            emailInput.classList.remove("valid-ok", "valid-err");
+            status.classList.remove("valid-ok", "valid-err");
+
+            if (emailInput.value === "") {
+                status.textContent = "Waiting for your email...";
+                return;
+            }
+
+            if (emailInput.validity.typeMismatch) {
+                emailInput.classList.add("valid-err");
+                status.classList.add("valid-err");
+                status.textContent = "✕ Please enter a valid email address.";
+            } else if (emailInput.validity.valid) {
+                emailInput.classList.add("valid-ok");
+                status.classList.add("valid-ok");
+                status.textContent = "✓ Your email format looks correct!";
+            }
+        });
+    </script>
+
+</body>
+</html>
+

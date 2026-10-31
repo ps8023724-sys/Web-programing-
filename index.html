@@ -11,7 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             background: #FAF8FC;
@@ -126,6 +130,11 @@
             border-color: #CFC2E5;
         }
 
+        .week-card:focus-visible {
+            outline: 3px solid #8061AE;
+            outline-offset: 4px;
+        }
+
         .cover {
             height: 145px;
             padding: 20px;
@@ -156,6 +165,8 @@
         .cover.c6 { background: #E4EDF0; }
         .cover.c7 { background: #F1EBDD; }
         .cover.c8 { background: #EAE5F3; }
+        .cover.c9 { background: #E8EAF4; }
+        .cover.c10 { background: #EDE7F3; }
 
         .week-info {
             padding: 19px 20px 21px;
@@ -221,16 +232,37 @@
         }
 
         @media (max-width: 800px) {
-            .week-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero { padding: 65px 0 50px; }
+            .week-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                padding: 65px 0 50px;
+            }
         }
 
         @media (max-width: 520px) {
-            .week-grid { grid-template-columns: 1fr; }
-            .about { flex-direction: column; align-items: flex-start; }
-            .student-detail { text-align: left; }
-            .section-top { align-items: flex-start; flex-direction: column; }
-            .header-note { display: none; }
+            .week-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .student-detail {
+                text-align: left;
+            }
+
+            .section-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .header-note {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -246,12 +278,15 @@
     <main>
         <section class="hero">
             <div class="eyebrow">Student Developer Portfolio</div>
-            <h1>Web Programming<br>Projects & Practice</h1>
+
+            <h1>Web Programming<br>Projects &amp; Practice</h1>
+
             <p>
                 A collection of my work throughout the course —
                 from my first HTML exercises to interactive projects
                 built with CSS, JavaScript, and APIs.
             </p>
+
             <div class="hero-line"></div>
         </section>
 
@@ -261,54 +296,142 @@
                     <div class="eyebrow">The collection</div>
                     <h2>My Assignments</h2>
                 </div>
+
                 <p>Select a week to explore its projects.</p>
             </div>
 
             <div class="week-grid">
 
                 <a class="week-card" href="week.html?week=week1">
-                    <div class="cover"><span>01</span><small>Getting started</small></div>
-                    <div class="week-info"><h3>Week 1</h3><p>HTML fundamentals</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover">
+                        <span>01</span>
+                        <small>Getting started</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 1</h3>
+                        <p>HTML fundamentals</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
                 <a class="week-card" href="week.html?week=week2">
-                    <div class="cover c2"><span>02</span><small>Building blocks</small></div>
-                    <div class="week-info"><h3>Week 2</h3><p>HTML practice</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover c2">
+                        <span>02</span>
+                        <small>Building blocks</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 2</h3>
+                        <p>HTML practice</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
                 <a class="week-card" href="week.html?week=week3_1">
-                    <div class="cover c3"><span>03</span><small>Part one</small></div>
-                    <div class="week-info"><h3>Week 3 — Assignment 1</h3><p>HTML exercises</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover c3">
+                        <span>03</span>
+                        <small>Part one</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 3 — Assignment 1</h3>
+                        <p>HTML exercises</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
                 <a class="week-card" href="week.html?week=week3_2">
-                    <div class="cover c4"><span>03</span><small>Part two</small></div>
-                    <div class="week-info"><h3>Week 3 — Assignment 2</h3><p>HTML exercises</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover c4">
+                        <span>03</span>
+                        <small>Part two</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 3 — Assignment 2</h3>
+                        <p>HTML exercises</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
                 <a class="week-card" href="week.html?week=week4">
-                    <div class="cover c5"><span>04</span><small>Practice</small></div>
-                    <div class="week-info"><h3>Week 4</h3><p>HTML tasks</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover c5">
+                        <span>04</span>
+                        <small>Practice</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 4</h3>
+                        <p>HTML tasks</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
                 <a class="week-card" href="week.html?week=week5">
-                    <div class="cover c6"><span>05</span><small>JavaScript</small></div>
-                    <div class="week-info"><h3>Week 5</h3><p>JavaScript practice</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover c6">
+                        <span>05</span>
+                        <small>JavaScript</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 5</h3>
+                        <p>JavaScript practice</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
                 <a class="week-card" href="week.html?week=week6">
-                    <div class="cover c7"><span>06</span><small>Working with APIs</small></div>
-                    <div class="week-info"><h3>Week 6</h3><p>API-based projects</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover c7">
+                        <span>06</span>
+                        <small>Working with APIs</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 6</h3>
+                        <p>API-based projects</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
                 <a class="week-card" href="week.html?week=week7">
-                    <div class="cover c8"><span>07</span><small>Open Library</small></div>
-                    <div class="week-info"><h3>Week 7</h3><p>Working with external data</p><span class="open">Explore week ↗</span></div>
+                    <div class="cover c8">
+                        <span>07</span>
+                        <small>Open Library</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 7</h3>
+                        <p>Working with external data</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
-                <a class="week-card" href="week.html?week=week8">
-                    <div class="cover"><span>08</span><small>Forms & validation</small></div>
-                    <div class="week-info"><h3>Week 8 — Part 1</h3><p>HTML forms and CSS</p><span class="open">Explore week ↗</span></div>
+                <a class="week-card" href="week.html?week=week8_1">
+                    <div class="cover c9">
+                        <span>08</span>
+                        <small>Forms &amp; CSS</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 8 — Part 1</h3>
+                        <p>HTML forms and CSS</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week8_2">
+                    <div class="cover c10">
+                        <span>08</span>
+                        <small>Validation</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 8 — Part 2</h3>
+                        <p>Forms and validation</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
+                </a>
+
+                <a class="week-card" href="week.html?week=week9">
+                    <div class="cover c3">
+                        <span>09</span>
+                        <small>Accessibility</small>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 9</h3>
+                        <p>Web accessibility</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
                 </a>
 
             </div>
@@ -323,6 +446,7 @@
                     Each folder represents another step in that journey.
                 </p>
             </div>
+
             <div class="student-detail">
                 <strong>Shrestha Puja</strong><br>
                 Student ID · 202537250

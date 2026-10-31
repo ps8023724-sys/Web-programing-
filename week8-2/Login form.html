@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E1 - Login Demo</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eee9f8, #d8ccec);
+            color: #3f345b;
+        }
+
+        .login-card {
+            width: 90%;
+            max-width: 420px;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(85, 69, 140, 0.15);
+        }
+
+        .tag {
+            color: #8061ae;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 12px 0;
+            color: #55458c;
+            font-size: 30px;
+        }
+
+        .description {
+            color: #777087;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d8d0e8;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #8061ae;
+            box-shadow: 0 0 0 3px rgba(128, 97, 174, 0.12);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #8061ae;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #55458c;
+        }
+
+        #message {
+            display: none;
+            margin-top: 20px;
+            padding: 13px;
+            border-radius: 9px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .error {
+            display: block !important;
+            background: #fff0f0;
+            color: #b33a4a;
+        }
+
+        .success {
+            display: block !important;
+            background: #edf8f0;
+            color: #287545;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+        <div class="tag">Week 8-2 · Exercise E1</div>
+
+        <h1>Welcome Back</h1>
+
+        <p class="description">
+            Enter your username below to continue.
+        </p>
+
+        <form id="loginForm">
+            <label for="username">Username</label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter your username"
+            >
+
+            <button type="submit">Log In</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        const usernameInput = document.getElementById("username");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = usernameInput.value.trim();
+
+            if (username === "") {
+                message.textContent = "Please enter your username.";
+                message.className = "error";
+            } else {
+                message.textContent = "Welcome, " + username + "! You have logged in successfully.";
+                message.className = "success";
+            }
+        });
+    </script>
+
+</body>
+</html>
