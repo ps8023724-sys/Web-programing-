@@ -1,1 +1,328 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Assignments | Web Programming</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #FAF8FC;
+            color: #302944;
+            min-height: 100vh;
+            padding: 35px 7%;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 65px;
+        }
+
+        .back {
+            color: #55458C;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        .tag {
+            background: #E9E5F7;
+            color: #55458C;
+            padding: 9px 17px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        main {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .eyebrow {
+            color: #8061AE;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 6vw, 58px);
+            color: #55458C;
+            margin-bottom: 14px;
+        }
+
+        .description {
+            color: #777083;
+            line-height: 1.7;
+            margin-bottom: 42px;
+        }
+
+        .assignment-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .assignment {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            background: white;
+            border: 1px solid #E9E5F7;
+            border-radius: 16px;
+            padding: 23px 25px;
+            text-decoration: none;
+            color: #302944;
+            transition: 0.2s ease;
+        }
+
+        .assignment:hover {
+            border-color: #8061AE;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(85, 69, 140, 0.09);
+        }
+
+        .assignment h2 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .assignment p {
+            color: #898394;
+            font-size: 13px;
+        }
+
+        .arrow {
+            color: #8061AE;
+            font-size: 22px;
+        }
+
+        .empty {
+            background: white;
+            border: 1px solid #E9E5F7;
+            border-radius: 16px;
+            padding: 25px;
+            color: #777083;
+        }
+
+        footer {
+            text-align: center;
+            color: #9992A5;
+            font-size: 12px;
+            margin-top: 70px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 25px 5%;
+            }
+
+            .top {
+                margin-bottom: 45px;
+            }
+
+            .assignment {
+                padding: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="top">
+        <a class="back" href="index.html">← Back to portfolio</a>
+        <span class="tag">WEB PROGRAMMING</span>
+    </header>
+
+    <main>
+        <p class="eyebrow" id="weekLabel">MY COURSEWORK</p>
+        <h1 id="weekTitle">Assignments</h1>
+        <p class="description" id="weekDescription">
+            Explore the exercises and projects completed during this week.
+        </p>
+
+        <section class="assignment-list" id="assignmentList"
+                 aria-label="Weekly assignments">
+        </section>
+    </main>
+
+    <footer>
+        SHRESTHA PUJA · 202537250 · GACHON UNIVERSITY
+    </footer>
+
+    <script>
+        const weeks = {
+            week1: {
+                title: "Week 1",
+                description: "My first steps in HTML and building web pages.",
+                folder: "Week%201/",
+                tasks: [
+                    "profile.html",
+                    "recipe.html",
+                    "hobby.html",
+                    "navigation.html",
+                    "task1.html",
+                    "Task7.html",
+                    "Image.html"
+                ]
+            },
+
+            week2: {
+                title: "Week 2",
+                description: "Practicing HTML structure and web page elements.",
+                folder: "week%202/",
+                tasks: [
+                    "task1.html", "task2.html", "task3.html",
+                    "task4.html", "task5.html", "task6.html",
+                    "task7.html", "task8.html"
+                ]
+            },
+
+            week3_1: {
+                title: "Week 3 — Assignment 1",
+                description: "Exploring CSS and improving page design.",
+                folder: "week3_1/",
+                tasks: [
+                    "task1.html", "task2.html", "task3.html",
+                    "task4.html", "task5.html", "task6.html",
+                    "task7.html", "task8.html"
+                ]
+            },
+
+            week3_2: {
+                title: "Week 3 — Assignment 2",
+                description: "More practice with HTML and CSS.",
+                folder: "week3_2/",
+                tasks: [
+                    "task1.html", "task2.html", "task3.html",
+                    "task4.html", "task5.html", "task6.html",
+                    "task7.html"
+                ]
+            },
+
+            week4: {
+                title: "Week 4",
+                description: "Working with interactive web page features.",
+                folder: "week4/",
+                tasks: [
+                    "Task1.html", "Task2.html",
+                    "Task3.html", "Task4.html"
+                ]
+            },
+
+            week5: {
+                title: "Week 5",
+                description: "JavaScript exercises and interactive features.",
+                folder: "week5/",
+                tasks: ["Task1.html", "Task2.html"]
+            },
+
+            week6: {
+                title: "Week 6",
+                description: "Exploring APIs and working with dynamic data.",
+                folder: "week6/",
+                tasks: [
+                    "CatExplorer.html",
+                    "Country.html",
+                    "Jokes.html",
+                    "Meteo.html",
+                    "Placeholder.html",
+                    "Random.html"
+                ]
+            },
+
+            week7: {
+                title: "Week 7",
+                description: "Working with external book data and APIs.",
+                folder: "week7/",
+                tasks: ["Open Library.html"]
+            },
+
+            week8: {
+                title: "Week 8 — Part 1",
+                description: "Forms, styling, and accessible web development.",
+                folder: "week8-1/",
+                tasks: [
+                    "Add CSS.html",
+                    "attributes.html",
+                    "Login Form.html",
+                    "Student Registration.html"
+                ]
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const weekKey = params.get("week");
+        const week = weeks[weekKey];
+
+        const title = document.getElementById("weekTitle");
+        const label = document.getElementById("weekLabel");
+        const description = document.getElementById("weekDescription");
+        const list = document.getElementById("assignmentList");
+
+        if (week) {
+            document.title = week.title + " | Web Programming";
+            title.textContent = week.title;
+            label.textContent = "MY COURSEWORK";
+            description.textContent = week.description;
+
+            week.tasks.forEach((task, index) => {
+                const link = document.createElement("a");
+                link.className = "assignment";
+                link.href = week.folder + encodeURIComponent(task);
+
+                const info = document.createElement("div");
+
+                const heading = document.createElement("h2");
+                heading.textContent = "Exercise " + String(index + 1).padStart(2, "0");
+
+                const detail = document.createElement("p");
+                detail.textContent = task;
+
+                info.appendChild(heading);
+                info.appendChild(detail);
+
+                const arrow = document.createElement("span");
+                arrow.className = "arrow";
+                arrow.textContent = "→";
+
+                link.appendChild(info);
+                link.appendChild(arrow);
+                list.appendChild(link);
+            });
+        } else {
+            title.textContent = "Week not found";
+            label.textContent = "OOPS!";
+            description.textContent =
+                "This week could not be found. Please return to the portfolio.";
+            list.innerHTML =
+                '<div class="empty">Please select a valid week from the homepage.</div>';
+        }
+    </script>
+
+</body>
+</html>
+
