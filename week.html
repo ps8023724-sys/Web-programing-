@@ -175,6 +175,7 @@
 
     <script>
         const weeks = {
+
             week1: {
                 title: "Week 1",
                 description: "My first steps in HTML and building web pages.",
@@ -261,7 +262,7 @@
                 tasks: ["Open Library.html"]
             },
 
-            week8: {
+            week8_1: {
                 title: "Week 8 — Part 1",
                 description: "Forms, styling, and accessible web development.",
                 folder: "week8-1/",
@@ -271,7 +272,29 @@
                     "Login Form.html",
                     "Student Registration.html"
                 ]
+            },
+
+            week8_2: {
+                title: "Week 8 — Part 2",
+                description: "Form validation and interactive registration.",
+                folder: "week8-2/",
+                tasks: [
+                    "Login form.html",
+                    "Password confirmation.html",
+                    "Upgraded Registration.html",
+                    "Validation.html"
+                ]
+            },
+
+            week9: {
+                title: "Week 9",
+                description: "Learning about web accessibility.",
+                folder: "week9/",
+                tasks: [
+                    "Accessibility.html"
+                ]
             }
+
         };
 
         const params = new URLSearchParams(window.location.search);
@@ -313,6 +336,7 @@
                 link.appendChild(arrow);
                 list.appendChild(link);
             });
+
         } else {
             title.textContent = "Week not found";
             label.textContent = "OOPS!";
@@ -325,4 +349,3 @@
 
 </body>
 </html>
-
