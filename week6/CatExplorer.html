@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whiskers - Cat Explorer</title>
+    <link rel="preconnect" href="https://api.thecatapi.com">
+    <link rel="preconnect" href="https://wsrv.nl">
 
     <style>
         * {
@@ -329,6 +331,22 @@
         return images.length > 0 ? images[0].url : "";
     }
 
+    // Asks a free image service for a smaller, compressed copy of the photo.
+    // The cards only show photos about 350px wide, so the huge originals are not needed.
+    function optimizedImage(url) {
+        return "https://wsrv.nl/?url=" + encodeURIComponent(url) +
+            "&w=700&h=420&fit=cover&output=webp&q=70";
+    }
+
+    // Shows the small copy. If the service ever fails, it falls back to the original photo.
+    function setPhoto(photo, url) {
+        photo.onerror = function () {
+            photo.onerror = null;
+            photo.src = url;
+        };
+        photo.src = optimizedImage(url);
+    }
+
     // "index" is the card's position in the list (0 = first card)
     function createCard(breed, index) {
         const card = document.createElement("article");
@@ -347,8 +365,11 @@
             photo.loading = "lazy";
         }
 
-        photo.src = breed.image?.url ||
-            "https://placehold.co/600x400/f2eaf7/79518f?text=Cat+Photo";
+        if (breed.image?.url) {
+            setPhoto(photo, breed.image.url);
+        } else {
+            photo.src = "https://placehold.co/600x400/f2eaf7/79518f?text=Cat+Photo";
+        }
 
         const content = document.createElement("div");
         content.className = "cat-content";
@@ -395,7 +416,7 @@
         if (!breed.image?.url) {
             getCatImage(breed.id)
                 .then(url => {
-                    if (url) photo.src = url;
+                    if (url) setPhoto(photo, url);
                 })
                 .catch(error => console.log(error));
         }
