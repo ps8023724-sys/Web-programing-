@@ -329,13 +329,23 @@
         return images.length > 0 ? images[0].url : "";
     }
 
-    function createCard(breed) {
+    // "index" is the card's position in the list (0 = first card)
+    function createCard(breed, index) {
         const card = document.createElement("article");
         card.className = "cat-card";
 
         const photo = document.createElement("img");
         photo.className = "cat-photo";
         photo.alt = breed.name + " cat";
+        photo.decoding = "async";
+
+        // The first photo matters most, so it loads right away.
+        // All the others wait until the person scrolls near them.
+        if (index === 0) {
+            photo.setAttribute("fetchpriority", "high");
+        } else {
+            photo.loading = "lazy";
+        }
 
         photo.src = breed.image?.url ||
             "https://placehold.co/600x400/f2eaf7/79518f?text=Cat+Photo";
@@ -407,8 +417,8 @@
             return;
         }
 
-        breeds.forEach(breed => {
-            grid.appendChild(createCard(breed));
+        breeds.forEach((breed, index) => {
+            grid.appendChild(createCard(breed, index));
         });
     }
 
