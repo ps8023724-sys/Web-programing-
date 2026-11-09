@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -354,41 +355,34 @@
             label.textContent = "MY COURSEWORK";
             description.textContent = week.description;
 
-            if (week.tasks.length === 0) {
-                list.innerHTML =
-                    '<div class="empty">No assignments have been added yet.</div>';
-            } else {
+            week.tasks.forEach((task, index) => {
 
-                week.tasks.forEach((task, index) => {
+                const link = document.createElement("a");
+                link.className = "assignment";
+                link.href = week.folder + encodeURIComponent(task);
 
-                    const link = document.createElement("a");
-                    link.className = "assignment";
+                const info = document.createElement("div");
 
-                    link.href = week.folder + encodeURIComponent(task);
+                const heading = document.createElement("h2");
+                heading.textContent =
+                    "Exercise " + String(index + 1).padStart(2, "0");
 
-                    const info = document.createElement("div");
+                const detail = document.createElement("p");
+                detail.textContent = task;
 
-                    const heading = document.createElement("h2");
-                    heading.textContent =
-                        "Exercise " + String(index + 1).padStart(2, "0");
+                info.appendChild(heading);
+                info.appendChild(detail);
 
-                    const detail = document.createElement("p");
-                    detail.textContent = task;
+                const arrow = document.createElement("span");
+                arrow.className = "arrow";
+                arrow.textContent = "→";
 
-                    info.appendChild(heading);
-                    info.appendChild(detail);
+                link.appendChild(info);
+                link.appendChild(arrow);
 
-                    const arrow = document.createElement("span");
-                    arrow.className = "arrow";
-                    arrow.textContent = "→";
+                list.appendChild(link);
 
-                    link.appendChild(info);
-                    link.appendChild(arrow);
-
-                    list.appendChild(link);
-
-                });
-            }
+            });
 
         } else {
 
