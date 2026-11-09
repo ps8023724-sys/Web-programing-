@@ -158,7 +158,9 @@
 
     <main>
         <p class="eyebrow" id="weekLabel">MY COURSEWORK</p>
+
         <h1 id="weekTitle">Assignments</h1>
+
         <p class="description" id="weekDescription">
             Explore the exercises and projects completed during this week.
         </p>
@@ -195,9 +197,14 @@
                 description: "Practicing HTML structure and web page elements.",
                 folder: "week%202/",
                 tasks: [
-                    "task1.html", "task2.html", "task3.html",
-                    "task4.html", "task5.html", "task6.html",
-                    "task7.html", "task8.html"
+                    "task1.html",
+                    "task2.html",
+                    "task3.html",
+                    "task4.html",
+                    "task5.html",
+                    "task6.html",
+                    "task7.html",
+                    "task8.html"
                 ]
             },
 
@@ -206,9 +213,14 @@
                 description: "Exploring CSS and improving page design.",
                 folder: "week3_1/",
                 tasks: [
-                    "task1.html", "task2.html", "task3.html",
-                    "task4.html", "task5.html", "task6.html",
-                    "task7.html", "task8.html"
+                    "task1.html",
+                    "task2.html",
+                    "task3.html",
+                    "task4.html",
+                    "task5.html",
+                    "task6.html",
+                    "task7.html",
+                    "task8.html"
                 ]
             },
 
@@ -217,8 +229,12 @@
                 description: "More practice with HTML and CSS.",
                 folder: "week3_2/",
                 tasks: [
-                    "task1.html", "task2.html", "task3.html",
-                    "task4.html", "task5.html", "task6.html",
+                    "task1.html",
+                    "task2.html",
+                    "task3.html",
+                    "task4.html",
+                    "task5.html",
+                    "task6.html",
                     "task7.html"
                 ]
             },
@@ -228,8 +244,10 @@
                 description: "Working with interactive web page features.",
                 folder: "week4/",
                 tasks: [
-                    "Task1.html", "Task2.html",
-                    "Task3.html", "Task4.html"
+                    "Task1.html",
+                    "Task2.html",
+                    "Task3.html",
+                    "Task4.html"
                 ]
             },
 
@@ -237,7 +255,10 @@
                 title: "Week 5",
                 description: "JavaScript exercises and interactive features.",
                 folder: "week5/",
-                tasks: ["Task1.html", "Task2.html"]
+                tasks: [
+                    "Task1.html",
+                    "Task2.html"
+                ]
             },
 
             week6: {
@@ -258,7 +279,9 @@
                 title: "Week 7",
                 description: "Working with external book data and APIs.",
                 folder: "week7/",
-                tasks: ["Open Library.html"]
+                tasks: [
+                    "Open Library.html"
+                ]
             },
 
             week8_1: {
@@ -304,13 +327,14 @@
             },
 
             week10_1: {
-               title: "Week 10 — Git and GitHub",
-               description: "Learning version control and GitHub.",
-               folder: "week10_1/",
-               tasks: [
-                   "git-assignment.html"
+                title: "Week 10 — Git and GitHub",
+                description: "Learning version control and GitHub.",
+                folder: "week10_1/",
+                tasks: [
+                    "git-assignment.html"
                 ]
-        
+            }
+
         };
 
         const params = new URLSearchParams(window.location.search);
@@ -323,43 +347,60 @@
         const list = document.getElementById("assignmentList");
 
         if (week) {
+
             document.title = week.title + " | Web Programming";
+
             title.textContent = week.title;
             label.textContent = "MY COURSEWORK";
             description.textContent = week.description;
 
-            week.tasks.forEach((task, index) => {
-                const link = document.createElement("a");
-                link.className = "assignment";
-                link.href = week.folder + encodeURIComponent(task);
+            if (week.tasks.length === 0) {
+                list.innerHTML =
+                    '<div class="empty">No assignments have been added yet.</div>';
+            } else {
 
-                const info = document.createElement("div");
+                week.tasks.forEach((task, index) => {
 
-                const heading = document.createElement("h2");
-                heading.textContent = "Exercise " + String(index + 1).padStart(2, "0");
+                    const link = document.createElement("a");
+                    link.className = "assignment";
 
-                const detail = document.createElement("p");
-                detail.textContent = task;
+                    link.href = week.folder + encodeURIComponent(task);
 
-                info.appendChild(heading);
-                info.appendChild(detail);
+                    const info = document.createElement("div");
 
-                const arrow = document.createElement("span");
-                arrow.className = "arrow";
-                arrow.textContent = "→";
+                    const heading = document.createElement("h2");
+                    heading.textContent =
+                        "Exercise " + String(index + 1).padStart(2, "0");
 
-                link.appendChild(info);
-                link.appendChild(arrow);
-                list.appendChild(link);
-            });
+                    const detail = document.createElement("p");
+                    detail.textContent = task;
+
+                    info.appendChild(heading);
+                    info.appendChild(detail);
+
+                    const arrow = document.createElement("span");
+                    arrow.className = "arrow";
+                    arrow.textContent = "→";
+
+                    link.appendChild(info);
+                    link.appendChild(arrow);
+
+                    list.appendChild(link);
+
+                });
+            }
 
         } else {
+
             title.textContent = "Week not found";
             label.textContent = "OOPS!";
+
             description.textContent =
                 "This week could not be found. Please return to the portfolio.";
+
             list.innerHTML =
                 '<div class="empty">Please select a valid week from the homepage.</div>';
+
         }
     </script>
 
