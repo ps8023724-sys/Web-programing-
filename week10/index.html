@@ -1,1 +1,763 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Week 10 Web Programming assignment by Puja Shrestha: Git, GitHub, portfolio and deployment.">
+  <title>Week 10 | Git, GitHub & Deployment</title>
+
+  <style>
+    :root {
+      --purple: #8064b5;
+      --dark-purple: #60458f;
+      --lavender: #f2edfa;
+      --background: #faf8fd;
+      --text: #30283b;
+      --muted: #777080;
+      --border: #e8e1f1;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--dark-purple);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 15px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 19px;
+      color: var(--text);
+    }
+
+    .brand span {
+      color: var(--purple);
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 75px 20px;
+      background: linear-gradient(135deg, #f0eafa, #fcfaff);
+    }
+
+    .eyebrow {
+      color: var(--purple);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0;
+      font-size: clamp(34px, 6vw, 52px);
+      line-height: 1.2;
+    }
+
+    h1 span {
+      color: var(--purple);
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 15px auto;
+      color: var(--muted);
+    }
+
+    .hero-meta {
+      margin-top: 25px;
+      color: var(--dark-purple);
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 35px 20px 75px;
+    }
+
+    section {
+      margin: 35px 0;
+      scroll-margin-top: 85px;
+    }
+
+    .section-heading {
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      margin: 5px 0;
+      font-size: 29px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin: 5px 0;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 24px;
+      margin: 18px 0;
+      box-shadow: 0 5px 20px rgba(80, 55, 120, 0.04);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      margin-bottom: 10px;
+      border-radius: 20px;
+      background: var(--lavender);
+      color: var(--dark-purple);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 17px;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--lavender);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .links a:hover {
+      background: #e8def6;
+      text-decoration: none;
+    }
+
+    .exercise {
+      border-left: 4px solid var(--purple);
+    }
+
+    .exercise-number {
+      color: var(--purple);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 17px;
+      border-radius: 10px;
+      background: #292432;
+      color: #eee7fa;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    code {
+      font-family: Consolas, monospace;
+    }
+
+    .note {
+      padding: 14px 17px;
+      border-radius: 9px;
+      background: var(--lavender);
+      color: var(--dark-purple);
+      font-size: 14px;
+    }
+
+    .status {
+      display: inline-block;
+      margin: 5px 0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #f0edf4;
+      color: #665b75;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .reflection {
+      background: linear-gradient(135deg, #f1ebfa, #ffffff);
+    }
+
+    footer {
+      padding: 28px 20px;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        gap: 12px;
+      }
+
+      .hero {
+        padding: 55px 18px;
+      }
+
+      main {
+        padding: 20px 14px 55px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="#top">Puja<span>.</span> Web Programming</a>
+
+    <nav>
+      <a href="#homework">Homework</a>
+      <a href="#monday">Monday Git</a>
+      <a href="#friday">Friday Pages</a>
+      <a href="#reflection">Reflection</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div class="eyebrow">Gachon University · Computer Engineering</div>
+  <h1>Git, GitHub <span>& Deployment</span></h1>
+
+  <p>
+    Week 10 documents my web programming homework and practical
+    exercises. It includes my personal portfolio, web projects,
+    Git version control practice, GitHub repositories, and
+    website deployment using GitHub Pages.
+  </p>
+
+  <div class="hero-meta">
+    Student: Shrestha Puja · Week 10 · 2026
+  </div>
+</div>
+
+<main>
+
+  <!-- HOMEWORK -->
+
+  <section id="homework">
+    <div class="section-heading">
+      <div class="eyebrow">Part 01 · Homework</div>
+      <h2>My Web Programming Projects</h2>
+      <p>
+        These projects demonstrate my progress in web development,
+        API integration, GitHub, and website deployment.
+      </p>
+    </div>
+
+    <!-- PORTFOLIO -->
+
+    <article class="card">
+      <span class="tag">PERSONAL PORTFOLIO</span>
+      <h3>01. Personal Portfolio</h3>
+
+      <p>
+        I created a personal portfolio to introduce myself as a
+        Computer Engineering student at Gachon University.
+        It includes my introduction, skills, selected coursework,
+        learning journey, and links to my projects.
+      </p>
+
+      <p>
+        The website was designed with a responsive layout and a
+        soft lavender color theme. It represents my learning
+        progress and the projects I have completed throughout
+        my web programming course.
+      </p>
+
+      <div class="links">
+        <a href="https://ps8023724-sys.github.io/portfolio/"
+           target="_blank" rel="noopener noreferrer">Live Website ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/portfolio"
+           target="_blank" rel="noopener noreferrer">Repository ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/portfolio/commits/main/"
+           target="_blank" rel="noopener noreferrer">Commit History ↗</a>
+      </div>
+    </article>
+
+    <!-- WEBPRO W10 -->
+
+    <article class="card">
+      <span class="tag">MONDAY HOMEWORK · GITHUB PAGES</span>
+      <h3>02. webpro-w10</h3>
+
+      <p>
+        This repository contains my GitHub Pages practice website.
+        I created an index page with my student information and
+        a custom 404 error page for visitors who open a URL that
+        does not exist.
+      </p>
+
+      <p>
+        I also included a README file to describe the repository.
+        The project helped me understand how to publish a website
+        through GitHub Pages and improve the experience for visitors
+        who encounter a missing page.
+      </p>
+
+      <div class="links">
+        <a href="https://ps8023724-sys.github.io/webpro-w10/"
+           target="_blank" rel="noopener noreferrer">Live Website ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/webpro-w10"
+           target="_blank" rel="noopener noreferrer">Repository ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/webpro-w10/commits/main/"
+           target="_blank" rel="noopener noreferrer">Commit History ↗</a>
+      </div>
+    </article>
+
+    <!-- BOOK SEARCH -->
+
+    <article class="card">
+      <span class="tag">FRIDAY HOMEWORK · OPEN LIBRARY API</span>
+      <h3>03. Book Search Application</h3>
+
+      <p>
+        I developed a Book Search application using the Open Library
+        API. Users can search for books by title, author, or topic
+        and explore information returned by the API.
+      </p>
+
+      <p>
+        The application displays book information and available
+        covers, with links to the corresponding Open Library pages.
+        It uses HTML, CSS, and JavaScript and is deployed through
+        GitHub Pages.
+      </p>
+
+      <div class="links">
+        <a href="https://ps8023724-sys.github.io/webpro-booksearch/"
+           target="_blank" rel="noopener noreferrer">Live Website ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/webpro-booksearch"
+           target="_blank" rel="noopener noreferrer">Repository ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/webpro-booksearch/commits/main/"
+           target="_blank" rel="noopener noreferrer">Commit History ↗</a>
+      </div>
+    </article>
+  </section>
+
+
+  <!-- MONDAY GIT -->
+
+  <section id="monday">
+    <div class="section-heading">
+      <div class="eyebrow">Part 02 · Monday Practice</div>
+      <h2>Git and Version Control</h2>
+      <p>
+        The following exercises demonstrate repository initialization,
+        staging, commits, branching, merging, and remote repositories.
+      </p>
+    </div>
+
+    <!-- E1 -->
+
+    <article class="card exercise">
+      <div class="exercise-number">EXERCISE 01</div>
+      <h3>Create Your First Git Repository</h3>
+
+      <p><strong>Goal:</strong> Initialize a Git repository,
+        create a file, and make the first commit.</p>
+
+      <p>
+        I started by checking Git and initializing a repository
+        using the main branch. I created an index.html file,
+        checked its status, staged the file, and committed it.
+      </p>
+
+      <pre><code>git --version
+
+git init -b main
+
+git status
+
+git add index.html
+
+git commit -m "Initial commit: add index.html"
+
+git log --oneline</code></pre>
+
+      <p><strong>My actual first commit:</strong></p>
+
+      <pre><code>a5df21e Initial commit: add index.html</code></pre>
+
+      <p>
+        <strong>Result:</strong> Git tracked my index.html file
+        after staging it, and I successfully created my first commit.
+      </p>
+
+      <span class="status">Local commit completed</span>
+    </article>
+
+    <!-- E2 -->
+
+    <article class="card exercise">
+      <div class="exercise-number">EXERCISE 02</div>
+      <h3>Create a Branch and Merge It</h3>
+
+      <p><strong>Goal:</strong> Create a feature branch,
+        make a change, and merge it into the main branch.</p>
+
+      <p>
+        I created a new branch called feature-style.
+        On that branch, I created a CSS file and committed the change.
+        Then I switched back to main and merged the feature branch.
+      </p>
+
+      <pre><code>git checkout -b feature-style
+
+git add style.css
+
+git commit -m "Add basic stylesheet"
+
+git checkout main
+
+git merge feature-style
+
+git log --oneline --graph --all</code></pre>
+
+      <p><strong>My actual stylesheet commit:</strong></p>
+
+      <pre><code>df1e4f9 Add basic stylesheet</code></pre>
+
+      <p>
+        <strong>Result:</strong> The feature-style branch was
+        successfully merged into main using a fast-forward merge.
+        The stylesheet became part of the main branch.
+      </p>
+
+      <span class="status">Local branch and merge completed</span>
+    </article>
+
+    <!-- E3 -->
+
+    <article class="card exercise">
+      <div class="exercise-number">EXERCISE 03</div>
+      <h3>Push a Repository to GitHub</h3>
+
+      <p><strong>Goal:</strong> Connect a local Git repository
+        to a remote GitHub repository and push its commits.</p>
+
+      <p>
+        This exercise demonstrates how a local repository can
+        be connected to GitHub. After creating an empty remote
+        repository, the following commands connect and push it.
+      </p>
+
+      <pre><code>git remote add origin YOUR_GITHUB_REPOSITORY_URL
+
+git remote -v
+
+git push -u origin main</code></pre>
+
+      <p>
+        <strong>Expected result:</strong> The main branch is uploaded
+        to GitHub, and the local branch is configured to track
+        the remote main branch.
+      </p>
+
+      <div class="note">
+        Evidence to add: the actual terminal output and the GitHub
+        repository URL for this specific Git exercise. The two
+        commits above are confirmed local commits; this page does
+        not claim that they were pushed to a remote repository.
+      </div>
+
+      <span class="status">Remote push evidence to add</span>
+    </article>
+
+    <!-- PULL REQUEST -->
+
+    <article class="card exercise">
+      <div class="exercise-number">EXTRA PRACTICE</div>
+      <h3>Creating a Pull Request</h3>
+
+      <p><strong>Goal:</strong> Understand the GitHub collaboration
+        workflow by creating a branch, pushing it, opening a pull
+        request, and merging it.</p>
+
+      <p>
+        A pull request allows developers to propose changes from
+        one branch into another. The changes can be reviewed
+        before they are merged into the main branch.
+      </p>
+
+      <pre><code>git checkout -b add-readme
+
+git add README.md
+
+git commit -m "Add project README"
+
+git push -u origin add-readme</code></pre>
+
+      <p>
+        After pushing the branch, a pull request can be opened
+        on GitHub. Once reviewed, it can be merged into main.
+      </p>
+
+      <div class="note">
+        Evidence to add after completing this exercise:
+        your actual pull request URL, merge confirmation,
+        and updated commit history.
+      </div>
+
+      <span class="status">Pull request evidence to add</span>
+    </article>
+  </section>
+
+
+  <!-- FRIDAY GITHUB PAGES -->
+
+  <section id="friday">
+    <div class="section-heading">
+      <div class="eyebrow">Part 03 · Friday Practice</div>
+      <h2>GitHub Pages and Deployment</h2>
+      <p>
+        These exercises demonstrate how to publish a website
+        and create a better experience for visitors.
+      </p>
+    </div>
+
+    <!-- FRIDAY E1 -->
+
+    <article class="card exercise">
+      <div class="exercise-number">EXERCISE 01</div>
+      <h3>Enable GitHub Pages</h3>
+
+      <p><strong>Goal:</strong> Publish a website using GitHub Pages.</p>
+
+      <p>
+        I created the webpro-w10 repository and added an index.html
+        homepage. I then configured GitHub Pages to deploy the main
+        branch from the root directory.
+      </p>
+
+      <pre><code>git add index.html
+
+git commit -m "Add homepage"
+
+git push origin main</code></pre>
+
+      <p>
+        In the GitHub repository, I opened Settings → Pages,
+        selected Deploy from a branch, chose main and the root
+        directory, and saved the configuration.
+      </p>
+
+      <p>
+        <strong>Result:</strong> My website was published and
+        became accessible through its GitHub Pages URL.
+      </p>
+
+      <div class="links">
+        <a href="https://ps8023724-sys.github.io/webpro-w10/"
+           target="_blank" rel="noopener noreferrer">View Published Website ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/webpro-w10"
+           target="_blank" rel="noopener noreferrer">View Repository ↗</a>
+      </div>
+
+      <span class="status">Published</span>
+    </article>
+
+    <!-- FRIDAY E2 -->
+
+    <article class="card exercise">
+      <div class="exercise-number">EXERCISE 02</div>
+      <h3>Understand a 404 Error Page</h3>
+
+      <p><strong>Goal:</strong> Understand what happens when
+        a visitor opens a URL that does not exist.</p>
+
+      <p>
+        A 404 error occurs when the requested page cannot be found.
+        A default error page may not provide enough information
+        or a helpful way for visitors to return to the website.
+      </p>
+
+      <p><strong>My observation:</strong></p>
+
+      <ul>
+        <li>The requested page does not exist.</li>
+        <li>The visitor may not know how to return to the homepage.</li>
+        <li>A custom page can make the experience more friendly.</li>
+      </ul>
+
+      <p>
+        I used this exercise to understand why websites should
+        provide a clear and useful error page.
+      </p>
+
+      <div class="note">
+        Testing evidence to add: a screenshot of the missing-page
+        URL before the custom 404 page was added.
+      </div>
+
+      <span class="status">Custom 404 exercise documented</span>
+    </article>
+
+    <!-- FRIDAY E3 -->
+
+    <article class="card exercise">
+      <div class="exercise-number">EXERCISE 03</div>
+      <h3>Create a Custom 404 Page</h3>
+
+      <p><strong>Goal:</strong> Create a custom 404.html file
+        and publish it through GitHub Pages.</p>
+
+      <p>
+        I added a custom 404.html file to the root of my
+        webpro-w10 repository. The page explains that the
+        requested page is unavailable and provides a link
+        to return to the homepage.
+      </p>
+
+      <pre><code>git add 404.html
+
+git commit -m "Add custom 404 page"
+
+git push origin main</code></pre>
+
+      <p>
+        <strong>Result:</strong> The repository contains a custom
+        404 page that GitHub Pages can display when a visitor
+        requests a missing page.
+      </p>
+
+      <div class="links">
+        <a href="https://github.com/ps8023724-sys/webpro-w10/blob/main/404.html"
+           target="_blank" rel="noopener noreferrer">View 404.html ↗</a>
+
+        <a href="https://ps8023724-sys.github.io/webpro-w10/this-page-does-not-exist.html"
+           target="_blank" rel="noopener noreferrer">Test Missing Page ↗</a>
+
+        <a href="https://github.com/ps8023724-sys/webpro-w10/commits/main/"
+           target="_blank" rel="noopener noreferrer">View Commits ↗</a>
+      </div>
+
+      <span class="status">Custom 404 file published</span>
+    </article>
+  </section>
+
+
+  <!-- REFLECTION -->
+
+  <section id="reflection">
+    <article class="card reflection">
+      <div class="eyebrow">Part 04 · Reflection</div>
+      <h2>What I Learned</h2>
+
+      <p>
+        Through these assignments and exercises, I learned how
+        to organize my web projects, use Git to track changes,
+        and publish websites through GitHub Pages.
+      </p>
+
+      <p>
+        I also learned the importance of commits and branches.
+        Instead of treating a project as one final file, Git
+        allows me to record changes step by step and return
+        to earlier versions when necessary.
+      </p>
+
+      <p>
+        Working with APIs helped me understand how websites
+        can retrieve and display information from external
+        services. Creating a custom 404 page also showed me
+        that a good website should consider the visitor's
+        experience, even when something goes wrong.
+      </p>
+
+      <p>
+        Overall, these activities helped me become more
+        comfortable with the development workflow, from
+        writing code and testing it to managing repositories
+        and deploying a live website.
+      </p>
+    </article>
+  </section>
+
+</main>
+
+<footer>
+  <p>Week 10 · Web Programming · Gachon University</p>
+  <p>Created by Shrestha Puja · 2026</p>
+  <a href="#top">Back to top ↑</a>
+</footer>
+
+</body>
+</html>
+
