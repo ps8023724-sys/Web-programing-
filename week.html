@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,7 +177,6 @@
 
     <script>
         const weeks = {
-
             week1: {
                 title: "Week 1",
                 description: "My first steps in HTML and building web pages.",
@@ -326,15 +326,14 @@
                 ]
             },
 
-            week10_1: {
+            week10: {
                 title: "Week 10 — Git and GitHub",
-                description: "Learning version control and GitHub.",
-                folder: "week10_1/",
+                description: "Git exercises, GitHub repositories, GitHub Pages, and homework assignments.",
+                folder: "week10/",
                 tasks: [
-                    "git-assignment.html"
+                    "index.html"
                 ]
             }
-
         };
 
         const params = new URLSearchParams(window.location.search);
@@ -347,7 +346,6 @@
         const list = document.getElementById("assignmentList");
 
         if (week) {
-
             document.title = week.title + " | Web Programming";
 
             title.textContent = week.title;
@@ -355,7 +353,6 @@
             description.textContent = week.description;
 
             week.tasks.forEach((task, index) => {
-
                 const link = document.createElement("a");
                 link.className = "assignment";
                 link.href = week.folder + encodeURIComponent(task);
@@ -380,11 +377,9 @@
                 link.appendChild(arrow);
 
                 list.appendChild(link);
-
             });
 
         } else {
-
             title.textContent = "Week not found";
             label.textContent = "OOPS!";
 
@@ -393,7 +388,6 @@
 
             list.innerHTML =
                 '<div class="empty">Please select a valid week from the homepage.</div>';
-
         }
     </script>
 
