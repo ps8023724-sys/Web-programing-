@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shrestha Puja's web programming portfolio: weekly assignments from HTML to React.">
     <title>Web Programming | Shrestha Puja</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,304 +11,174 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: #FAF8FC; color: #39314D; font-family: "DM Sans", sans-serif; line-height: 1.6; }
+        a:focus-visible, input:focus-visible { outline: 3px solid #55458C; outline-offset: 3px; }
+        .container { width: min(1080px, 90%); margin: auto; }
+        .skip-link { position: absolute; left: 12px; top: -60px; background: #55458C; color: #fff; padding: 10px 16px; border-radius: 8px; z-index: 20; }
+        .skip-link:focus { top: 12px; }
+
+        header { padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-bottom: 1px solid #E9E5F2; }
+        .brand { color: #55458C; font-weight: 700; letter-spacing: 1px; font-size: 15px; text-decoration: none; }
+        header nav { display: flex; gap: 22px; }
+        header nav a { color: #55458C; font-size: 13px; font-weight: 600; text-decoration: none; }
+        header nav a:hover { text-decoration: underline; }
+
+        .hero-wrap { position: relative; overflow: hidden; }
+        .hero-wrap::before { content: ""; position: absolute; width: 520px; height: 520px; right: -140px; top: -120px; border-radius: 50%; background: radial-gradient(circle, rgba(169,148,208,.35), transparent 65%); }
+        .hero-wrap::after { content: ""; position: absolute; width: 380px; height: 380px; left: -160px; bottom: -200px; border-radius: 50%; background: radial-gradient(circle, rgba(245,166,35,.18), transparent 65%); }
+        .hero { position: relative; z-index: 1; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; padding: 80px 0 60px; }
+        .eyebrow { color: #62468F; text-transform: uppercase; letter-spacing: 3px; font-size: 11px; font-weight: 700; margin-bottom: 18px; }
+        h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; }
+        h1 { color: #55458C; font-size: clamp(40px, 6.5vw, 64px); line-height: 1.12; font-weight: 600; margin-bottom: 20px; }
+        .hero p.lead { color: #5A5368; max-width: 540px; font-size: 16px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .btn { display: inline-block; text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 22px; border-radius: 999px; background: #55458C; color: #fff; transition: 0.2s; }
+        .btn:hover { background: #3F3270; transform: translateY(-2px); }
+        .btn.alt { background: #fff; color: #55458C; border: 2px solid #55458C; padding: 10px 20px; }
+        .btn.alt:hover { background: #F0ECF8; }
+
+        .latest-card { background: #fff; border: 1px solid #E4DCF2; border-radius: 22px; padding: 26px; box-shadow: 0 18px 40px rgba(85,69,140,.12); }
+        .latest-card .tagline { display: inline-block; background: #F5A623; color: #161616; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; }
+        .latest-card h2 { color: #55458C; font-size: 25px; line-height: 1.25; margin-bottom: 8px; }
+        .latest-card p { color: #5A5368; font-size: 14px; margin-bottom: 18px; }
+        .latest-card a { color: #55458C; font-weight: 700; font-size: 14px; }
+
+        .stats { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-bottom: 60px; }
+        .stat { background: #fff; border: 1px solid #EAE5F2; border-radius: 16px; padding: 18px 20px; }
+        .stat strong { display: block; font-family: "Playfair Display", serif; font-size: 30px; color: #55458C; line-height: 1.1; }
+        .stat span { font-size: 13px; color: #5A5368; }
+
+        .section-top { display: flex; justify-content: space-between; align-items: end; margin-bottom: 25px; gap: 15px; flex-wrap: wrap; }
+        .section-top h2 { color: #55458C; font-size: 32px; }
+        .search { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #5A5368; }
+        .search input { font: 14px "DM Sans", sans-serif; padding: 11px 16px; border: 2px solid #CFC2E5; border-radius: 999px; min-width: 240px; background: #fff; color: #39314D; }
+        .result-count { font-size: 13px; color: #5A5368; margin-bottom: 14px; min-height: 1.4em; }
+
+        .week-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding-bottom: 60px; }
+        .week-card { display: block; text-decoration: none; color: inherit; background: white; border: 1px solid #EAE5F2; border-radius: 18px; overflow: hidden; transition: 0.25s ease; }
+        .week-card:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(75, 57, 112, 0.14); border-color: #CFC2E5; }
+        .week-card:focus-visible { outline: 3px solid #55458C; outline-offset: 4px; }
+        .cover { position: relative; height: 140px; padding: 20px; display: flex; align-items: end; justify-content: space-between; background-color: #E9E5F7; background-image: radial-gradient(rgba(255,255,255,.55) 1.5px, transparent 1.5px); background-size: 16px 16px; }
+        .cover span { font-family: "Playfair Display", Georgia, serif; color: #55458C; font-size: 50px; line-height: 1; }
+        .cover small { color: #594477; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+        .latest { position: absolute; top: 14px; right: 14px; background: #55458C; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+        .cover.c2 { background-color: #EEE8F5; } .cover.c3 { background-color: #E5EAF3; } .cover.c4 { background-color: #F0E8F0; }
+        .cover.c5 { background-color: #E8E9F4; } .cover.c6 { background-color: #E4EDF0; } .cover.c7 { background-color: #F1EBDD; }
+        .cover.c8 { background-color: #EAE5F3; } .cover.c9 { background-color: #E8EAF4; } .cover.c10 { background-color: #EDE7F3; }
+        .cover.c11 { background-color: #E8EAF4; } .cover.c12 { background-color: #EAE5F3; } .cover.c13 { background-color: #E9E5F7; }
+        .cover.c14 { background-color: #FBE7C2; }
+        .week-info { padding: 19px 20px 21px; }
+        .week-info h3 { font-size: 20px; color: #55458C; margin-bottom: 5px; line-height: 1.25; }
+        .week-info p { color: #5A5368; font-size: 13px; }
+        .week-info .open { display: block; margin-top: 15px; color: #55458C; font-size: 12px; font-weight: 700; }
+        .no-results { display: none; background: #fff; border: 1px dashed #CFC2E5; border-radius: 16px; padding: 28px; text-align: center; color: #5A5368; margin-bottom: 60px; }
+
+        .links { padding-bottom: 60px; }
+        .links h2 { color: #55458C; font-size: 28px; margin-bottom: 18px; }
+        .link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+        .link-card { display: block; text-decoration: none; background: #fff; border: 1px solid #EAE5F2; border-left: 6px solid #F5A623; border-radius: 14px; padding: 18px 20px; color: #39314D; transition: 0.2s; }
+        .link-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(75,57,112,.10); }
+        .link-card strong { display: block; color: #55458C; font-size: 15px; }
+        .link-card span { font-size: 13px; color: #5A5368; }
+
+        .about { background: #F0ECF8; border-radius: 20px; padding: 32px; margin-bottom: 55px; display: flex; justify-content: space-between; align-items: center; gap: 25px; }
+        .about h2 { color: #55458C; font-size: 26px; margin-bottom: 8px; }
+        .about p { color: #4F4760; font-size: 14px; max-width: 560px; }
+        .student-detail { color: #55458C; font-size: 14px; text-align: right; white-space: nowrap; line-height: 1.9; }
+
+        footer { border-top: 1px solid #E9E5F2; padding: 22px 0 30px; display: flex; justify-content: space-between; color: #5A5368; font-size: 12px; flex-wrap: wrap; gap: 8px; }
+
+        @media (max-width: 860px) {
+            .hero { grid-template-columns: 1fr; padding: 60px 0 40px; }
+            .week-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
-        body {
-            background: #FAF8FC;
-            color: #39314D;
-            font-family: "DM Sans", sans-serif;
-            line-height: 1.6;
+        @media (max-width: 560px) {
+            .week-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+            .about { flex-direction: column; align-items: flex-start; }
+            .student-detail { text-align: left; }
+            header nav { display: none; }
+            .search input { min-width: 0; width: 100%; }
+            .search { width: 100%; }
         }
-
-        .container {
-            width: min(1080px, 90%);
-            margin: auto;
-        }
-
-        header {
-            padding: 25px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #E9E5F2;
-        }
-
-        .brand {
-            color: #55458C;
-            font-weight: 700;
-            letter-spacing: 1px;
-            font-size: 15px;
-        }
-
-        .header-note {
-            color: #655D72;
-            font-size: 12px;
-        }
-
-        .hero {
-            padding: 85px 0 65px;
-            max-width: 750px;
-        }
-
-        .eyebrow {
-            color: #62468F;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 18px;
-        }
-
-        h1, h2, h3 {
-            font-family: "Playfair Display", Georgia, serif;
-        }
-
-        h1 {
-            color: #55458C;
-            font-size: clamp(42px, 7vw, 68px);
-            line-height: 1.12;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            color: #625B70;
-            max-width: 580px;
-            font-size: 15px;
-        }
-
-        .hero-line {
-            width: 55px;
-            height: 3px;
-            background: #A994D0;
-            margin-top: 28px;
-        }
-
-        .section-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            margin-bottom: 25px;
-            gap: 15px;
-        }
-
-        .section-top h2 {
-            color: #55458C;
-            font-size: 30px;
-        }
-
-        .section-top p {
-            color: #655D72;
-            font-size: 13px;
-        }
-
-        .week-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding-bottom: 70px;
-        }
-
-        .week-card {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            background: white;
-            border: 1px solid #EAE5F2;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: 0.25s ease;
-        }
-
-        .week-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 30px rgba(75, 57, 112, 0.10);
-            border-color: #CFC2E5;
-        }
-
-        .week-card:focus-visible {
-            outline: 3px solid #8061AE;
-            outline-offset: 4px;
-        }
-
-        .cover {
-            height: 145px;
-            padding: 20px;
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            background: #E9E5F7;
-        }
-
-        .cover span {
-            font-family: "Playfair Display", Georgia, serif;
-            color: #55458C;
-            font-size: 48px;
-            line-height: 1;
-        }
-
-        .cover small {
-            color: #594477;
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .cover.c2 { background: #EEE8F5; }
-        .cover.c3 { background: #E5EAF3; }
-        .cover.c4 { background: #F0E8F0; }
-        .cover.c5 { background: #E8E9F4; }
-        .cover.c6 { background: #E4EDF0; }
-        .cover.c7 { background: #F1EBDD; }
-        .cover.c8 { background: #EAE5F3; }
-        .cover.c9 { background: #E8EAF4; }
-        .cover.c10 { background: #EDE7F3; }
-        .cover.c11 { background: #E8EAF4; }
-        .cover.c12 { background: #EAE5F3; }
-        .cover.c13 { background: #E9E5F7; }
-
-        .week-info {
-            padding: 19px 20px 21px;
-        }
-
-        .week-info h3 {
-            font-size: 20px;
-            color: #55458C;
-            margin-bottom: 5px;
-        }
-
-        .week-info p {
-            color: #655D72;
-            font-size: 12px;
-        }
-
-        .week-info .open {
-            display: block;
-            margin-top: 17px;
-            color: #8061AE;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .about {
-            background: #F0ECF8;
-            border-radius: 18px;
-            padding: 30px;
-            margin-bottom: 55px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .about h2 {
-            color: #55458C;
-            font-size: 25px;
-            margin-bottom: 7px;
-        }
-
-        .about p {
-            color: #5F566F;
-            font-size: 13px;
-            max-width: 550px;
-        }
-
-        .student-detail {
-            color: #55458C;
-            font-size: 13px;
-            text-align: right;
-            white-space: nowrap;
-            line-height: 1.9;
-        }
-
-        footer {
-            border-top: 1px solid #E9E5F2;
-            padding: 22px 0 30px;
-            display: flex;
-            justify-content: space-between;
-            color: #655D72;
-            font-size: 11px;
-        }
-
-        @media (max-width: 800px) {
-            .week-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .hero {
-                padding: 65px 0 50px;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .week-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .student-detail {
-                text-align: left;
-            }
-
-            .section-top {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .header-note {
-                display: none;
-            }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .week-card, .btn, .link-card { transition: none; }
+            .week-card:hover, .btn:hover, .link-card:hover { transform: none; }
         }
     </style>
 </head>
 
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="hero-wrap">
 <div class="container">
 
     <header>
-        <div class="brand">PORTFOLIO / WEB PROGRAMMING</div>
-        <div class="header-note">A collection of my learning and projects</div>
+        <a class="brand" href="#top">PORTFOLIO / WEB PROGRAMMING</a>
+        <nav aria-label="Main">
+            <a href="#weeks">Assignments</a>
+            <a href="#elsewhere">Projects</a>
+            <a href="#about">About</a>
+        </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="eyebrow">Student Developer Portfolio</div>
+    <main id="main-content">
+        <section class="hero" id="top">
+            <div>
+                <div class="eyebrow">Student Developer Portfolio</div>
+                <h1>Web Programming<br>Projects &amp; Practice</h1>
+                <p class="lead">
+                    A collection of my work throughout the course, from my first
+                    HTML exercises to interactive projects built with CSS,
+                    JavaScript, APIs and React.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn" href="#weeks">Browse assignments</a>
+                    <a class="btn alt" href="week.html?week=week11_1">See the latest week</a>
+                </div>
+            </div>
 
-            <h1>Web Programming<br>Projects & Practice</h1>
-
-            <p>
-                A collection of my work throughout the course —
-                from my first HTML exercises to interactive projects
-                built with CSS, JavaScript, and APIs.
-            </p>
-
-            <div class="hero-line"></div>
+            <aside class="latest-card" aria-label="Latest work">
+                <span class="tagline">Latest</span>
+                <h2>Week 11: React components</h2>
+                <p>Eight class exercises with their code and live output, plus a Course Catalog and two React apps.</p>
+                <a href="week.html?week=week11_1">Open Week 11 &rarr;</a>
+            </aside>
         </section>
 
-        <section>
+        <section class="stats" aria-label="At a glance">
+            <div class="stat"><strong>14</strong><span>weeks of assignments</span></div>
+            <div class="stat"><strong>HTML to React</strong><span>CSS, JavaScript, APIs and components</span></div>
+            <div class="stat"><strong>Git &amp; GitHub</strong><span>commits, branches, pull requests, Pages</span></div>
+        </section>
+</div>
+</div>
+
+<div class="container">
+        <section id="weeks" aria-labelledby="weeks-title">
             <div class="section-top">
                 <div>
                     <div class="eyebrow">The collection</div>
-                    <h2>My Assignments</h2>
+                    <h2 id="weeks-title">My Assignments</h2>
                 </div>
-
-                <p>Select a week to explore its projects.</p>
+                <label class="search">
+                    Find a week
+                    <input type="search" id="weekSearch" placeholder="Try: React, forms, APIs">
+                </label>
             </div>
+            <p class="result-count" id="resultCount" aria-live="polite"></p>
 
-            <div class="week-grid">
+            <div class="week-grid" id="weekGrid">
 
                 <a class="week-card" href="week.html?week=week1">
-                    <div class="cover">
+                    <div class="cover ">
                         <span>01</span>
                         <small>Getting started</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 1</h3>
@@ -321,6 +191,7 @@
                     <div class="cover c2">
                         <span>02</span>
                         <small>Building blocks</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 2</h3>
@@ -333,6 +204,7 @@
                     <div class="cover c3">
                         <span>03</span>
                         <small>Part one</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 3 — Assignment 1</h3>
@@ -345,6 +217,7 @@
                     <div class="cover c4">
                         <span>03</span>
                         <small>Part two</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 3 — Assignment 2</h3>
@@ -357,6 +230,7 @@
                     <div class="cover c5">
                         <span>04</span>
                         <small>Practice</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 4</h3>
@@ -369,6 +243,7 @@
                     <div class="cover c6">
                         <span>05</span>
                         <small>JavaScript</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 5</h3>
@@ -381,6 +256,7 @@
                     <div class="cover c7">
                         <span>06</span>
                         <small>Working with APIs</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 6</h3>
@@ -393,6 +269,7 @@
                     <div class="cover c8">
                         <span>07</span>
                         <small>Open Library</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 7</h3>
@@ -404,7 +281,8 @@
                 <a class="week-card" href="week.html?week=week8_1">
                     <div class="cover c9">
                         <span>08</span>
-                        <small>Forms & CSS</small>
+                        <small>Forms &amp; CSS</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 8 — Part 1</h3>
@@ -417,6 +295,7 @@
                     <div class="cover c10">
                         <span>08</span>
                         <small>Validation</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 8 — Part 2</h3>
@@ -429,6 +308,7 @@
                     <div class="cover c11">
                         <span>09</span>
                         <small>Accessibility</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 9</h3>
@@ -441,6 +321,7 @@
                     <div class="cover c12">
                         <span>09</span>
                         <small>Performance</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 9_2</h3>
@@ -453,6 +334,7 @@
                     <div class="cover c13">
                         <span>10</span>
                         <small>Git and GitHub</small>
+                        
                     </div>
                     <div class="week-info">
                         <h3>Week 10 — Git and GitHub</h3>
@@ -461,16 +343,45 @@
                     </div>
                 </a>
 
+                <a class="week-card" href="week.html?week=week11_1">
+                    <div class="cover c14">
+                        <span>11</span>
+                        <small>React</small>
+                        <span class="latest">Latest</span>
+                    </div>
+                    <div class="week-info">
+                        <h3>Week 11 — React components</h3>
+                        <p>Components, props, state and a course catalog</p>
+                        <span class="open">Explore week ↗</span>
+                    </div>
+                </a>
+
+            </div>
+            <p class="no-results" id="noResults">No week matches that search. Try another word.</p>
+        </section>
+
+        <section class="links" id="elsewhere" aria-labelledby="links-title">
+            <h2 id="links-title">More of my work</h2>
+            <div class="link-grid">
+                <a class="link-card" href="https://ps8023724-sys.github.io/portfolio/" target="_blank" rel="noopener noreferrer">
+                    <strong>Personal portfolio</strong><span>My portfolio site, built commit by commit</span>
+                </a>
+                <a class="link-card" href="https://ps8023724-sys.github.io/portfolio-gallery/" target="_blank" rel="noopener noreferrer">
+                    <strong>Portfolio Gallery (React)</strong><span>Project cards with a technology filter</span>
+                </a>
+                <a class="link-card" href="https://github.com/ps8023724-sys" target="_blank" rel="noopener noreferrer">
+                    <strong>GitHub profile</strong><span>All my repositories and commits</span>
+                </a>
             </div>
         </section>
 
-        <section class="about">
+        <section class="about" id="about">
             <div>
                 <h2>A little about this portfolio</h2>
                 <p>
-                    This website brings together my weekly assignments
-                    and projects as I continue learning web programming.
-                    Each folder represents another step in that journey.
+                    This website brings together my weekly assignments and projects
+                    as I continue learning web programming. Each folder represents
+                    another step in that journey.
                 </p>
             </div>
 
@@ -479,13 +390,32 @@
                 Student ID · 202537250
             </div>
         </section>
-    </main>
 
     <footer>
         <span>Web Programming Portfolio</span>
         <span>2026 · Gachon University</span>
     </footer>
-
 </div>
+
+<script>
+    (function () {
+        var input = document.getElementById("weekSearch");
+        var cards = Array.prototype.slice.call(document.querySelectorAll(".week-card"));
+        var count = document.getElementById("resultCount");
+        var none = document.getElementById("noResults");
+        input.addEventListener("input", function () {
+            var q = input.value.trim().toLowerCase();
+            var shown = 0;
+            cards.forEach(function (card) {
+                var match = q === "" || card.textContent.toLowerCase().indexOf(q) !== -1;
+                card.style.display = match ? "" : "none";
+                if (match) shown++;
+            });
+            none.style.display = shown === 0 ? "block" : "none";
+            count.textContent = q === "" ? "" : shown + " of " + cards.length + " weeks match";
+        });
+    })();
+</script>
+
 </body>
 </html>
