@@ -1,1 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Week 11_1: React components and props. Homework apps and class exercises E1 to E8 with code and live output, plus a Course Catalog.">
+  <title>Week 11_1: React Components | Shrestha Puja</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    body { margin: 0; background: #F6F3FB; color: #1F1B2E; font: 17px/1.7 Georgia, "Times New Roman", serif; }
+    .skip { position: absolute; left: 12px; top: -60px; background: #3B2D63; color: #fff; padding: 10px 16px; border-radius: 6px; z-index: 20; }
+    .skip:focus { top: 12px; }
+    a { color: #4B3A8A; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #3B2D63; outline-offset: 3px; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    header { background: radial-gradient(circle at 85% 20%, rgba(245,166,35,.35), transparent 40%), radial-gradient(circle at 10% 90%, rgba(255,255,255,.12), transparent 45%), linear-gradient(135deg, #2D2150, #4B3A8A); color: #fff; padding: 52px 0 56px; }
+    header a { color: #E9E1FF; font: 0.95rem Arial, sans-serif; }
+    .kicker { display: inline-block; margin: 22px 0 10px; background: #F5A623; color: #161616; font: bold 0.8rem Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; }
+    h1 { font-size: clamp(2.1rem, 6vw, 3.1rem); line-height: 1.15; margin: 0 0 12px; }
+    header p { margin: 0; color: #E9E1FF; max-width: 60ch; }
+    nav.jump { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); border-bottom: 1px solid #D9D2E8; }
+    nav.jump .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
+    nav.jump a { white-space: nowrap; font: bold 0.85rem Arial, sans-serif; text-decoration: none; color: #3B2D63; background: #ECE6F7; padding: 6px 14px; border-radius: 999px; }
+    nav.jump a:hover { background: #3B2D63; color: #fff; }
+    h2 { color: #2D2150; font-size: 1.6rem; margin: 56px 0 14px; }
+    h2 small { display: block; font: 0.9rem Arial, sans-serif; color: #4A4458; margin-top: 2px; }
+    code { font-family: Consolas, "Courier New", monospace; background: #ECE6F7; padding: 1px 6px; border-radius: 4px; font-size: 0.9em; }
+    .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+    .app { background: #fff; border-radius: 16px; padding: 22px; border-top: 6px solid #F5A623; box-shadow: 0 6px 18px rgba(45,33,80,.10); font: 0.97rem/1.6 Arial, sans-serif; }
+    .app h3 { font: 1.3rem Georgia, serif; color: #2D2150; margin: 0 0 8px; }
+    .app .links { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { display: inline-block; text-decoration: none; font: bold 0.9rem Arial, sans-serif; padding: 9px 16px; border-radius: 999px; background: #3B2D63; color: #fff; }
+    .btn.alt { background: #fff; color: #3B2D63; border: 2px solid #3B2D63; padding: 7px 14px; }
+    .btn:hover { background: #F5A623; color: #161616; border-color: #F5A623; }
+    .lab { background: #fff; border-radius: 18px; padding: 24px; margin-bottom: 26px; box-shadow: 0 6px 18px rgba(45,33,80,.10); }
+    .lab-head { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+    .badge { background: #3B2D63; color: #fff; font: bold 0.9rem Arial, sans-serif; border-radius: 10px; padding: 6px 12px; }
+    .lab h3 { margin: 0; font-size: 1.3rem; color: #2D2150; }
+    .goal { font: 0.97rem/1.6 Arial, sans-serif; color: #3C3650; margin: 8px 0 14px; }
+    .code { border-radius: 12px; overflow: hidden; background: #231F33; }
+    .code-head { display: flex; align-items: center; gap: 8px; background: #2F2945; color: #D9D2F0; font: 0.82rem Consolas, monospace; padding: 8px 14px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #F5A623; } .dot:nth-child(2) { background: #8F7CC9; } .dot:nth-child(3) { background: #5E4FA0; }
+    .code pre { margin: 0; padding: 16px; overflow-x: auto; color: #F3EEFF; font: 0.85rem/1.6 Consolas, "Courier New", monospace; max-height: 420px; }
+    .label { font: bold 0.75rem Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #4B3A8A; margin: 18px 0 6px; }
+    .stage { display: flex; flex-wrap: wrap; gap: 14px; background: #F6F3FB; border: 2px dashed #CFC4EA; border-radius: 12px; padding: 18px; font-family: Arial, sans-serif; font-size: 0.97rem; line-height: 1.55; }
+    .result { margin: 14px 0 0; padding: 12px 16px; background: #E6F3EA; border-left: 5px solid #1E6B3C; border-radius: 6px; font: 0.95rem/1.6 Arial, sans-serif; color: #17402A; }
+    .card { background: #fff; border: 1px solid #D9D2E8; border-radius: 12px; padding: 16px; min-width: 210px; }
+    .card h4 { margin: 0 0 6px; font: 1.1rem Georgia, serif; color: #3B2D63; }
+    .card p { margin: 4px 0; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; display: block; margin-bottom: 8px; }
+    .stars { color: #8A5A00; letter-spacing: 2px; }
+    .sold-out { background: #E7E4EC; color: #4A4458; }
+    .good { color: #1E6B3C; font-weight: bold; } .bad { color: #9A2B2B; font-weight: bold; }
+    .notes { list-style: none; padding: 0; margin: 0; width: 100%; }
+    .notes li { padding: 10px 14px; margin-bottom: 8px; border-radius: 8px; background: #fff; border-left: 5px solid #4B3A8A; }
+    .notes .success { border-color: #1E6B3C; } .notes .warning { border-color: #8A5A00; }
+    .alert { width: 100%; padding: 10px 14px; border-radius: 8px; font-weight: bold; }
+    .alert.error { background: #F7DCDC; color: #7A1F1F; } .alert.success { background: #D9EFE2; color: #17502D; }
+    button { font: bold 0.9rem Arial, sans-serif; cursor: pointer; border-radius: 999px; padding: 8px 16px; border: 2px solid #3B2D63; background: #fff; color: #3B2D63; }
+    button:hover { background: #ECE6F7; }
+    button[aria-pressed="true"] { background: #3B2D63; color: #fff; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+    .count { width: 100%; color: #4A4458; margin: 2px 0; }
+    .course { width: 230px; }
+    .tag { display: inline-block; background: #ECE6F7; color: #3B2D63; border-radius: 999px; padding: 2px 10px; font-size: 0.82rem; font-weight: bold; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    footer { border-top: 1px solid #D9D2E8; margin-top: 56px; padding: 22px 0; color: #4A4458; font: 0.9rem Arial, sans-serif; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to main content</a>
 
+  <header>
+    <div class="wrap">
+      <a href="../index.html">&larr; Back to portfolio</a><br>
+      <span class="kicker">Week 11 &middot; React</span>
+      <h1>Components and props</h1>
+      <p>My homework apps and the class exercises E1 to E8, each with its code and a live, working output, plus a Course Catalog.</p>
+    </div>
+  </header>
+
+  <nav class="jump" aria-label="Jump to an exercise"><div class="wrap" id="nav"><a href="#homework">Homework</a></div></nav>
+
+  <main id="content" class="wrap">
+    <h2 id="homework">Homework <small>Two React apps, each in its own repository and deployed to GitHub Pages.</small></h2>
+    <div class="apps">
+      <article class="app">
+        <h3>Portfolio Gallery</h3>
+        <p>A <code>ProjectCard</code>, a <code>ProjectList</code> of six cards and a <code>FilterBar</code> that filters by technology using <code>useState</code>. State lives in <code>App</code> and the components receive props. Deployed by a GitHub Actions workflow.</p>
+        <div class="links">
+          <a class="btn" href="https://ps8023724-sys.github.io/portfolio-gallery/" target="_blank" rel="noopener noreferrer">Live app</a>
+          <a class="btn alt" href="https://github.com/ps8023724-sys/portfolio-gallery" target="_blank" rel="noopener noreferrer">Repository</a>
+        </div>
+      </article>
+      <article class="app">
+        <h3>Task 11-A: Student Directory</h3>
+        <p>A <code>StudentProfileCard</code> with five props (<code>name</code>, <code>studentId</code>, <code>major</code>, <code>year</code>, <code>gpa</code>) used for three students, styled with my own CSS. Built with Vite and React.</p>
+        <div class="links">
+          <a class="btn" href="https://ps8023724-sys.github.io/task11/" target="_blank" rel="noopener noreferrer">Live app</a>
+          <a class="btn alt" href="https://github.com/ps8023724-sys/task11" target="_blank" rel="noopener noreferrer">Repository</a>
+        </div>
+      </article>
+    </div>
+
+    <h2 id="practice">Class exercises and Course Catalog <small>The code in each box is the code that runs in the output below it.</small></h2>
+    <div id="labs"></div>
+
+    <h2>How this page is built <small>One file, no build step.</small></h2>
+    <p>React is loaded from a CDN, and each exercise's source is written once, inside this page. The page reads that source, shows it in the code box, compiles it in the browser and mounts it in the output. The homework apps above are full projects with a build tool.</p>
+  </main>
+
+  <footer><div class="wrap">Shrestha Puja &middot; 202537250 &middot; Web Programming, Gachon University</div></footer>
+
+  <script type="text/plain" id="src">
+//@@ e1 | E1 | Your first component | Greeting.jsx | Write one function that returns JSX and use it more than once. | Three separate "Hello, World!" lines appear, one for every use of the component.
+// A component is a function that returns JSX.
+function Greeting() {
+  return <p>Hello, World!</p>;
+}
+
+// Using it three times gives three independent copies.
+function Demo() {
+  return (
+    <>
+      <Greeting />
+      <Greeting />
+      <Greeting />
+    </>
+  );
+}
+//@@ e2 | E2 | StudentCard | StudentCard.jsx | Complete a card that works as <StudentCard name="Alice" id="20231234" major="CS" />, then add a second card with my own ID. | Two cards appear: the lab's example and a second one with my own student ID.
+function StudentCard({ name, id, major }) {
+  return (
+    <div className="card">
+      <h4>{name}</h4>
+      <p>ID: {id}</p>
+      <p>Major: {major}</p>
+    </div>
+  );
+}
+
+function Demo() {
+  return (
+    <>
+      <StudentCard name="Alice" id="20231234" major="CS" />
+      <StudentCard name="Shrestha Puja" id="202537250" major="Computer Engineering" />
+    </>
+  );
+}
+//@@ e3 | E3 | ProfileCard with a default prop | ProfileCard.jsx | Build a card with name, role, email and an optional avatarUrl that has a default value. | The first card passes no avatarUrl, so it shows the default silhouette. The second passes its own avatar, my initials.
+const DEFAULT_AVATAR = "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="#ECE6F7"/><circle cx="40" cy="31" r="14" fill="#6B5B95"/><path d="M12 80c2-18 14-28 28-28s26 10 28 28z" fill="#6B5B95"/></svg>');
+
+const MY_AVATAR = "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="#2F4A38"/><text x="40" y="52" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="bold" fill="#F4EDE0">SP</text></svg>');
+
+// avatarUrl has a default value, so the parent may leave it out.
+function ProfileCard({ name, role, email, avatarUrl = DEFAULT_AVATAR }) {
+  return (
+    <div className="card">
+      <img className="avatar" src={avatarUrl} alt={"Avatar of " + name} width="64" height="64" />
+      <h4>{name}</h4>
+      <p>{role}</p>
+      <a href={"mailto:" + email}>{email}</a>
+    </div>
+  );
+}
+
+function Demo() {
+  return (
+    <>
+      <ProfileCard name="Sample Professor" role="Professor" email="professor@example.com" />
+      <ProfileCard name="Shrestha Puja" role="Computer Engineering student" email="student@example.com" avatarUrl={MY_AVATAR} />
+    </>
+  );
+}
+//@@ e4 | E4 | List of notifications | NotificationList.jsx | Render an array with .map(), a stable key and an icon chosen by conditional rendering. | Three notifications show a check mark, a warning sign and an info icon. Each item is keyed by its id, not by its position.
+const notifications = [
+  { id: 1, type: "success", message: "Profile updated successfully" },
+  { id: 2, type: "warning", message: "Password expires in 3 days" },
+  { id: 3, type: "info", message: "New lecture materials available" },
+];
+
+function NotificationItem({ type, message }) {
+  const icon = type === "success" ? "✅" : type === "warning" ? "⚠️" : "ℹ️";
+  return (
+    <li className={type}>
+      <span aria-hidden="true">{icon} </span>
+      <span className="sr-only">{type}: </span>
+      {message}
+    </li>
+  );
+}
+
+function Demo() {
+  return (
+    <ul className="notes">
+      {notifications.map((n) => (
+        <NotificationItem key={n.id} type={n.type} message={n.message} />
+      ))}
+    </ul>
+  );
+}
+//@@ e5 | E5 | Layout with props.children | Card.jsx | Make one reusable Card that wraps whatever is placed between its tags. | The same Card shows a list in one place and a paragraph in the other.
+function Card({ title, children }) {
+  return (
+    <section className="card">
+      <h4>{title}</h4>
+      <div>{children}</div>
+    </section>
+  );
+}
+
+function Demo() {
+  return (
+    <>
+      <Card title="Lecture Topics">
+        <ul>
+          <li>Components</li>
+          <li>Props</li>
+        </ul>
+      </Card>
+      <Card title="Homework">
+        <p>Build a student portfolio component</p>
+      </Card>
+    </>
+  );
+}
+//@@ e6 | E6 | ProductCard challenge | ProductCard.jsx | Build a ProductCard with name, price, rating and inStock. Bonus: show "4.5 / 5 stars" and an "Out of Stock" label. | Prices are formatted in won, ratings read "4.5 / 5 stars", and the USB-C Hub shows "Out of Stock" and is greyed out. Both bonuses are done.
+function Stars({ rating }) {
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5 ? 1 : 0;
+  // decoration only: the words "4.5 / 5 stars" carry the meaning
+  return (
+    <span className="stars" aria-hidden="true">
+      {"★".repeat(full)}{half ? "½" : ""}{"☆".repeat(5 - full - half)}
+    </span>
+  );
+}
+
+function ProductCard({ name, price, rating, inStock }) {
+  return (
+    <div className={inStock ? "card" : "card sold-out"}>
+      <h4>{name}</h4>
+      <p>{price.toLocaleString("ko-KR")}원</p>
+      <Stars rating={rating} />
+      <p>{rating} / 5 stars</p>
+      <p className={inStock ? "good" : "bad"}>
+        {inStock ? "In Stock" : "Out of Stock"}
+      </p>
+    </div>
+  );
+}
+
+function Demo() {
+  return (
+    <>
+      <ProductCard name="Wireless Earbuds" price={89000} rating={4.5} inStock={true} />
+      <ProductCard name="Mechanical Keyboard" price={129000} rating={4} inStock={true} />
+      <ProductCard name="USB-C Hub" price={45000} rating={3.5} inStock={false} />
+    </>
+  );
+}
+//@@ e7 | E7 | Rendering a list with keys | StudentList.jsx | Render an array with .map() and give every item a unique, stable key. | Three students are listed, each with a key taken from its id.
+const students = [
+  { id: 1, name: "Lee Jungwoo", grade: "A" },
+  { id: 2, name: "Park Sohee", grade: "B+" },
+  { id: 3, name: "Kim Minho", grade: "A-" },
+];
+
+function Demo() {
+  return (
+    <ul>
+      {students.map((s) => (
+        <li key={s.id}>{s.name} -- {s.grade}</li>
+      ))}
+    </ul>
+  );
+}
+//@@ e8 | E8 | Conditional rendering | ConditionalDemo.jsx | Show different content depending on state: return null, use && and use a ternary. | Logged out, the page shows an error and "Please log in." The button logs in and then shows the success message and a welcome line.
+const { useState } = React;
+
+function Alert({ type, message }) {
+  if (!message) return null; // renders nothing
+  return (
+    <div className={"alert " + type} role="status">
+      {type === "error" ? "ERROR:" : "OK:"} {message}
+    </div>
+  );
+}
+
+function Dashboard({ user }) {
+  return (
+    <div>
+      {user && <p>Welcome, {user.name}!</p>}
+      {!user && <p>Please log in.</p>}
+    </div>
+  );
+}
+
+function Demo() {
+  const [user, setUser] = useState(null);
+  return (
+    <>
+      <Alert type="error" message={user ? "" : "You are not logged in."} />
+      <Alert type="success" message={user ? "Logged in successfully." : ""} />
+      <div className="card">
+        <Dashboard user={user} />
+        <button type="button" onClick={() => setUser(user ? null : { name: "Puja" })}>
+          {user ? "Log out" : "Log in"}
+        </button>
+      </div>
+    </>
+  );
+}
+//@@ catalog | Extra | Course Catalog | CourseCatalog.jsx | Show a catalog of courses with category filter buttons and a Save button on every course, using useState. | The filter buttons are built from the data. Choosing a category narrows the list and updates the count, and Save / Saved toggles each course. The course data is sample data.
+const { useState } = React;
+
+const courses = [
+  { id: 1, title: "Web Programming", category: "Web", seats: 12 },
+  { id: 2, title: "Accessibility Basics", category: "Web", seats: 8 },
+  { id: 3, title: "Data Structures", category: "Algorithms", seats: 5 },
+  { id: 4, title: "Discrete Mathematics", category: "Math", seats: 14 },
+  { id: 5, title: "Academic English", category: "Languages", seats: 20 },
+];
+
+function Demo() {
+  const [category, setCategory] = useState("All");
+  const [saved, setSaved] = useState([2, 3]);
+
+  // "All" plus every category in the data, without duplicates
+  const categories = ["All", ...new Set(courses.map((c) => c.category))];
+  const visible = category === "All"
+    ? courses
+    : courses.filter((c) => c.category === category);
+
+  function toggle(id) {
+    setSaved(saved.includes(id) ? saved.filter((s) => s !== id) : [...saved, id]);
+  }
+
+  return (
+    <>
+      <div className="filters" role="group" aria-label="Filter courses by category">
+        {categories.map((c) => (
+          <button key={c} type="button" aria-pressed={c === category} onClick={() => setCategory(c)}>
+            {c}
+          </button>
+        ))}
+      </div>
+      <p className="count" aria-live="polite">{visible.length} visible · {saved.length} saved</p>
+      {visible.map((c) => (
+        <article className="card course" key={c.id}>
+          <h4>{c.title}</h4>
+          <p><span className="tag">{c.category}</span></p>
+          <p>{c.seats} seats left</p>
+          <button type="button" aria-pressed={saved.includes(c.id)} onClick={() => toggle(c.id)}>
+            {saved.includes(c.id) ? "Saved" : "Save"}
+          </button>
+        </article>
+      ))}
+    </>
+  );
+}
+  </script>
+
+  <script>
+    (function () {
+      var raw = document.getElementById("src").textContent;
+      var parts = raw.split("//@@").slice(1);
+      var list = document.getElementById("labs");
+      var nav = document.getElementById("nav");
+
+      parts.forEach(function (part) {
+        var nl = part.indexOf("\n");
+        var meta = part.slice(0, nl).split("|").map(function (s) { return s.trim(); });
+        var code = part.slice(nl + 1).trim();
+        var id = meta[0], badge = meta[1], title = meta[2], file = meta[3], goal = meta[4], result = meta[5];
+
+        var link = document.createElement("a");
+        link.href = "#" + id;
+        link.textContent = badge === "Extra" ? "Catalog" : badge;
+        nav.appendChild(link);
+
+        var art = document.createElement("article");
+        art.className = "lab";
+        art.id = id;
+
+        var head = document.createElement("div");
+        head.className = "lab-head";
+        var b = document.createElement("span"); b.className = "badge"; b.textContent = badge;
+        var h = document.createElement("h3"); h.textContent = title;
+        head.appendChild(b); head.appendChild(h);
+
+        var g = document.createElement("p");
+        g.className = "goal";
+        var gs = document.createElement("strong"); gs.textContent = "Goal: ";
+        g.appendChild(gs); g.appendChild(document.createTextNode(goal));
+
+        var box = document.createElement("div"); box.className = "code";
+        var ch = document.createElement("div"); ch.className = "code-head";
+        ch.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+        var fn = document.createElement("span"); fn.textContent = file; ch.appendChild(fn);
+        var pre = document.createElement("pre");
+        var cd = document.createElement("code"); cd.style.background = "none"; cd.style.padding = "0"; cd.textContent = code;
+        pre.appendChild(cd); box.appendChild(ch); box.appendChild(pre);
+
+        var l1 = document.createElement("p"); l1.className = "label"; l1.textContent = "Output (running)";
+        var stage = document.createElement("div"); stage.className = "stage";
+        var res = document.createElement("p"); res.className = "result";
+        var rs = document.createElement("strong"); rs.textContent = "Result: ";
+        res.appendChild(rs); res.appendChild(document.createTextNode(result));
+
+        var l0 = document.createElement("p"); l0.className = "label"; l0.textContent = "Code";
+
+        art.appendChild(head); art.appendChild(g); art.appendChild(l0); art.appendChild(box);
+        art.appendChild(l1); art.appendChild(stage); art.appendChild(res);
+        list.appendChild(art);
+
+        try {
+          var out = Babel.transform(code + "\nreturn Demo;", {
+            presets: ["react"],
+            parserOpts: { allowReturnOutsideFunction: true }
+          }).code;
+          var Demo = new Function("React", out)(React);
+          ReactDOM.createRoot(stage).render(React.createElement(Demo));
+        } catch (e) {
+          stage.textContent = "This demo could not run: " + e.message;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
