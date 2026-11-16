@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,11 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -23,24 +18,33 @@
             color: #302944;
             min-height: 100vh;
             padding: 35px 7%;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 480px; height: 480px;
+            right: -160px; top: -160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(169, 148, 208, 0.30), transparent 65%);
+            z-index: 0;
+        }
+
+        a:focus-visible { outline: 3px solid #55458C; outline-offset: 3px; }
+
+        .top, main, footer { position: relative; z-index: 1; }
 
         .top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 65px;
+            margin-bottom: 60px;
         }
 
-        .back {
-            color: #55458C;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .back:hover {
-            text-decoration: underline;
-        }
+        .back { color: #55458C; text-decoration: none; font-weight: 600; }
+        .back:hover { text-decoration: underline; }
 
         .tag {
             background: #E9E5F7;
@@ -52,13 +56,10 @@
             letter-spacing: 1px;
         }
 
-        main {
-            max-width: 950px;
-            margin: auto;
-        }
+        main { max-width: 950px; margin: auto; }
 
         .eyebrow {
-            color: #8061AE;
+            color: #62468F;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 2px;
@@ -68,21 +69,31 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(38px, 6vw, 58px);
+            font-size: clamp(36px, 6vw, 56px);
             color: #55458C;
             margin-bottom: 14px;
+            line-height: 1.15;
         }
 
         .description {
-            color: #777083;
+            color: #5A5368;
             line-height: 1.7;
-            margin-bottom: 42px;
+            margin-bottom: 18px;
+            max-width: 62ch;
         }
 
-        .assignment-list {
-            display: grid;
-            gap: 15px;
+        .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+        .chip {
+            background: #fff;
+            border: 1px solid #E4DCF2;
+            color: #55458C;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 999px;
         }
+
+        .assignment-list { display: grid; gap: 15px; }
 
         .assignment {
             display: flex;
@@ -92,7 +103,7 @@
             background: white;
             border: 1px solid #E9E5F7;
             border-radius: 16px;
-            padding: 23px 25px;
+            padding: 22px 25px;
             text-decoration: none;
             color: #302944;
             transition: 0.2s ease;
@@ -101,51 +112,68 @@
         .assignment:hover {
             border-color: #8061AE;
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(85, 69, 140, 0.09);
+            box-shadow: 0 8px 24px rgba(85, 69, 140, 0.10);
         }
 
-        .assignment h2 {
-            font-size: 17px;
-            margin-bottom: 5px;
+        .assignment .left { display: flex; align-items: center; gap: 18px; }
+
+        .num {
+            width: 46px; height: 46px;
+            flex: none;
+            border-radius: 14px;
+            background: #E9E5F7;
+            color: #55458C;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .assignment p {
-            color: #898394;
-            font-size: 13px;
-        }
-
-        .arrow {
-            color: #8061AE;
-            font-size: 22px;
-        }
+        .assignment h2 { font-size: 17px; margin-bottom: 4px; }
+        .assignment p { color: #5A5368; font-size: 13px; }
+        .arrow { color: #55458C; font-size: 22px; }
 
         .empty {
             background: white;
             border: 1px solid #E9E5F7;
             border-radius: 16px;
             padding: 25px;
-            color: #777083;
+            color: #5A5368;
         }
 
-        footer {
-            text-align: center;
-            color: #9992A5;
-            font-size: 12px;
-            margin-top: 70px;
+        .pager {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 50px;
+            flex-wrap: wrap;
         }
+
+        .pager a {
+            text-decoration: none;
+            color: #55458C;
+            font-weight: 700;
+            font-size: 14px;
+            background: #fff;
+            border: 2px solid #E4DCF2;
+            border-radius: 999px;
+            padding: 10px 20px;
+            transition: 0.2s;
+        }
+        .pager a:hover { border-color: #55458C; background: #F0ECF8; }
+
+        footer { text-align: center; color: #5A5368; font-size: 12px; margin-top: 70px; }
 
         @media (max-width: 600px) {
-            body {
-                padding: 25px 5%;
-            }
+            body { padding: 25px 5%; }
+            .top { margin-bottom: 40px; }
+            .assignment { padding: 18px; }
+            .assignment .left { gap: 14px; }
+        }
 
-            .top {
-                margin-bottom: 45px;
-            }
-
-            .assignment {
-                padding: 19px;
-            }
+        @media (prefers-reduced-motion: reduce) {
+            .assignment, .pager a { transition: none; }
+            .assignment:hover { transform: none; }
         }
     </style>
 </head>
@@ -166,9 +194,13 @@
             Explore the exercises and projects completed during this week.
         </p>
 
+        <div class="meta" id="weekMeta"></div>
+
         <section class="assignment-list" id="assignmentList"
                  aria-label="Weekly assignments">
         </section>
+
+        <nav class="pager" id="pager" aria-label="Other weeks"></nav>
     </main>
 
     <footer>
@@ -333,6 +365,15 @@
                 tasks: [
                     "index.html"
                 ]
+            },
+
+            week11_1: {
+                title: "Week 11 — React components",
+                description: "Components, props and state: eight class exercises with their code and live output, a Course Catalog, and links to my two React homework apps.",
+                folder: "week11_1/",
+                tasks: [
+                    "React components.html"
+                ]
             }
         };
 
@@ -344,6 +385,22 @@
         const label = document.getElementById("weekLabel");
         const description = document.getElementById("weekDescription");
         const list = document.getElementById("assignmentList");
+        const meta = document.getElementById("weekMeta");
+        const pager = document.getElementById("pager");
+
+        function addChip(text) {
+            const chip = document.createElement("span");
+            chip.className = "chip";
+            chip.textContent = text;
+            meta.appendChild(chip);
+        }
+
+        function addPagerLink(text, key) {
+            const link = document.createElement("a");
+            link.href = "week.html?week=" + key;
+            link.textContent = text;
+            pager.appendChild(link);
+        }
 
         if (week) {
             document.title = week.title + " | Web Programming";
@@ -352,10 +409,22 @@
             label.textContent = "MY COURSEWORK";
             description.textContent = week.description;
 
+            const keys = Object.keys(weeks);
+            const position = keys.indexOf(weekKey);
+            addChip("Week " + (position + 1) + " of " + keys.length);
+            addChip(week.tasks.length + (week.tasks.length === 1 ? " page" : " pages"));
+
             week.tasks.forEach((task, index) => {
                 const link = document.createElement("a");
                 link.className = "assignment";
                 link.href = week.folder + encodeURIComponent(task);
+
+                const left = document.createElement("div");
+                left.className = "left";
+
+                const num = document.createElement("span");
+                num.className = "num";
+                num.textContent = String(index + 1).padStart(2, "0");
 
                 const info = document.createElement("div");
 
@@ -369,15 +438,26 @@
                 info.appendChild(heading);
                 info.appendChild(detail);
 
+                left.appendChild(num);
+                left.appendChild(info);
+
                 const arrow = document.createElement("span");
                 arrow.className = "arrow";
+                arrow.setAttribute("aria-hidden", "true");
                 arrow.textContent = "→";
 
-                link.appendChild(info);
+                link.appendChild(left);
                 link.appendChild(arrow);
 
                 list.appendChild(link);
             });
+
+            if (position > 0) {
+                addPagerLink("← " + weeks[keys[position - 1]].title, keys[position - 1]);
+            }
+            if (position < keys.length - 1) {
+                addPagerLink(weeks[keys[position + 1]].title + " →", keys[position + 1]);
+            }
 
         } else {
             title.textContent = "Week not found";
