@@ -3,52 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Week 11_1: React components and props. Homework apps and class exercises E1 to E8 with code and live output, plus a Course Catalog.">
-  <title>Week 11_1: React Components | Shrestha Puja</title>
+  <meta name="description" content="Week 11: React components and props. Every lecture and study-guide exercise with its code and a live output, an interactive props playground, a self-check quiz and a cheat sheet.">
+  <title>Week 11: React Components and Props | Shrestha Puja</title>
   <style>
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
     body { margin: 0; background: #F6F3FB; color: #1F1B2E; font: 17px/1.7 Georgia, "Times New Roman", serif; }
-    .skip { position: absolute; left: 12px; top: -60px; background: #3B2D63; color: #fff; padding: 10px 16px; border-radius: 6px; z-index: 20; }
+    .skip { position: absolute; left: 12px; top: -60px; background: #3B2D63; color: #fff; padding: 10px 16px; border-radius: 6px; z-index: 30; }
     .skip:focus { top: 12px; }
     a { color: #4B3A8A; }
-    a:focus-visible, button:focus-visible { outline: 3px solid #3B2D63; outline-offset: 3px; }
-    .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-    header { background: radial-gradient(circle at 85% 20%, rgba(245,166,35,.35), transparent 40%), radial-gradient(circle at 10% 90%, rgba(255,255,255,.12), transparent 45%), linear-gradient(135deg, #2D2150, #4B3A8A); color: #fff; padding: 52px 0 56px; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #3B2D63; outline-offset: 3px; }
+    .wrap { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+
+    header { position: relative; overflow: hidden; background: radial-gradient(circle at 88% 15%, rgba(245,166,35,.38), transparent 42%), radial-gradient(circle at 8% 95%, rgba(255,255,255,.14), transparent 45%), linear-gradient(135deg, #241A45, #4B3A8A); color: #fff; padding: 46px 0 58px; }
+    header .grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 36px; align-items: center; }
     header a { color: #E9E1FF; font: 0.95rem Arial, sans-serif; }
     .kicker { display: inline-block; margin: 22px 0 10px; background: #F5A623; color: #161616; font: bold 0.8rem Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; }
-    h1 { font-size: clamp(2.1rem, 6vw, 3.1rem); line-height: 1.15; margin: 0 0 12px; }
-    header p { margin: 0; color: #E9E1FF; max-width: 60ch; }
-    nav.jump { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); border-bottom: 1px solid #D9D2E8; }
+    h1 { font-size: clamp(2rem, 5.5vw, 3rem); line-height: 1.15; margin: 0 0 12px; }
+    header p { margin: 0 0 14px; color: #E9E1FF; max-width: 54ch; }
+    .tree { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.25); border-radius: 18px; padding: 22px; text-align: center; font-family: Consolas, monospace; font-size: .9rem; }
+    .node { display: inline-block; background: #fff; color: #2D2150; border-radius: 10px; padding: 8px 14px; font-weight: bold; }
+    .node.app { background: #F5A623; color: #161616; }
+    .tree .arr { margin: 8px 0; color: #E9E1FF; }
+    .tree .row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .tree .row .node { animation: float 3.4s ease-in-out infinite; }
+    .tree .row .node:nth-child(2) { animation-delay: .5s; } .tree .row .node:nth-child(3) { animation-delay: 1s; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+    nav.jump { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.97); border-bottom: 1px solid #D9D2E8; }
     nav.jump .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
     nav.jump a { white-space: nowrap; font: bold 0.85rem Arial, sans-serif; text-decoration: none; color: #3B2D63; background: #ECE6F7; padding: 6px 14px; border-radius: 999px; }
-    nav.jump a:hover { background: #3B2D63; color: #fff; }
-    h2 { color: #2D2150; font-size: 1.6rem; margin: 56px 0 14px; }
-    h2 small { display: block; font: 0.9rem Arial, sans-serif; color: #4A4458; margin-top: 2px; }
+    nav.jump a:hover, nav.jump a.active { background: #3B2D63; color: #fff; }
+
+    h2 { color: #2D2150; font-size: 1.6rem; margin: 58px 0 14px; }
+    h2 small { display: block; font: 0.92rem Arial, sans-serif; color: #4A4458; margin-top: 2px; }
     code { font-family: Consolas, "Courier New", monospace; background: #ECE6F7; padding: 1px 6px; border-radius: 4px; font-size: 0.9em; }
-    .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
-    .app { background: #fff; border-radius: 16px; padding: 22px; border-top: 6px solid #F5A623; box-shadow: 0 6px 18px rgba(45,33,80,.10); font: 0.97rem/1.6 Arial, sans-serif; }
-    .app h3 { font: 1.3rem Georgia, serif; color: #2D2150; margin: 0 0 8px; }
+
+    .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+    .app { background: #fff; border-radius: 16px; padding: 22px; border-top: 6px solid #F5A623; box-shadow: 0 6px 18px rgba(45,33,80,.10); font: 0.97rem/1.6 Arial, sans-serif; transition: transform .2s, box-shadow .2s; }
+    .app:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(45,33,80,.16); }
+    .app h3 { font: 1.25rem Georgia, serif; color: #2D2150; margin: 0 0 8px; }
     .app .links { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
     .btn { display: inline-block; text-decoration: none; font: bold 0.9rem Arial, sans-serif; padding: 9px 16px; border-radius: 999px; background: #3B2D63; color: #fff; }
     .btn.alt { background: #fff; color: #3B2D63; border: 2px solid #3B2D63; padding: 7px 14px; }
     .btn:hover { background: #F5A623; color: #161616; border-color: #F5A623; }
+
+    .objectives { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-family: Arial, sans-serif; }
+    .objectives li { background: #fff; border: 1px solid #D9D2E8; border-radius: 12px; padding: 12px 16px; display: flex; gap: 12px; align-items: flex-start; }
+    .objectives input { width: 20px; height: 20px; margin-top: 3px; accent-color: #3B2D63; }
+    .objectives label { flex: 1; cursor: pointer; }
+    .objectives a { font-size: .85rem; margin-left: 6px; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 6px; }
+    button { font: bold 0.88rem Arial, sans-serif; cursor: pointer; border-radius: 999px; padding: 8px 16px; border: 2px solid #3B2D63; background: #fff; color: #3B2D63; }
+    button:hover { background: #ECE6F7; }
+    button[aria-pressed="true"] { background: #3B2D63; color: #fff; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .progress { background: #fff; border: 1px solid #D9D2E8; border-radius: 14px; padding: 16px 20px; margin: 16px 0 0; font-family: Arial, sans-serif; }
+    .progress strong { color: #2D2150; }
+    .bar { height: 12px; background: #ECE6F7; border-radius: 999px; overflow: hidden; margin-top: 10px; }
+    .bar > div { height: 100%; width: 0; background: linear-gradient(90deg, #4B3A8A, #F5A623); transition: width .35s; }
+    .allDone { display: none; margin-top: 12px; background: #E6F3EA; border-left: 5px solid #1E6B3C; border-radius: 8px; padding: 10px 14px; color: #17402A; font-weight: bold; }
+    .count { font: 0.9rem Arial, sans-serif; color: #4A4458; margin: 10px 0 0; }
+
     .lab { background: #fff; border-radius: 18px; padding: 24px; margin-bottom: 26px; box-shadow: 0 6px 18px rgba(45,33,80,.10); }
-    .lab-head { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
-    .badge { background: #3B2D63; color: #fff; font: bold 0.9rem Arial, sans-serif; border-radius: 10px; padding: 6px 12px; }
-    .lab h3 { margin: 0; font-size: 1.3rem; color: #2D2150; }
+    .lab-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+    .badge { background: #3B2D63; color: #fff; font: bold 0.88rem Arial, sans-serif; border-radius: 10px; padding: 6px 12px; }
+    .lab h3 { margin: 0; font-size: 1.3rem; color: #2D2150; flex: 1; min-width: 200px; }
+    .grp { font: bold 0.72rem Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #ECE6F7; color: #3B2D63; }
+    .grp.guide { background: #FBE7C2; color: #5A3A00; } .grp.extra { background: #D9EFE2; color: #17402A; }
     .goal { font: 0.97rem/1.6 Arial, sans-serif; color: #3C3650; margin: 8px 0 14px; }
     .code { border-radius: 12px; overflow: hidden; background: #231F33; }
     .code-head { display: flex; align-items: center; gap: 8px; background: #2F2945; color: #D9D2F0; font: 0.82rem Consolas, monospace; padding: 8px 14px; }
     .dot { width: 10px; height: 10px; border-radius: 50%; background: #F5A623; } .dot:nth-child(2) { background: #8F7CC9; } .dot:nth-child(3) { background: #5E4FA0; }
+    .code-head .sp { flex: 1; }
+    .code-head button { font-size: .75rem; padding: 3px 12px; border-color: #D9D2F0; background: transparent; color: #F3EEFF; }
+    .code-head button:hover { background: #4B3A8A; }
     .code pre { margin: 0; padding: 16px; overflow-x: auto; color: #F3EEFF; font: 0.85rem/1.6 Consolas, "Courier New", monospace; max-height: 420px; }
     .label { font: bold 0.75rem Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #4B3A8A; margin: 18px 0 6px; }
     .stage { display: flex; flex-wrap: wrap; gap: 14px; background: #F6F3FB; border: 2px dashed #CFC4EA; border-radius: 12px; padding: 18px; font-family: Arial, sans-serif; font-size: 0.97rem; line-height: 1.55; }
     .result { margin: 14px 0 0; padding: 12px 16px; background: #E6F3EA; border-left: 5px solid #1E6B3C; border-radius: 6px; font: 0.95rem/1.6 Arial, sans-serif; color: #17402A; }
+    .done-row { margin-top: 14px; }
+
     .card { background: #fff; border: 1px solid #D9D2E8; border-radius: 12px; padding: 16px; min-width: 210px; }
     .card h4 { margin: 0 0 6px; font: 1.1rem Georgia, serif; color: #3B2D63; }
     .card p { margin: 4px 0; }
+    .center { text-align: center; } .role { color: #4A4458; }
     .avatar { width: 64px; height: 64px; border-radius: 50%; display: block; margin-bottom: 8px; }
+    .initials { width: 56px; height: 56px; border-radius: 50%; background: #2F5D8C; color: #fff; font: bold 1.1rem Arial, sans-serif; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
     .stars { color: #8A5A00; letter-spacing: 2px; }
     .sold-out { background: #E7E4EC; color: #4A4458; }
     .good { color: #1E6B3C; font-weight: bold; } .bad { color: #9A2B2B; font-weight: bold; }
@@ -57,16 +99,43 @@
     .notes .success { border-color: #1E6B3C; } .notes .warning { border-color: #8A5A00; }
     .alert { width: 100%; padding: 10px 14px; border-radius: 8px; font-weight: bold; }
     .alert.error { background: #F7DCDC; color: #7A1F1F; } .alert.success { background: #D9EFE2; color: #17502D; }
-    button { font: bold 0.9rem Arial, sans-serif; cursor: pointer; border-radius: 999px; padding: 8px 16px; border: 2px solid #3B2D63; background: #fff; color: #3B2D63; }
-    button:hover { background: #ECE6F7; }
-    button[aria-pressed="true"] { background: #3B2D63; color: #fff; }
-    .filters { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
-    .count { width: 100%; color: #4A4458; margin: 2px 0; }
-    .course { width: 230px; }
+    .sizes { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .sizes .sm { font-size: 0.8rem; padding: 4px 12px; } .sizes .lg { font-size: 1.15rem; padding: 12px 24px; }
+    .mini { width: 100%; border: 1px solid #D9D2E8; border-radius: 12px; overflow: hidden; background: #fff; }
+    .mini-head { background: #3B2D63; color: #fff; padding: 10px 16px; font-weight: bold; }
+    .mini-body { padding: 14px 16px; display: grid; gap: 10px; }
+    .mini-foot { background: #ECE6F7; color: #3B2D63; padding: 8px 16px; font-size: 0.85rem; }
+    .controls { display: grid; gap: 10px; width: 100%; max-width: 360px; }
+    .controls label { display: grid; gap: 3px; font-weight: bold; font-size: .85rem; color: #3B2D63; }
+    .controls input[type=text], .controls input[type=email] { font: 1rem Arial, sans-serif; padding: 8px 12px; border: 2px solid #CFC4EA; border-radius: 8px; }
+    .quiz-q { width: 100%; background: #fff; border: 1px solid #D9D2E8; border-radius: 12px; padding: 14px 16px; }
+    .quiz-q fieldset { border: 0; margin: 0; padding: 0; } .quiz-q legend { font-weight: bold; margin-bottom: 6px; padding: 0; }
+    .quiz-q label { display: block; padding: 3px 0; cursor: pointer; }
     .tag { display: inline-block; background: #ECE6F7; color: #3B2D63; border-radius: 999px; padding: 2px 10px; font-size: 0.82rem; font-weight: bold; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    .cheats { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .cheat { background: #fff; border-radius: 14px; padding: 16px; border-top: 5px solid #4B3A8A; font-family: Arial, sans-serif; }
+    .cheat h3 { margin: 0 0 8px; font: bold 1rem Georgia, serif; color: #2D2150; }
+    .cheat pre { margin: 0; background: #231F33; color: #F3EEFF; padding: 12px; border-radius: 8px; overflow-x: auto; font: 0.8rem/1.55 Consolas, monospace; }
+    .sources { columns: 2 280px; gap: 24px; font: 0.97rem/1.7 Arial, sans-serif; padding-left: 20px; }
+    .top { position: fixed; right: 18px; bottom: 18px; z-index: 25; background: #3B2D63; color: #fff; text-decoration: none; font: bold .85rem Arial, sans-serif; padding: 10px 16px; border-radius: 999px; box-shadow: 0 6px 16px rgba(0,0,0,.25); }
+    .top:hover { background: #F5A623; color: #161616; }
+    .search { flex: 1; min-width: 220px; font: 1rem Arial, sans-serif; padding: 9px 16px; border: 2px solid #CFC4EA; border-radius: 999px; background: #fff; color: #1F1B2E; }
+    .numchips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .numchips a { font: bold .8rem Arial, sans-serif; text-decoration: none; min-width: 30px; text-align: center; padding: 4px 8px; border-radius: 999px; border: 1px solid #CFC4EA; color: #3B2D63; background: #fff; }
+    .numchips a.done { background: #1E6B3C; border-color: #1E6B3C; color: #fff; }
+    .grp.task { background: #E3E8FB; color: #1F2F6B; }
+    details.codebox { margin-top: 14px; }
+    details.codebox summary { cursor: pointer; font: bold .95rem Arial, sans-serif; color: #3B2D63; padding: 6px 0; }
+    details.codebox[open] summary { margin-bottom: 8px; }
+    .controls select { font: 1rem Arial, sans-serif; padding: 8px 12px; border: 2px solid #CFC4EA; border-radius: 8px; background: #fff; color: #1F1B2E; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s, transform .5s; }
+    .reveal.show { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
     footer { border-top: 1px solid #D9D2E8; margin-top: 56px; padding: 22px 0; color: #4A4458; font: 0.9rem Arial, sans-serif; }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media (max-width: 760px) { header .grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .tree .row .node { animation: none; } .bar > div, .app { transition: none; } .app:hover { transform: none; } }
   </style>
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -75,163 +144,350 @@
 <body>
   <a class="skip" href="#content">Skip to main content</a>
 
-  <header>
-    <div class="wrap">
-      <a href="../index.html">&larr; Back to portfolio</a><br>
-      <span class="kicker">Week 11 &middot; React</span>
-      <h1>Components and props</h1>
-      <p>My homework apps and the class exercises E1 to E8, each with its code and a live, working output, plus a Course Catalog.</p>
+  <header id="top">
+    <div class="wrap grid">
+      <div>
+        <a href="../week.html?week=week11_1">&larr; Week 11</a> &nbsp;&middot;&nbsp; <a href="../index.html">All weeks</a><br>
+        <span class="kicker">Week 11 &middot; React</span>
+        <h1>Components and props</h1>
+        <p>Every example from the lecture notes and the study guide, each with its code and a live output. Plus a props playground, a self-check quiz, a cheat sheet and my four homework projects.</p>
+      </div>
+      <div class="tree" aria-hidden="true">
+        <div class="node app">&lt;App /&gt;</div>
+        <div class="arr">&darr; props</div>
+        <div class="row"><span class="node">Card A</span><span class="node">Card B</span><span class="node">Card C</span></div>
+      </div>
     </div>
   </header>
 
-  <nav class="jump" aria-label="Jump to an exercise"><div class="wrap" id="nav"><a href="#homework">Homework</a></div></nav>
+  <nav class="jump" aria-label="Page sections"><div class="wrap" id="nav">
+    <a href="#homework">Homework</a><a href="#objectives">Objectives</a><a href="#practice">Exercises</a><a href="#cheatsheet">Cheat sheet</a><a href="#sources">Sources</a>
+  </div></nav>
 
   <main id="content" class="wrap">
-    <h2 id="homework">Homework <small>Two React apps, each in its own repository and deployed to GitHub Pages.</small></h2>
+    <h2 id="homework">Homework <small>Four React projects, each in its own repository and deployed to GitHub Pages.</small></h2>
     <div class="apps">
-      <article class="app">
-        <h3>Portfolio Gallery</h3>
-        <p>A <code>ProjectCard</code>, a <code>ProjectList</code> of six cards and a <code>FilterBar</code> that filters by technology using <code>useState</code>. State lives in <code>App</code> and the components receive props. Deployed by a GitHub Actions workflow.</p>
-        <div class="links">
-          <a class="btn" href="https://ps8023724-sys.github.io/portfolio-gallery/" target="_blank" rel="noopener noreferrer">Live app</a>
-          <a class="btn alt" href="https://github.com/ps8023724-sys/portfolio-gallery" target="_blank" rel="noopener noreferrer">Repository</a>
-        </div>
-      </article>
-      <article class="app">
-        <h3>Task 11-A: Student Directory</h3>
-        <p>A <code>StudentProfileCard</code> with five props (<code>name</code>, <code>studentId</code>, <code>major</code>, <code>year</code>, <code>gpa</code>) used for three students, styled with my own CSS. Built with Vite and React.</p>
-        <div class="links">
-          <a class="btn" href="https://ps8023724-sys.github.io/task11/" target="_blank" rel="noopener noreferrer">Live app</a>
-          <a class="btn alt" href="https://github.com/ps8023724-sys/task11" target="_blank" rel="noopener noreferrer">Repository</a>
-        </div>
-      </article>
+      <article class="app"><h3>1. Portfolio Gallery</h3>
+        <p>A <code>ProjectCard</code>, a <code>ProjectList</code> of six cards and a <code>FilterBar</code> that filters by technology with <code>useState</code>. Deployed with GitHub Actions.</p>
+        <div class="links"><a class="btn" href="https://ps8023724-sys.github.io/portfolio-gallery/" target="_blank" rel="noopener noreferrer">Live app</a><a class="btn alt" href="https://github.com/ps8023724-sys/portfolio-gallery" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
+      <article class="app"><h3>2. Student Directory (Task 11-A)</h3>
+        <p>A <code>StudentProfileCard</code> with five props (<code>name</code>, <code>studentId</code>, <code>major</code>, <code>year</code>, <code>gpa</code>) used for three students, with my own CSS.</p>
+        <div class="links"><a class="btn" href="https://ps8023724-sys.github.io/task11/" target="_blank" rel="noopener noreferrer">Live app</a><a class="btn alt" href="https://github.com/ps8023724-sys/task11" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
+      <article class="app"><h3>3. Course Catalog</h3>
+        <p>A <code>CourseCard</code> with title, instructor, credits and a required flag, rendered for three courses from an array.</p>
+        <div class="links"><a class="btn" href="https://ps8023724-sys.github.io/course-catalog/" target="_blank" rel="noopener noreferrer">Live app</a><a class="btn alt" href="https://github.com/ps8023724-sys/course-catalog" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
+      <article class="app"><h3>4. My Portfolio in React</h3>
+        <p>My portfolio rebuilt with React: project cards that filter by technology and a skills section made of components. Featured projects include this week's work.</p>
+        <div class="links"><a class="btn" href="https://ps8023724-sys.github.io/portfolio/#projects" target="_blank" rel="noopener noreferrer">Live site</a><a class="btn alt" href="https://github.com/ps8023724-sys/portfolio" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
     </div>
 
-    <h2 id="practice">Class exercises and Course Catalog <small>The code in each box is the code that runs in the output below it.</small></h2>
-    <div id="labs"></div>
+    <h2 id="objectives">Learning objectives <small>From the study guide. Tick one when you can explain it, and follow the links to the exercises that cover it.</small></h2>
+    <ul class="objectives" id="objList">
+      <li><input type="checkbox" id="o1"><label for="o1">Write functional React components using JSX syntax <a href="#hello">Exercise 1</a><a href="#fragment">Exercise 10</a></label></li>
+      <li><input type="checkbox" id="o2"><label for="o2">Pass and consume props, including default values <a href="#profilecard">Exercise 3</a><a href="#button">Exercise 4</a><a href="#practice1">Practice 1</a></label></li>
+      <li><input type="checkbox" id="o3"><label for="o3">Render lists with <code>.map()</code> and proper <code>key</code> props <a href="#studentlist">Exercise 7</a><a href="#courses">Exercise 16</a></label></li>
+      <li><input type="checkbox" id="o4"><label for="o4">Use conditional rendering (ternary and <code>&amp;&amp;</code>) <a href="#conditional">Exercise 8</a><a href="#greeting">Exercise 15</a></label></li>
+      <li><input type="checkbox" id="o5"><label for="o5">Compose large UIs from small, focused components <a href="#composition">Exercise 6</a><a href="#composition2">Exercise 14</a></label></li>
+    </ul>
+
+    <h2 id="practice">Exercises <small>The code in each box is the code that runs in the output below it. Open Show code to read it, Replay to reset an output, and Copy to take the code.</small></h2>
+    <div class="toolbar" id="chips" role="group" aria-label="Filter exercises by topic"></div>
+    <div class="toolbar">
+      <input type="search" id="q" class="search" placeholder="Search exercises (try: props, children, keys)" aria-label="Search exercises">
+      <button type="button" id="expand">Expand all code</button>
+    </div>
+    <p class="count" id="shown" aria-live="polite"></p>
+    <div class="progress" aria-live="polite">
+      <strong id="doneText">0 of 0 done</strong> &middot; press "Mark as done" under an exercise once you have tried it.
+      <div class="bar"><div id="doneBar"></div></div>
+      <div class="numchips" id="numchips"></div>
+      <div class="allDone" id="allDone">All exercises complete. Well done!</div>
+    </div>
+    <div id="labs" style="margin-top:22px"></div>
+
+    <h2 id="cheatsheet">Cheat sheet <small>The key patterns from the study guide in one place.</small></h2>
+    <div class="cheats">
+      <div class="cheat"><h3>Functional component</h3><pre>function MyComp() {
+  return &lt;div&gt;Hello&lt;/div&gt;;
+}</pre></div>
+      <div class="cheat"><h3>Props (destructured)</h3><pre>function Hi({ name, age = 0 }) {
+  return &lt;p&gt;{name}, {age}&lt;/p&gt;;
+}</pre></div>
+      <div class="cheat"><h3>Render a list</h3><pre>{items.map(item =&gt; (
+  &lt;li key={item.id}&gt;
+    {item.name}
+  &lt;/li&gt;
+))}</pre></div>
+      <div class="cheat"><h3>Ternary</h3><pre>{isOn
+  ? &lt;p&gt;On&lt;/p&gt;
+  : &lt;p&gt;Off&lt;/p&gt;
+}</pre></div>
+      <div class="cheat"><h3>Short-circuit &amp;&amp;</h3><pre>{isAdmin &amp;&amp;
+  &lt;button&gt;Delete&lt;/button&gt;
+}</pre></div>
+      <div class="cheat"><h3>props.children</h3><pre>function Panel({ children }) {
+  return &lt;div&gt;{children}&lt;/div&gt;;
+}</pre></div>
+      <div class="cheat"><h3>JSX rules</h3><pre>one root element (or &lt;&gt;&lt;/&gt;)
+className, not class
+self-close: &lt;br /&gt;
+JavaScript in {expressions}</pre></div>
+      <div class="cheat"><h3>The key rule</h3><pre>key={item.id}  // stable id: good
+key={index}    // avoid</pre></div>
+    </div>
+
+    <h2 id="sources">Class sources <small>The material this page is based on.</small></h2>
+    <ul class="sources">
+      <li><a href="https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Fri_ReactProps_v1.pdf" target="_blank" rel="noopener noreferrer">Lecture notes: React Components &amp; Props (PDF)</a></li>
+      <li><a href="https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Fri_StudyGuide.html" target="_blank" rel="noopener noreferrer">Study guide</a></li>
+      <li><a href="https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Fri_Task11A_ReactProps.html" target="_blank" rel="noopener noreferrer">Task 11-A: React props</a></li>
+      <li><a href="https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Mon_VisualLecture2.html" target="_blank" rel="noopener noreferrer">Visual lecture</a></li>
+      <li><a href="https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Fri_VideoLecture.html" target="_blank" rel="noopener noreferrer">Video lecture</a></li>
+      <li><a href="https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Fri_SprintQuiz.html" target="_blank" rel="noopener noreferrer">Sprint quiz</a></li>
+    </ul>
 
     <h2>How this page is built <small>One file, no build step.</small></h2>
-    <p>React is loaded from a CDN, and each exercise's source is written once, inside this page. The page reads that source, shows it in the code box, compiles it in the browser and mounts it in the output. The homework apps above are full projects with a build tool.</p>
+    <p>React is loaded from a CDN. Each exercise's source is written once, inside this page. The page shows it in the code box, compiles it in the browser and mounts it in the output, so the code you read is the code that runs. The homework projects above are full apps with a build tool.</p>
   </main>
 
   <footer><div class="wrap">Shrestha Puja &middot; 202537250 &middot; Web Programming, Gachon University</div></footer>
+  <a class="top" href="#top">&uarr; Top</a>
 
   <script type="text/plain" id="src">
-//@@ e1 | E1 | Your first component | Greeting.jsx | Write one function that returns JSX and use it more than once. | Three separate "Hello, World!" lines appear, one for every use of the component.
+//@@ hello | Exercise 1 | Hello, World! | Hello.jsx | A component is a function that returns JSX. Use it three times. | Three separate "Hello, World!" lines: one function, three independent copies. (Shown as h4 so the page keeps a single h1.) | Components | lecture
 // A component is a function that returns JSX.
 function Greeting() {
-  return <p>Hello, World!</p>;
+  return <h4>Hello, World!</h4>;
 }
 
-// Using it three times gives three independent copies.
-function Demo() {
+// A parent can use it as many times as it likes.
+function App() {
   return (
-    <>
+    <div>
       <Greeting />
       <Greeting />
       <Greeting />
-    </>
+    </div>
   );
 }
-//@@ e2 | E2 | StudentCard | StudentCard.jsx | Complete a card that works as <StudentCard name="Alice" id="20231234" major="CS" />, then add a second card with my own ID. | Two cards appear: the lab's example and a second one with my own student ID.
-function StudentCard({ name, id, major }) {
+//@@ usercards | Exercise 2 | User Cards | UserCard.jsx | Build a UserCard that works out the initials from the name and shows the year. | Three cards with initials computed from each name (AL, GH, AT) and the current year. | Props | lecture
+function UserCard({ name, role }) {
+  const initials = name.split(' ').map(w => w[0]).join('');
+
   return (
-    <div className="card">
+    <div className="card center">
+      <div className="initials" aria-hidden="true">{initials}</div>
       <h4>{name}</h4>
-      <p>ID: {id}</p>
-      <p>Major: {major}</p>
+      <p className="role">{role}</p>
+      <p>Joined: {new Date().getFullYear()}</p>
     </div>
   );
 }
 
-function Demo() {
+function App() {
   return (
     <>
-      <StudentCard name="Alice" id="20231234" major="CS" />
-      <StudentCard name="Shrestha Puja" id="202537250" major="Computer Engineering" />
+      <UserCard name="Ada Lovelace" role="Mathematician" />
+      <UserCard name="Grace Hopper" role="Rear Admiral" />
+      <UserCard name="Alan Turing" role="Computer Scientist" />
     </>
   );
 }
-//@@ e3 | E3 | ProfileCard with a default prop | ProfileCard.jsx | Build a card with name, role, email and an optional avatarUrl that has a default value. | The first card passes no avatarUrl, so it shows the default silhouette. The second passes its own avatar, my initials.
-const DEFAULT_AVATAR = "data:image/svg+xml," + encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="#ECE6F7"/><circle cx="40" cy="31" r="14" fill="#6B5B95"/><path d="M12 80c2-18 14-28 28-28s26 10 28 28z" fill="#6B5B95"/></svg>');
-
-const MY_AVATAR = "data:image/svg+xml," + encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="#2F4A38"/><text x="40" y="52" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="bold" fill="#F4EDE0">SP</text></svg>');
-
-// avatarUrl has a default value, so the parent may leave it out.
-function ProfileCard({ name, role, email, avatarUrl = DEFAULT_AVATAR }) {
+//@@ profilecard | Exercise 3 | Profile Card | ProfileCard.jsx | Pass strings, a number and a boolean as props and use them in the child. | The verified user shows "[Verified]" and a formatted follower count. The second user is not verified, so the && branch renders nothing. | Props | lecture
+function ProfileCard({ name, role, followers, isVerified }) {
   return (
     <div className="card">
-      <img className="avatar" src={avatarUrl} alt={"Avatar of " + name} width="64" height="64" />
-      <h4>{name}</h4>
+      <h4>{name} {isVerified && '[Verified]'}</h4>
       <p>{role}</p>
-      <a href={"mailto:" + email}>{email}</a>
+      <p>{followers.toLocaleString()} followers</p>
     </div>
   );
 }
 
-function Demo() {
+function App() {
   return (
     <>
-      <ProfileCard name="Sample Professor" role="Professor" email="professor@example.com" />
-      <ProfileCard name="Shrestha Puja" role="Computer Engineering student" email="student@example.com" avatarUrl={MY_AVATAR} />
+      <ProfileCard name="Kim Minho" role="Frontend Developer" followers={1240} isVerified={true} />
+      <ProfileCard name="Park Sohee" role="Designer" followers={980} isVerified={false} />
     </>
   );
 }
-//@@ e4 | E4 | List of notifications | NotificationList.jsx | Render an array with .map(), a stable key and an icon chosen by conditional rendering. | Three notifications show a check mark, a warning sign and an info icon. Each item is keyed by its id, not by its position.
-const notifications = [
-  { id: 1, type: "success", message: "Profile updated successfully" },
-  { id: 2, type: "warning", message: "Password expires in 3 days" },
-  { id: 3, type: "info", message: "New lecture materials available" },
-];
+//@@ button | Exercise 4 | Default props | Button.jsx | Give props default values (label, size, color, disabled). Then leave a prop out and watch the default take over. | Pick a size and type a label and the first button uses them. Clear the label box and it falls back to the default "Click me", because an empty label is passed as undefined. | Props | lecture
+const { useState } = React;
 
-function NotificationItem({ type, message }) {
-  const icon = type === "success" ? "✅" : type === "warning" ? "⚠️" : "ℹ️";
+function Button({ label = "Click me", size = "md", color = "#3B2D63", disabled = false }) {
   return (
-    <li className={type}>
-      <span aria-hidden="true">{icon} </span>
-      <span className="sr-only">{type}: </span>
-      {message}
-    </li>
+    <button
+      type="button"
+      className={size}
+      style={{ background: color, borderColor: color, color: "#fff" }}
+      disabled={disabled}
+    >
+      {label}
+    </button>
   );
 }
 
-function Demo() {
+function App() {
+  const [size, setSize] = useState("md");
+  const [label, setLabel] = useState("");
+
   return (
-    <ul className="notes">
-      {notifications.map((n) => (
-        <NotificationItem key={n.id} type={n.type} message={n.message} />
-      ))}
-    </ul>
+    <div style={{ width: "100%" }}>
+      <div className="controls" style={{ marginBottom: 12 }}>
+        <label>Size
+          <select value={size} onChange={e => setSize(e.target.value)}>
+            <option value="sm">sm</option>
+            <option value="md">md</option>
+            <option value="lg">lg</option>
+          </select>
+        </label>
+        <label>Label (empty = default)
+          <input type="text" value={label} onChange={e => setLabel(e.target.value)} />
+        </label>
+      </div>
+      <div className="sizes">
+        <Button label={label || undefined} size={size} />
+        <Button label="Delete" color="#9A2B2B" />
+        <Button label="Unavailable" disabled={true} />
+      </div>
+    </div>
   );
 }
-//@@ e5 | E5 | Layout with props.children | Card.jsx | Make one reusable Card that wraps whatever is placed between its tags. | The same Card shows a list in one place and a paragraph in the other.
+//@@ children | Exercise 5 | props.children | Card.jsx | Make a reusable wrapper that shows whatever is placed between its tags. | The same Card wraps a paragraph and a button in one place and a list in the other. | Composition | lecture
 function Card({ title, children }) {
   return (
-    <section className="card">
+    <div className="card">
       <h4>{title}</h4>
       <div>{children}</div>
-    </section>
+    </div>
   );
 }
 
-function Demo() {
+function App() {
   return (
     <>
-      <Card title="Lecture Topics">
-        <ul>
-          <li>Components</li>
-          <li>Props</li>
-        </ul>
+      <Card title="Student Info">
+        <p>Name: Park Jisoo</p>
+        <p>Major: Computer Engineering</p>
+        <button type="button">Edit Profile</button>
       </Card>
-      <Card title="Homework">
-        <p>Build a student portfolio component</p>
+      <Card title="Today">
+        <ul>
+          <li>Lecture: components</li>
+          <li>Lab: props</li>
+        </ul>
       </Card>
     </>
   );
 }
-//@@ e6 | E6 | ProductCard challenge | ProductCard.jsx | Build a ProductCard with name, price, rating and inStock. Bonus: show "4.5 / 5 stars" and an "Out of Stock" label. | Prices are formatted in won, ratings read "4.5 / 5 stars", and the USB-C Hub shows "Out of Stock" and is greyed out. Both bonuses are done.
+//@@ composition | Exercise 6 | Composing components | Page.jsx | Build a screen from small single-purpose components: Header, Card and Footer. | One page assembled from three components, each with one job. | Composition | lecture
+function Header({ title }) {
+  return <div className="mini-head">{title}</div>;
+}
+
+function Card({ title, children }) {
+  return (
+    <div className="card">
+      <h4>{title}</h4>
+      {children}
+    </div>
+  );
+}
+
+function Footer() {
+  return <div className="mini-foot">Web Programming · K0126_002</div>;
+}
+
+function App() {
+  return (
+    <div className="mini">
+      <Header title="My Page" />
+      <div className="mini-body">
+        <Card title="Welcome"><p>This page is built from small parts.</p></Card>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+//@@ studentlist | Exercise 7 | Lists with .map() | StudentList.jsx | Render an array with .map() and give every item a unique, stable key. Add and remove students to see why keys matter. | Three students are listed, each with a key taken from its id, never from the array index. Add a student and remove one from the middle: the other items keep their identity. | Lists | lecture
+const { useState } = React;
+
+const initial = [
+  { id: 1, name: 'Lee Jungwoo', grade: 'A'  },
+  { id: 2, name: 'Park Sohee',  grade: 'B+' },
+  { id: 3, name: 'Kim Minho',   grade: 'A-' },
+];
+
+function App() {
+  const [students, setStudents] = useState(initial);
+  const [name, setName] = useState("");
+
+  function add() {
+    if (!name.trim()) return;
+    setStudents([...students, { id: Date.now(), name: name.trim(), grade: '-' }]);
+    setName("");
+  }
+
+  return (
+    <div style={{ width: "100%" }}>
+      <div className="controls" style={{ marginBottom: 10 }}>
+        <label>New student
+          <input type="text" value={name} onChange={e => setName(e.target.value)} />
+        </label>
+        <button type="button" onClick={add}>Add student</button>
+      </div>
+      <ul>
+        {students.map(student => (
+          <li key={student.id}>
+            {student.name} -- {student.grade}{" "}
+            <button type="button" onClick={() => setStudents(students.filter(s => s.id !== student.id))}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+//@@ conditional | Exercise 8 | Conditional rendering | Conditional.jsx | Show or hide UI with null, && and a ternary. | Logged out: an error alert and "Please log in." After Log in, the alert disappears because it returned null, a welcome line appears, and the button becomes Log out. | Conditional | lecture
+const { useState } = React;
+
+function Alert({ type, message }) {
+  if (!message) return null; // render nothing
+
+  return (
+    <div className={"alert " + type} role="status">
+      {type === 'error' ? 'ERROR:' : 'OK:'} {message}
+    </div>
+  );
+}
+
+function Dashboard({ user }) {
+  return (
+    <div>
+      {user && <p>Welcome, {user.name}!</p>}
+      {!user && <p>Please log in.</p>}
+    </div>
+  );
+}
+
+function App() {
+  const [user, setUser] = useState(null);
+
+  return (
+    <>
+      <Alert type="error" message={user ? "" : "You are not logged in."} />
+      <div className="card">
+        <Dashboard user={user} />
+        <button type="button" onClick={() => setUser(user ? null : { name: "Jisoo" })}>
+          {user ? "Log out" : "Log in"}
+        </button>
+      </div>
+    </>
+  );
+}
+//@@ product | Exercise 9 | Code challenge: ProductCard | ProductCard.jsx | Build a ProductCard with name, price (KRW), rating and inStock. Bonus 1: show "4.5 / 5 stars". Bonus 2: show "Out of Stock" if !inStock. | Prices are formatted in won, ratings read "4.5 / 5 stars", and the USB-C Hub shows "Out of Stock" and is greyed out. Both bonuses are done. | Props | lecture
 function Stars({ rating }) {
   const full = Math.floor(rating);
   const half = rating - full >= 0.5 ? 1 : 0;
@@ -257,7 +513,7 @@ function ProductCard({ name, price, rating, inStock }) {
   );
 }
 
-function Demo() {
+function App() {
   return (
     <>
       <ProductCard name="Wireless Earbuds" price={89000} rating={4.5} inStock={true} />
@@ -266,104 +522,366 @@ function Demo() {
     </>
   );
 }
-//@@ e7 | E7 | Rendering a list with keys | StudentList.jsx | Render an array with .map() and give every item a unique, stable key. | Three students are listed, each with a key taken from its id.
-const students = [
-  { id: 1, name: "Lee Jungwoo", grade: "A" },
-  { id: 2, name: "Park Sohee", grade: "B+" },
-  { id: 3, name: "Kim Minho", grade: "A-" },
-];
+//@@ fragment | Exercise 10 | Fragments and JSX rules | Fragment.jsx | Return several elements without an extra wrapper, use an arrow-function component, and follow the JSX rules. | The Fragment adds no wrapper element, and the card shows a JavaScript expression (the date) inside curly braces. | Components | guide
+// A Fragment <>...</> returns several elements without an extra <div>.
+const UserCard = ({ name, program }) => (
+  <>
+    <h4>{name}</h4>
+    <p>{program}</p>
+  </>
+);
 
-function Demo() {
+// JSX rules: one root element, className (not class),
+// self-closed tags, and JavaScript expressions inside { }.
+function App() {
+  const user = "Shrestha";
+
   return (
-    <ul>
-      {students.map((s) => (
-        <li key={s.id}>{s.name} -- {s.grade}</li>
-      ))}
-    </ul>
+    <div className="card">
+      <h4>Welcome, {user}!</h4>
+      <p>Today: {new Date().toDateString()}</p>
+      <UserCard name="Sample Student" program="Computer Engineering · Year 2" />
+    </div>
   );
 }
-//@@ e8 | E8 | Conditional rendering | ConditionalDemo.jsx | Show different content depending on state: return null, use && and use a ternary. | Logged out, the page shows an error and "Please log in." The button logs in and then shows the success message and a welcome line.
-const { useState } = React;
+//@@ practice1 | Practice 1 | ProfileCard with an avatar default | ProfileCard.jsx | Accept name, role, email and an optional avatarUrl whose default is a placeholder image. | The first card passes no avatarUrl, so it shows the default silhouette. The second passes its own avatar, my initials. | Props | guide
+const DEFAULT_AVATAR = "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="#ECE6F7"/><circle cx="40" cy="31" r="14" fill="#6B5B95"/><path d="M12 80c2-18 14-28 28-28s26 10 28 28z" fill="#6B5B95"/></svg>');
 
-function Alert({ type, message }) {
-  if (!message) return null; // renders nothing
+const MY_AVATAR = "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="#2F4A38"/><text x="40" y="52" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="bold" fill="#F4EDE0">SP</text></svg>');
+
+function ProfileCard({ name, role, email, avatarUrl = DEFAULT_AVATAR }) {
   return (
-    <div className={"alert " + type} role="status">
-      {type === "error" ? "ERROR:" : "OK:"} {message}
+    <div className="card">
+      <img className="avatar" src={avatarUrl} alt={"Avatar of " + name} width="64" height="64" />
+      <h4>{name}</h4>
+      <p>{role}</p>
+      <a href={"mailto:" + email}>{email}</a>
     </div>
   );
 }
 
-function Dashboard({ user }) {
-  return (
-    <div>
-      {user && <p>Welcome, {user.name}!</p>}
-      {!user && <p>Please log in.</p>}
-    </div>
-  );
-}
-
-function Demo() {
-  const [user, setUser] = useState(null);
+function App() {
   return (
     <>
-      <Alert type="error" message={user ? "" : "You are not logged in."} />
-      <Alert type="success" message={user ? "Logged in successfully." : ""} />
-      <div className="card">
-        <Dashboard user={user} />
-        <button type="button" onClick={() => setUser(user ? null : { name: "Puja" })}>
-          {user ? "Log out" : "Log in"}
-        </button>
+      <ProfileCard name="Sample Professor" role="Professor" email="professor@example.com" />
+      <ProfileCard name="Shrestha Puja" role="Computer Engineering student" email="student@example.com" avatarUrl={MY_AVATAR} />
+    </>
+  );
+}
+//@@ practice2 | Practice 2 | NotificationList | NotificationList.jsx | Render an array of notifications with a check icon for success, a warning icon for warning and a default icon otherwise. Then filter the list by type. | Three notifications show a check mark, a warning sign and an info icon, each keyed by its id. The select box filters the list. | Lists | guide
+const { useState } = React;
+
+const notifications = [
+  { id: 1, type: 'success', message: 'Profile updated successfully' },
+  { id: 2, type: 'warning', message: 'Password expires in 3 days' },
+  { id: 3, type: 'info',    message: 'New lecture materials available' },
+];
+
+function NotificationItem({ type, message }) {
+  const icon = type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️';
+
+  return (
+    <li className={type}>
+      <span aria-hidden="true">{icon} </span>
+      <span className="sr-only">{type}: </span>
+      {message}
+    </li>
+  );
+}
+
+function App() {
+  const [filter, setFilter] = useState("all");
+  const shown = filter === "all" ? notifications : notifications.filter(n => n.type === filter);
+
+  return (
+    <div style={{ width: "100%" }}>
+      <div className="controls" style={{ marginBottom: 10 }}>
+        <label>Show
+          <select value={filter} onChange={e => setFilter(e.target.value)}>
+            <option value="all">all</option>
+            <option value="success">success</option>
+            <option value="warning">warning</option>
+            <option value="info">info</option>
+          </select>
+        </label>
+      </div>
+      <ul className="notes">
+        {shown.map(n => (
+          <NotificationItem key={n.id} type={n.type} message={n.message} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+//@@ practice3 | Practice 3 | Card with two sections | Card.jsx | Make a reusable Card with a title prop that renders any children, and use it to wrap two different sections. | The same Card component shows a list under Lecture Topics and a paragraph under Homework. | Composition | guide
+function Card({ title, children }) {
+  return (
+    <section className="card">
+      <h4>{title}</h4>
+      {children}
+    </section>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Card title="Lecture Topics">
+        <ul>
+          <li>Components</li>
+          <li>Props</li>
+        </ul>
+      </Card>
+      <Card title="Homework">
+        <p>Build a student portfolio component</p>
+      </Card>
+    </>
+  );
+}
+//@@ composition2 | Exercise 14 | Avatar, Badge and StudentCard | StudentCard.jsx | Compose a StudentCard from two small single-purpose components, Avatar and Badge. | Each StudentCard is built from an Avatar and a Badge. Avatar and Badge each have one narrow job. | Composition | guide
+const pic = (letter, color) => "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="' + color + '"/><text x="24" y="32" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold" fill="#fff">' + letter + '</text></svg>');
+
+function Avatar({ src, alt }) {
+  return <img src={src} alt={alt} width="48" height="48" style={{ borderRadius: '50%' }} />;
+}
+
+function Badge({ text, color = '#4B3A8A' }) {
+  return (
+    <span style={{ background: color, color: '#fff', padding: '2px 10px', borderRadius: 6, fontWeight: 'bold', fontSize: '0.85rem' }}>
+      {text}
+    </span>
+  );
+}
+
+function StudentCard({ name, studentId, year, avatarUrl }) {
+  return (
+    <div className="card">
+      <Avatar src={avatarUrl} alt={name} />
+      <h4>{name}</h4>
+      <p>ID: {studentId}</p>
+      <Badge text={`Year ${year}`} />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <StudentCard name="Amir" studentId="20231001" year={3} avatarUrl={pic('A', '#2F5D8C')} />
+      <StudentCard name="Zulfiya" studentId="20231002" year={2} avatarUrl={pic('Z', '#8A5A00')} />
+    </>
+  );
+}
+//@@ greeting | Exercise 15 | UserGreeting: three ways to branch | UserGreeting.jsx | Use a ternary, && and an early return to render different UI. | Toggle the buttons: the ternary swaps the greeting, && shows or hides Log out, and the early return blocks non-admins. | Conditional | guide
+const { useState } = React;
+
+function UserGreeting({ isLoggedIn, username }) {
+  return (
+    <div className="card">
+      {/* 1. ternary: one of two options */}
+      {isLoggedIn ? <p>Welcome back, {username}!</p> : <p>Please log in</p>}
+      {/* 2. &&: only when the condition is truthy */}
+      {isLoggedIn && <p className="good">Session active</p>}
+    </div>
+  );
+}
+
+// 3. early return: cleanest for a big branch
+function Dashboard({ isAdmin }) {
+  if (!isAdmin) return <p className="card">Access denied</p>;
+  return <p className="card">Admin panel</p>;
+}
+
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [admin, setAdmin] = useState(false);
+
+  return (
+    <>
+      <div>
+        <UserGreeting isLoggedIn={loggedIn} username="Amir" />
+        <button type="button" onClick={() => setLoggedIn(!loggedIn)}>{loggedIn ? "Log out" : "Log in"}</button>
+      </div>
+      <div>
+        <Dashboard isAdmin={admin} />
+        <button type="button" onClick={() => setAdmin(!admin)}>{admin ? "Remove admin" : "Make admin"}</button>
       </div>
     </>
   );
 }
-//@@ catalog | Extra | Course Catalog | CourseCatalog.jsx | Show a catalog of courses with category filter buttons and a Save button on every course, using useState. | The filter buttons are built from the data. Choosing a category narrows the list and updates the count, and Save / Saved toggles each course. The course data is sample data.
+//@@ courses | Exercise 16 | CourseList | CourseList.jsx | Render a list of courses with .map(), a stable key and the credits for each. | Three courses are listed with their credits, and the total is computed from the same array. | Lists | guide
+const courses = [
+  { id: 1, name: 'Web Programming', credits: 3 },
+  { id: 2, name: 'Databases',       credits: 3 },
+  { id: 3, name: 'Algorithms',      credits: 4 },
+];
+
+function App() {
+  const total = courses.reduce((sum, c) => sum + c.credits, 0);
+
+  return (
+    <div className="card">
+      <ul>
+        {courses.map(course => (
+          // key must be unique and stable: the id, not the index
+          <li key={course.id}>
+            {course.name} — {course.credits} credits
+          </li>
+        ))}
+      </ul>
+      <p><strong>Total: {total} credits</strong></p>
+    </div>
+  );
+}
+//@@ task11a | Task 11-A | StudentProfileCard | StudentProfileCard.jsx | Build a StudentProfileCard with five props (name, studentId, major, year, gpa) and use it for three students. | Three cards show all five props, and an Honors badge appears for a GPA of 3.8 or more. Edit the first name and only that card changes, because each card receives its own props. The students are sample data. | Props | task
+const { useState } = React;
+
+function StudentProfileCard({ name, studentId, major, year, gpa }) {
+  return (
+    <article className="card">
+      <h4>{name || "(no name)"}</h4>
+      <p>Student ID: {studentId}</p>
+      <p>Major: {major}</p>
+      <p>Year: {year}</p>
+      <p>GPA: {gpa.toFixed(2)} {gpa >= 3.8 && <span className="tag">Honors</span>}</p>
+    </article>
+  );
+}
+
+function App() {
+  const [name, setName] = useState("Alex Kim");
+
+  return (
+    <>
+      <div className="controls" style={{ width: "100%" }}>
+        <label>Edit the first student's name
+          <input type="text" value={name} onChange={e => setName(e.target.value)} />
+        </label>
+      </div>
+      <StudentProfileCard name={name} studentId="20260001" major="Computer Engineering" year="2nd year" gpa={3.82} />
+      <StudentProfileCard name="Jamie Park" studentId="20260002" major="Computer Engineering" year="3rd year" gpa={3.65} />
+      <StudentProfileCard name="Sam Lee" studentId="20260003" major="Computer Engineering" year="1st year" gpa={3.91} />
+    </>
+  );
+}
+//@@ coursecatalog | Course Catalog | CourseCard | CourseCard.jsx | Build a CourseCard with title, instructor, credits and a required flag, and render three courses from an array. | Three courses are rendered from an array. Required courses carry a Required badge and the others an Elective badge. Tick the box to show only required courses and the credit total updates. The courses are sample data. | Lists | task
 const { useState } = React;
 
 const courses = [
-  { id: 1, title: "Web Programming", category: "Web", seats: 12 },
-  { id: 2, title: "Accessibility Basics", category: "Web", seats: 8 },
-  { id: 3, title: "Data Structures", category: "Algorithms", seats: 5 },
-  { id: 4, title: "Discrete Mathematics", category: "Math", seats: 14 },
-  { id: 5, title: "Academic English", category: "Languages", seats: 20 },
+  { id: 1, title: "Web Programming",  instructor: "Dr. Han",  credits: 3, required: true },
+  { id: 2, title: "Data Structures",  instructor: "Prof. Lee", credits: 3, required: true },
+  { id: 3, title: "Creative Writing", instructor: "Dr. Park", credits: 2, required: false },
 ];
 
-function Demo() {
-  const [category, setCategory] = useState("All");
-  const [saved, setSaved] = useState([2, 3]);
+function CourseCard({ title, instructor, credits, required = false }) {
+  return (
+    <article className="card">
+      <h4>{title}</h4>
+      <p>Instructor: {instructor}</p>
+      <p>{credits} credits</p>
+      {required ? <span className="tag">Required</span> : <span className="tag">Elective</span>}
+    </article>
+  );
+}
 
-  // "All" plus every category in the data, without duplicates
-  const categories = ["All", ...new Set(courses.map((c) => c.category))];
-  const visible = category === "All"
-    ? courses
-    : courses.filter((c) => c.category === category);
+function App() {
+  const [onlyRequired, setOnlyRequired] = useState(false);
+  const shown = onlyRequired ? courses.filter(c => c.required) : courses;
+  const total = shown.reduce((sum, c) => sum + c.credits, 0);
 
-  function toggle(id) {
-    setSaved(saved.includes(id) ? saved.filter((s) => s !== id) : [...saved, id]);
-  }
+  return (
+    <div style={{ width: "100%" }}>
+      <label style={{ display: "block", marginBottom: 10 }}>
+        <input type="checkbox" checked={onlyRequired} onChange={e => setOnlyRequired(e.target.checked)} /> Required only
+      </label>
+      <div className="sizes" style={{ alignItems: "stretch" }}>
+        {shown.map(c => (
+          <CourseCard key={c.id} title={c.title} instructor={c.instructor} credits={c.credits} required={c.required} />
+        ))}
+      </div>
+      <p><strong>Total: {total} credits</strong></p>
+    </div>
+  );
+}
+//@@ playground | Extra | Props playground | Playground.jsx | Change the props of a ProfileCard with live inputs and see it re-render (controlled inputs with useState). | Type in the boxes and the card updates on every keystroke. Clearing the avatar switch falls back to the default avatar prop. | State | extra
+const { useState } = React;
+
+const DEFAULT_AVATAR = "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="#ECE6F7"/><circle cx="40" cy="31" r="14" fill="#6B5B95"/><path d="M12 80c2-18 14-28 28-28s26 10 28 28z" fill="#6B5B95"/></svg>');
+const MY_AVATAR = "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="#2F4A38"/><text x="40" y="52" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="bold" fill="#F4EDE0">SP</text></svg>');
+
+function ProfileCard({ name, role, email, avatarUrl = DEFAULT_AVATAR }) {
+  return (
+    <div className="card">
+      <img className="avatar" src={avatarUrl} alt="" width="64" height="64" />
+      <h4>{name || "(no name)"}</h4>
+      <p>{role}</p>
+      <p>{email}</p>
+    </div>
+  );
+}
+
+function App() {
+  const [name, setName] = useState("Shrestha Puja");
+  const [role, setRole] = useState("Computer Engineering student");
+  const [email, setEmail] = useState("student@example.com");
+  const [custom, setCustom] = useState(true);
 
   return (
     <>
-      <div className="filters" role="group" aria-label="Filter courses by category">
-        {categories.map((c) => (
-          <button key={c} type="button" aria-pressed={c === category} onClick={() => setCategory(c)}>
-            {c}
-          </button>
-        ))}
+      <div className="controls">
+        <label>Name <input type="text" value={name} onChange={e => setName(e.target.value)} /></label>
+        <label>Role <input type="text" value={role} onChange={e => setRole(e.target.value)} /></label>
+        <label>Email <input type="email" value={email} onChange={e => setEmail(e.target.value)} /></label>
+        <button type="button" aria-pressed={custom} onClick={() => setCustom(!custom)}>
+          Custom avatar: {custom ? "on" : "off"}
+        </button>
       </div>
-      <p className="count" aria-live="polite">{visible.length} visible · {saved.length} saved</p>
-      {visible.map((c) => (
-        <article className="card course" key={c.id}>
-          <h4>{c.title}</h4>
-          <p><span className="tag">{c.category}</span></p>
-          <p>{c.seats} seats left</p>
-          <button type="button" aria-pressed={saved.includes(c.id)} onClick={() => toggle(c.id)}>
-            {saved.includes(c.id) ? "Saved" : "Save"}
-          </button>
-        </article>
-      ))}
+      <ProfileCard name={name} role={role} email={email} avatarUrl={custom ? MY_AVATAR : undefined} />
     </>
+  );
+}
+//@@ quiz | Extra | Self-check quiz | Quiz.jsx | Answer three questions from the study guide, then check your score. State holds the chosen answers. | Pick an answer for each question and press Check answers. Each question shows whether it is right, and the score updates. | State | extra
+const { useState } = React;
+
+const questions = [
+  { id: "q1", text: "Which value is the best key for a list item?", options: ["The array index", "A stable unique id", "A random number"], answer: 1 },
+  { id: "q2", text: "How do you write the CSS class attribute in JSX?", options: ["class", "className", "cssClass"], answer: 1 },
+  { id: "q3", text: "What does <Greeting /> do, compared with <greeting />?", options: ["Nothing, they are the same", "It calls my Greeting function", "It renders a plain HTML tag"], answer: 1 },
+];
+
+function App() {
+  const [picked, setPicked] = useState({});
+  const [checked, setChecked] = useState(false);
+  const score = questions.filter(q => picked[q.id] === q.answer).length;
+
+  return (
+    <div style={{ width: "100%" }}>
+      {questions.map(q => (
+        <div className="quiz-q" key={q.id} style={{ marginBottom: 10 }}>
+          <fieldset>
+            <legend>{q.text}</legend>
+            {q.options.map((o, i) => (
+              <label key={i}>
+                <input type="radio" name={q.id} checked={picked[q.id] === i}
+                  onChange={() => { setPicked({ ...picked, [q.id]: i }); setChecked(false); }} /> {o}
+              </label>
+            ))}
+            {checked && (
+              <p className={picked[q.id] === q.answer ? "good" : "bad"}>
+                {picked[q.id] === q.answer ? "Correct" : "Not quite. Answer: " + q.options[q.answer]}
+              </p>
+            )}
+          </fieldset>
+        </div>
+      ))}
+      <button type="button" onClick={() => setChecked(true)}>Check answers</button>
+      {checked && <p role="status"><strong>Score: {score} / {questions.length}</strong></p>}
+    </div>
   );
 }
   </script>
@@ -373,65 +891,178 @@ function Demo() {
       var raw = document.getElementById("src").textContent;
       var parts = raw.split("//@@").slice(1);
       var list = document.getElementById("labs");
-      var nav = document.getElementById("nav");
+      var arts = [];
+      var topics = ["All"];
+      var labels = { lecture: "Lecture", guide: "Study guide", task: "Homework task", extra: "Extra" };
+
+      function store(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
+      function load(key, fallback) { try { var v = localStorage.getItem(key); return v === null ? fallback : v; } catch (e) { return fallback; } }
 
       parts.forEach(function (part) {
         var nl = part.indexOf("\n");
         var meta = part.slice(0, nl).split("|").map(function (s) { return s.trim(); });
         var code = part.slice(nl + 1).trim();
-        var id = meta[0], badge = meta[1], title = meta[2], file = meta[3], goal = meta[4], result = meta[5];
-
-        var link = document.createElement("a");
-        link.href = "#" + id;
-        link.textContent = badge === "Extra" ? "Catalog" : badge;
-        nav.appendChild(link);
+        var id = meta[0], badge = meta[1], title = meta[2], file = meta[3], goal = meta[4], result = meta[5], topic = meta[6], group = meta[7];
+        if (topics.indexOf(topic) === -1) { topics.push(topic); }
 
         var art = document.createElement("article");
-        art.className = "lab";
-        art.id = id;
+        art.className = "lab"; art.id = id; art.setAttribute("data-topic", topic);
 
-        var head = document.createElement("div");
-        head.className = "lab-head";
+        var head = document.createElement("div"); head.className = "lab-head";
         var b = document.createElement("span"); b.className = "badge"; b.textContent = badge;
         var h = document.createElement("h3"); h.textContent = title;
-        head.appendChild(b); head.appendChild(h);
+        var g = document.createElement("span"); g.className = "grp " + group; g.textContent = labels[group];
+        head.appendChild(b); head.appendChild(h); head.appendChild(g);
 
-        var g = document.createElement("p");
-        g.className = "goal";
+        var goalEl = document.createElement("p"); goalEl.className = "goal";
         var gs = document.createElement("strong"); gs.textContent = "Goal: ";
-        g.appendChild(gs); g.appendChild(document.createTextNode(goal));
+        goalEl.appendChild(gs); goalEl.appendChild(document.createTextNode(goal));
 
         var box = document.createElement("div"); box.className = "code";
         var ch = document.createElement("div"); ch.className = "code-head";
         ch.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
         var fn = document.createElement("span"); fn.textContent = file; ch.appendChild(fn);
+        var sp = document.createElement("span"); sp.className = "sp"; ch.appendChild(sp);
+        var copy = document.createElement("button"); copy.type = "button"; copy.textContent = "Copy";
+        var replay = document.createElement("button"); replay.type = "button"; replay.textContent = "Replay";
+        ch.appendChild(copy); ch.appendChild(replay);
         var pre = document.createElement("pre");
         var cd = document.createElement("code"); cd.style.background = "none"; cd.style.padding = "0"; cd.textContent = code;
         pre.appendChild(cd); box.appendChild(ch); box.appendChild(pre);
 
+        var l0 = document.createElement("p"); l0.className = "label"; l0.textContent = "Code";
         var l1 = document.createElement("p"); l1.className = "label"; l1.textContent = "Output (running)";
         var stage = document.createElement("div"); stage.className = "stage";
         var res = document.createElement("p"); res.className = "result";
         var rs = document.createElement("strong"); rs.textContent = "Result: ";
         res.appendChild(rs); res.appendChild(document.createTextNode(result));
 
-        var l0 = document.createElement("p"); l0.className = "label"; l0.textContent = "Code";
+        var row = document.createElement("div"); row.className = "done-row";
+        var doneBtn = document.createElement("button"); doneBtn.type = "button"; doneBtn.setAttribute("data-id", id);
+        row.appendChild(doneBtn);
 
-        art.appendChild(head); art.appendChild(g); art.appendChild(l0); art.appendChild(box);
-        art.appendChild(l1); art.appendChild(stage); art.appendChild(res);
-        list.appendChild(art);
+        var det = document.createElement("details"); det.className = "codebox";
+        var sum = document.createElement("summary"); sum.textContent = "Show code";
+        det.appendChild(sum); det.appendChild(box);
+        [head, goalEl, l1, stage, det, res, row].forEach(function (n) { art.appendChild(n); });
+        list.appendChild(art); arts.push(art);
+
+        copy.addEventListener("click", function () {
+          var done = function () { copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy"; }, 1500); };
+          if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(code).then(done); }
+          else { var r = document.createRange(); r.selectNodeContents(cd); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done(); }
+        });
 
         try {
-          var out = Babel.transform(code + "\nreturn Demo;", {
-            presets: ["react"],
-            parserOpts: { allowReturnOutsideFunction: true }
-          }).code;
-          var Demo = new Function("React", out)(React);
-          ReactDOM.createRoot(stage).render(React.createElement(Demo));
+          var out = Babel.transform(code + "\nreturn App;", { presets: ["react"], parserOpts: { allowReturnOutsideFunction: true } }).code;
+          var App = new Function("React", out)(React);
+          var root = ReactDOM.createRoot(stage);
+          var n = 0;
+          root.render(React.createElement(App, { key: n }));
+          replay.addEventListener("click", function () { n++; root.render(React.createElement(App, { key: n })); });
         } catch (e) {
-          stage.textContent = "This demo could not run: " + e.message;
+          stage.textContent = "This exercise could not run: " + e.message;
+          replay.disabled = true;
         }
       });
+
+      /* topic filter chips */
+      var chips = document.getElementById("chips");
+      var shown = document.getElementById("shown");
+      var active = "All";
+      var search = document.getElementById("q");
+      function applyFilter() {
+        var n = 0, q = search.value.trim().toLowerCase();
+        arts.forEach(function (a) {
+          var ok = (active === "All" || a.getAttribute("data-topic") === active) &&
+                   (q === "" || a.textContent.toLowerCase().indexOf(q) !== -1);
+          a.style.display = ok ? "" : "none"; if (ok) n++;
+        });
+        shown.textContent = "Showing " + n + " of " + arts.length + " exercises";
+        Array.prototype.forEach.call(chips.children, function (c) { c.setAttribute("aria-pressed", c.textContent === active ? "true" : "false"); });
+      }
+      search.addEventListener("input", applyFilter);
+      topics.forEach(function (t) {
+        var c = document.createElement("button"); c.type = "button"; c.textContent = t;
+        c.addEventListener("click", function () { active = t; applyFilter(); });
+        chips.appendChild(c);
+      });
+      applyFilter();
+
+      /* progress tracker */
+      var doneIds = []; try { doneIds = JSON.parse(load("w11-done-v3", "[]")); } catch (e) { doneIds = []; }
+      var btns = Array.prototype.slice.call(document.querySelectorAll(".done-row button"));
+      function refresh() {
+        btns.forEach(function (b) {
+          var on = doneIds.indexOf(b.getAttribute("data-id")) !== -1;
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+          b.textContent = on ? "Done ✓" : "Mark as done";
+        });
+        document.getElementById("doneText").textContent = doneIds.length + " of " + btns.length + " done";
+        document.getElementById("doneBar").style.width = (btns.length ? doneIds.length / btns.length * 100 : 0) + "%";
+        document.getElementById("allDone").style.display = doneIds.length === btns.length && btns.length > 0 ? "block" : "none";
+        var nc = document.getElementById("numchips");
+        nc.innerHTML = "";
+        arts.forEach(function (a, i) {
+          var c = document.createElement("a");
+          c.href = "#" + a.id; c.textContent = i + 1;
+          c.title = a.querySelector("h3").textContent;
+          if (doneIds.indexOf(a.id) !== -1) { c.className = "done"; }
+          nc.appendChild(c);
+        });
+        store("w11-done-v3", JSON.stringify(doneIds));
+      }
+      btns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          var id = b.getAttribute("data-id"), i = doneIds.indexOf(id);
+          if (i === -1) { doneIds.push(id); } else { doneIds.splice(i, 1); }
+          refresh();
+        });
+      });
+      refresh();
+
+      /* expand or collapse every code box */
+      var expandBtn = document.getElementById("expand"), expanded = false;
+      expandBtn.addEventListener("click", function () {
+        expanded = !expanded;
+        Array.prototype.forEach.call(document.querySelectorAll("details.codebox"), function (d) { d.open = expanded; });
+        expandBtn.textContent = expanded ? "Collapse all code" : "Expand all code";
+      });
+
+      /* fade each exercise in as it scrolls into view */
+      var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      arts.forEach(function (a) { a.classList.add("reveal"); });
+      if (calm || !("IntersectionObserver" in window)) {
+        arts.forEach(function (a) { a.classList.add("show"); });
+      } else {
+        var rio = new IntersectionObserver(function (es) {
+          es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("show"); } });
+        }, { threshold: 0.05 });
+        arts.forEach(function (a) { rio.observe(a); });
+      }
+
+      /* objectives checklist */
+      var objs = Array.prototype.slice.call(document.querySelectorAll("#objList input"));
+      var objState = {}; try { objState = JSON.parse(load("w11-obj-v3", "{}")); } catch (e) { objState = {}; }
+      objs.forEach(function (i) {
+        i.checked = !!objState[i.id];
+        i.addEventListener("change", function () { objState[i.id] = i.checked; store("w11-obj-v3", JSON.stringify(objState)); });
+      });
+
+      /* highlight the section being read in the sticky bar */
+      if ("IntersectionObserver" in window) {
+        var links = {};
+        Array.prototype.forEach.call(document.querySelectorAll("#nav a"), function (a) { links[a.getAttribute("href").slice(1)] = a; });
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting && links[en.target.id]) {
+              Object.keys(links).forEach(function (k) { links[k].classList.remove("active"); });
+              links[en.target.id].classList.add("active");
+            }
+          });
+        }, { rootMargin: "-30% 0px -60% 0px" });
+        Object.keys(links).forEach(function (k) { var el = document.getElementById(k); if (el) io.observe(el); });
+      }
     })();
   </script>
 </body>
