@@ -1,1 +1,1409 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Week 11-2 React state and events exercises">
+<title>My Week 11_2 Exercises</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #f7f6f3;
+  --card: #ffffff;
+  --ink: #292b38;
+  --muted: #858697;
+  --line: #eae9e5;
+  --purple: #7763a8;
+  --purple-light: #f0edf7;
+  --green: #568a70;
+  --red: #c87878;
+  --shadow: 0 8px 28px rgba(37,34,52,.045);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.topbar {
+  height: 68px;
+  background: rgba(255,255,255,.92);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(calc((100% - 1040px)/2), 25px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.brand-mark {
+  background: var(--purple);
+  color: white;
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  font-size: 17px;
+}
+
+.top-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1.7px;
+  font-weight: 700;
+}
+
+main {
+  max-width: 1040px;
+  margin: auto;
+  padding: 65px 25px 85px;
+}
+
+.intro {
+  margin-bottom: 45px;
+}
+
+.kicker {
+  color: var(--purple);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 6vw, 57px);
+  line-height: 1.2;
+  margin: 13px 0;
+  letter-spacing: -1px;
+}
+
+.intro p {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 550px;
+}
+
+.intro-line {
+  width: 48px;
+  height: 3px;
+  background: var(--purple);
+  margin-top: 24px;
+  border-radius: 5px;
+}
+
+.section {
+  margin-top: 47px;
+  scroll-margin-top: 30px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 19px;
+  gap: 12px;
+}
+
+.section-title h2 {
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.section-title p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.section-tag {
+  background: var(--purple-light);
+  color: var(--purple);
+  padding: 6px 11px;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.student-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 21px;
+  transition: .25s;
+}
+
+.student-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: #d4cce4;
+}
+
+.avatar {
+  width: 43px;
+  height: 43px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--purple-light);
+  color: var(--purple);
+  font-size: 19px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.student-card h3 {
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.student-id {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.student-info {
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 13px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.student-info span { color: var(--muted); }
+.student-info strong { text-align: right; }
+
+.tasks-heading {
+  margin-top: 58px;
+  margin-bottom: 19px;
+}
+
+.tasks-heading h2 {
+  font-size: 23px;
+}
+
+.tasks-heading p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.exercise-list {
+  display: grid;
+  gap: 17px;
+}
+
+.exercise {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+}
+
+.exercise-top {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  margin-bottom: 21px;
+}
+
+.exercise-number {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--purple-light);
+  color: var(--purple);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.exercise-top h3 {
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.exercise-top p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.demo {
+  background: #fbfafc;
+  border: 1px solid #efedf2;
+  border-radius: 11px;
+  padding: 19px;
+}
+
+.counter {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  font-size: 43px;
+  color: var(--purple);
+  margin-bottom: 13px;
+}
+
+.center { text-align: center; }
+
+.btn-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 11px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.primary {
+  background: var(--purple);
+  color: white;
+}
+
+.secondary {
+  background: white;
+  color: var(--purple);
+  border-color: #ddd5ea;
+}
+
+.danger {
+  background: #fbefef;
+  color: var(--red);
+}
+
+.success {
+  background: #eaf3ed;
+  color: var(--green);
+}
+
+.field {
+  width: 100%;
+  padding: 11px 13px;
+  background: white;
+  border: 1px solid #e5e1ea;
+  border-radius: 8px;
+  font-size: 12px;
+  outline: none;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.field:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(119,99,168,.09);
+}
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.preview {
+  padding: 14px;
+  border-radius: 9px;
+  background: var(--purple-light);
+  margin-top: 9px;
+}
+
+.preview small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.preview strong {
+  display: block;
+  font-size: 18px;
+  color: var(--purple);
+  margin-top: 4px;
+}
+
+.add-row {
+  display: flex;
+  gap: 9px;
+}
+
+.add-row .field {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.list-row {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+}
+
+.remove {
+  color: var(--red);
+  border: 0;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.details-panel {
+  background: var(--purple-light);
+  color: #61517e;
+  padding: 15px;
+  border-radius: 9px;
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.filter {
+  background: white;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 6px 13px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.filter.active {
+  background: var(--purple);
+  color: white;
+  border-color: var(--purple);
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.task-row input {
+  accent-color: var(--purple);
+  width: 15px;
+  height: 15px;
+}
+
+.task-row span { flex: 1; }
+
+.task-row.done span {
+  text-decoration: line-through;
+  color: #aaa6b1;
+}
+
+.progress-text {
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 11px;
+}
+
+.message {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.error {
+  background: #fbefef;
+  color: #b75d6d;
+}
+
+.ok {
+  background: #eaf3ed;
+  color: var(--green);
+}
+
+.code-details {
+  border-top: 1px solid var(--line);
+  margin-top: 19px;
+  padding-top: 13px;
+}
+
+.code-details summary {
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.code-details summary::before {
+  content: "+ ";
+}
+
+.code-details[open] summary::before {
+  content: "− ";
+}
+
+.code-details pre {
+  white-space: pre-wrap;
+  overflow-x: auto;
+  background: #292637;
+  color: #eee8fa;
+  padding: 17px;
+  border-radius: 9px;
+  margin-top: 12px;
+  font-family: Consolas, monospace;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.note-status {
+  color: var(--green);
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  background: white;
+  padding: 25px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media(max-width: 700px) {
+  .student-grid { grid-template-columns: 1fr; }
+  main { padding: 45px 18px 65px; }
+  .topbar { padding: 0 18px; }
+  .exercise { padding: 19px; }
+  .top-label { font-size: 8px; }
+}
+
+/* Refined lavender design */
+:root {
+  --bg: #f6f3fb;
+  --card: rgba(255,255,255,.94);
+  --ink: #28243a;
+  --muted: #817b91;
+  --line: #ebe5f3;
+  --purple: #7660a8;
+  --purple-light: #f1ecf8;
+  --shadow: 0 12px 34px rgba(66, 48, 100, .075);
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 7%, rgba(213, 199, 239, .38), transparent 25rem),
+    radial-gradient(circle at 92% 24%, rgba(232, 218, 244, .42), transparent 27rem),
+    #f8f6fb;
+}
+
+.topbar {
+  backdrop-filter: blur(14px);
+  box-shadow: 0 4px 20px rgba(54, 39, 79, .035);
+}
+
+.brand {
+  letter-spacing: -.35px;
+}
+
+.brand-mark {
+  border-radius: 13px;
+  box-shadow: 0 5px 13px rgba(119, 99, 168, .25);
+}
+
+.top-label {
+  letter-spacing: 2.1px;
+}
+
+main {
+  padding-top: 76px;
+}
+
+.intro {
+  position: relative;
+  padding: 34px 36px 31px;
+  border: 1px solid rgba(224, 214, 239, .9);
+  border-radius: 22px;
+  background: linear-gradient(120deg, rgba(255,255,255,.96), rgba(246,241,252,.92));
+  box-shadow: 0 15px 38px rgba(66, 48, 100, .055);
+  overflow: hidden;
+}
+
+.intro::after {
+  content: "✦";
+  position: absolute;
+  right: 42px;
+  top: 19px;
+  color: #d8c9eb;
+  font-size: 62px;
+  line-height: 1;
+  transform: rotate(12deg);
+}
+
+.kicker {
+  display: inline-block;
+  padding: 6px 11px;
+  border-radius: 30px;
+  background: #f0eaf8;
+  letter-spacing: 2.2px;
+}
+
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(40px, 6vw, 61px);
+  letter-spacing: -1.7px;
+  color: #302842;
+}
+
+.intro p {
+  font-size: 14px;
+  letter-spacing: .1px;
+}
+
+.intro-line {
+  width: 62px;
+  height: 4px;
+  background: linear-gradient(90deg, #7660a8, #c3afdf);
+}
+
+.section-title h2,
+.tasks-heading h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #342a48;
+  letter-spacing: -.45px;
+}
+
+.section-title h2 {
+  font-size: 23px;
+}
+
+.tasks-heading h2 {
+  font-size: 29px;
+}
+
+.section-tag {
+  border: 1px solid #e7def2;
+  letter-spacing: 1px;
+}
+
+.student-card {
+  position: relative;
+  border-radius: 17px;
+  padding: 23px;
+  background: linear-gradient(150deg, #fff 0%, #fcfaff 100%);
+  box-shadow: 0 8px 24px rgba(55, 42, 82, .045);
+}
+
+.student-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  right: 22px;
+  height: 3px;
+  border-radius: 0 0 5px 5px;
+  background: linear-gradient(90deg, #8d78ba, #d8c9ec);
+}
+
+.avatar {
+  border-radius: 15px;
+  background: linear-gradient(145deg, #eee7f8, #f8f4fc);
+  box-shadow: inset 0 0 0 1px rgba(130, 105, 173, .08);
+}
+
+.student-card h3 {
+  font-size: 16px;
+  letter-spacing: -.25px;
+}
+
+.student-info {
+  font-size: 12px;
+}
+
+.student-info strong {
+  color: #403650;
+}
+
+.exercise {
+  border-radius: 17px;
+  padding: 27px;
+  box-shadow: 0 9px 27px rgba(55, 42, 82, .05);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.exercise:hover {
+  transform: translateY(-2px);
+  border-color: #ddd2ed;
+  box-shadow: 0 14px 32px rgba(55, 42, 82, .075);
+}
+
+.exercise-number {
+  border-radius: 11px;
+  box-shadow: inset 0 0 0 1px rgba(130, 105, 173, .08);
+}
+
+.exercise-top h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  letter-spacing: -.35px;
+  color: #352c47;
+}
+
+.demo {
+  background: linear-gradient(145deg, #fbf9fd, #f8f5fb);
+  border-color: #eee8f4;
+}
+
+.btn {
+  border-radius: 9px;
+  letter-spacing: .1px;
+}
+
+.primary {
+  box-shadow: 0 4px 10px rgba(119, 99, 168, .17);
+}
+
+.primary:hover {
+  background: #66518f;
+}
+
+.field {
+  border-radius: 9px;
+}
+
+.preview {
+  border: 1px solid #e8def3;
+}
+
+.code-details summary {
+  letter-spacing: .15px;
+}
+
+.code-details pre {
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+footer {
+  background: linear-gradient(180deg, #fff, #faf8fc);
+}
+
+@media(max-width: 700px) {
+  .intro {
+    padding: 27px 22px;
+  }
+  .intro::after {
+    right: 19px;
+    top: 15px;
+    font-size: 43px;
+  }
+  .section-title h2 {
+    font-size: 21px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+// STUDENT CARD COMPONENT
+
+function StudentCard({ name, studentId, major, gpa }) {
+  return (
+    <article className="student-card">
+      <div className="avatar">{name.charAt(0)}</div>
+      <h3>{name}</h3>
+      <p className="student-id">ID: {studentId}</p>
+
+      <div className="student-info">
+        <span>Major</span>
+        <strong>{major}</strong>
+      </div>
+
+      <div className="student-info">
+        <span>GPA</span>
+        <strong>{gpa || "Not provided"}</strong>
+      </div>
+    </article>
+  );
+}
+
+// E1: COUNTER
+
+function CounterExercise() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="demo">
+      <div className="counter">{count}</div>
+      <div className="btn-row">
+        <button className="btn secondary"
+          onClick={() => setCount(c => c - 1)}>
+          Decrease
+        </button>
+        <button className="btn primary"
+          onClick={() => setCount(c => c + 1)}>
+          Add one
+        </button>
+        <button className="btn danger"
+          onClick={() => setCount(0)}>
+          Reset
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// E2: CONTROLLED INPUT
+
+function InputExercise() {
+  const [name, setName] = useState("");
+
+  return (
+    <div className="demo">
+      <label className="field-label" htmlFor="name-preview">
+        Your name
+      </label>
+      <input
+        id="name-preview"
+        className="field"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Type your name..."
+        maxLength={50}
+      />
+      <div className="preview">
+        <small>LIVE PREVIEW</small>
+        <strong>Hello, {name.trim() || "there"}!</strong>
+      </div>
+    </div>
+  );
+}
+
+// E3: ADD AND REMOVE LIST ITEMS
+
+function ListExercise() {
+  const [items, setItems] = useState([
+    {id: 1, text: "Finish the Git practice"},
+    {id: 2, text: "Revise CSS flexbox"},
+    {id: 3, text: "Submit the week 11 page"}
+  ]);
+
+  const [input, setInput] = useState("");
+  const [nextId, setNextId] = useState(4);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const text = input.trim();
+    if (!text) return;
+
+    setItems(current => [
+      ...current,
+      {id: nextId, text}
+    ]);
+    setNextId(id => id + 1);
+    setInput("");
+  }
+
+  function removeItem(id) {
+    setItems(current => current.filter(item => item.id !== id));
+  }
+
+  return (
+    <div className="demo">
+      <form onSubmit={handleSubmit} className="add-row">
+        <input
+          className="field"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          placeholder="Add a new item..."
+          aria-label="New list item"
+        />
+        <button className="btn primary" type="submit">Add</button>
+      </form>
+
+      <div className="list">
+        {items.length === 0 && (
+          <p className="progress-text">No items yet. Add one above.</p>
+        )}
+        {items.map(item => (
+          <div className="list-row" key={item.id}>
+            <span>{item.text}</span>
+            <button
+              className="remove"
+              onClick={() => removeItem(item.id)}
+              aria-label={`Remove ${item.text}`}
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// E4: SHOW AND HIDE CONTENT
+
+function ToggleExercise() {
+  const [visible, setVisible] = useState(true);
+
+  return (
+    <div className="demo">
+      <button
+        className="btn primary"
+        aria-expanded={visible}
+        onClick={() => setVisible(v => !v)}
+      >
+        {visible ? "Hide details" : "Show details"}
+      </button>
+
+      {visible && (
+        <div className="details-panel">
+          State lets React update just the part of the interface
+          that changed. A boolean value controls whether this
+          content is displayed.
+        </div>
+      )}
+    </div>
+  );
+}
+
+// E5: TASK FILTERING
+
+function TaskExercise() {
+  const [tasks, setTasks] = useState([
+    {id: 1, text: "Push the project to GitHub", done: true},
+    {id: 2, text: "Rebuild the dist folder", done: false},
+    {id: 3, text: "Check the live link", done: false}
+  ]);
+
+  const [filter, setFilter] = useState("All");
+
+  const filtered = tasks.filter(task => {
+    if (filter === "Active") return !task.done;
+    if (filter === "Done") return task.done;
+    return true;
+  });
+
+  const completed = tasks.filter(task => task.done).length;
+
+  function toggle(id) {
+    setTasks(current =>
+      current.map(task =>
+        task.id === id
+          ? {...task, done: !task.done}
+          : task
+      )
+    );
+  }
+
+  function clearCompleted() {
+    setTasks(current => current.filter(task => !task.done));
+  }
+
+  return (
+    <div className="demo">
+      <p className="progress-text">
+        {completed} of {tasks.length} tasks completed
+      </p>
+
+      <div className="filters">
+        {["All", "Active", "Done"].map(option => (
+          <button
+            key={option}
+            className={`filter ${filter === option ? "active" : ""}`}
+            onClick={() => setFilter(option)}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+
+      {filtered.length === 0 && (
+        <p className="progress-text">No tasks to display.</p>
+      )}
+
+      {filtered.map(task => (
+        <label
+          className={`task-row ${task.done ? "done" : ""}`}
+          key={task.id}
+        >
+          <input
+            type="checkbox"
+            checked={task.done}
+            onChange={() => toggle(task.id)}
+          />
+          <span>{task.text}</span>
+        </label>
+      ))}
+
+      <button
+        className="btn secondary"
+        onClick={clearCompleted}
+        style={{marginTop: 8}}
+      >
+        Clear completed
+      </button>
+    </div>
+  );
+}
+
+// E6: CONTROLLED FORM
+
+function FormExercise() {
+  const [form, setForm] = useState({
+    name: "",
+    email: ""
+  });
+
+  const [message, setMessage] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!form.name.trim() || !form.email.trim()) {
+      setMessage("Please fill in both fields.");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    setMessage(`Profile saved successfully for ${form.name}!`);
+    setForm({name: "", email: ""});
+  }
+
+  return (
+    <div className="demo">
+      <form onSubmit={handleSubmit}>
+        <label className="field-label" htmlFor="profile-name">
+          Name
+        </label>
+        <input
+          id="profile-name"
+          className="field"
+          value={form.name}
+          onChange={e => setForm({...form, name: e.target.value})}
+          placeholder="Enter your name"
+          maxLength={60}
+        />
+
+        <label className="field-label" htmlFor="profile-email">
+          Email
+        </label>
+        <input
+          id="profile-email"
+          className="field"
+          type="email"
+          value={form.email}
+          onChange={e => setForm({...form, email: e.target.value})}
+          placeholder="Enter your email"
+        />
+
+        <button className="btn primary" type="submit">
+          Save profile
+        </button>
+      </form>
+
+      {message && (
+        <div
+          className={`message ${
+            message.includes("successfully") ? "ok" : "error"
+          }`}
+          role="status"
+        >
+          {message}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// E7: LOCAL STORAGE AND USEEFFECT
+
+function NotesExercise() {
+  const [note, setNote] = useState(
+    () => localStorage.getItem("week11-quick-note") || ""
+  );
+
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("week11-quick-note", note);
+    setSaved(true);
+
+    const timer = setTimeout(() => setSaved(false), 1200);
+    return () => clearTimeout(timer);
+  }, [note]);
+
+  return (
+    <div className="demo">
+      <label className="field-label" htmlFor="quick-note">
+        Quick note
+      </label>
+      <textarea
+        id="quick-note"
+        className="field"
+        rows="5"
+        style={{resize: "vertical"}}
+        value={note}
+        onChange={e => setNote(e.target.value)}
+        placeholder="Write something you want to remember..."
+        maxLength={2000}
+      />
+
+      <p className="note-status" aria-live="polite">
+        {saved
+          ? "✓ Saved in this browser."
+          : "Saved in this browser. Refresh the page and it will still be here."}
+      </p>
+    </div>
+  );
+}
+
+// MAIN APP
+
+function App() {
+  const students = [
+    {
+      name: "Shrestha Puja",
+      studentId: "202537250",
+      major: "Computer Engineering",
+      gpa: "4.0 / 4.5"
+    },
+    {
+      name: "Aale Aaditi",
+      studentId: "202537195",
+      major: "Computer Engineering",
+      gpa: "4.0 / 4.5"
+    },
+    {
+      name: "Sunar Roshani",
+      studentId: "202537197",
+      major: "Computer Engineering",
+      gpa: "4.0 / 4.5"
+    }
+  ];
+
+  useEffect(() => {
+    document.title = "My Week 11_2 Exercises";
+  }, []);
+
+  return (
+    <>
+      <header className="topbar">
+        <div className="brand">
+          <div className="brand-mark">R</div>
+          My React Exercises
+        </div>
+        <span className="top-label">WEB PROGRAMMING · WEEK 11</span>
+      </header>
+
+      <main>
+        <section className="intro">
+          <span className="kicker">GACHON UNIVERSITY · 2026</span>
+          <h1>My Week 11_2 Exercises</h1>
+          <p>
+            React state and events: practice making the
+            interface respond.
+          </p>
+          <div className="intro-line"></div>
+        </section>
+
+        <section className="section">
+          <div className="section-title">
+            <div>
+              <h2>Student card</h2>
+              <p>Student information passed through React props.</p>
+            </div>
+            <span className="section-tag">COMPONENTS & PROPS</span>
+          </div>
+
+          <div className="student-grid">
+            {students.map(student => (
+              <StudentCard
+                key={student.studentId}
+                name={student.name}
+                studentId={student.studentId}
+                major={student.major}
+                gpa={student.gpa}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="tasks-heading">
+            <h2>React Tasks</h2>
+            <p>Seven practical exercises using React state and events.</p>
+          </div>
+
+          <div className="exercise-list">
+
+            <article className="exercise">
+              <div className="exercise-top">
+                <span className="exercise-number">E1</span>
+                <div>
+                  <h3>Update state with a counter</h3>
+                  <p>Use a functional state update so each click uses the latest count.</p>
+                </div>
+              </div>
+              <CounterExercise />
+              <details className="code-details">
+                <summary>View React example</summary>
+                <pre><code>{`const [count, setCount] = useState(0);
+
+<button onClick={() => setCount(c => c - 1)}>
+  Decrease
+</button>
+
+<button onClick={() => setCount(c => c + 1)}>
+  Add one
+</button>
+
+<button onClick={() => setCount(0)}>
+  Reset
+</button>`}</code></pre>
+              </details>
+            </article>
+
+            <article className="exercise">
+              <div className="exercise-top">
+                <span className="exercise-number">E2</span>
+                <div>
+                  <h3>Keep an input in sync</h3>
+                  <p>A controlled input stores its value in state and updates a preview as you type.</p>
+                </div>
+              </div>
+              <InputExercise />
+              <details className="code-details">
+                <summary>View React example</summary>
+                <pre><code>{`const [name, setName] = useState("");
+
+<input
+  value={name}
+  onChange={e => setName(e.target.value)}
+/>
+
+<h2>Hello, {name || "there"}!</h2>`}</code></pre>
+              </details>
+            </article>
+
+            <article className="exercise">
+              <div className="exercise-top">
+                <span className="exercise-number">E3</span>
+                <div>
+                  <h3>Add and remove list items</h3>
+                  <p>Update arrays immutably, give each item a stable ID, and handle form submission.</p>
+                </div>
+              </div>
+              <ListExercise />
+              <details className="code-details">
+                <summary>View React example</summary>
+                <pre><code>{`const [items, setItems] = useState([
+  { id: 1, text: "Finish the Git practice" }
+]);
+
+function addItem(text) {
+  setItems(current => [
+    ...current,
+    { id: Date.now(), text }
+  ]);
+}
+
+function removeItem(id) {
+  setItems(current =>
+    current.filter(item => item.id !== id)
+  );
+}`}</code></pre>
+              </details>
+            </article>
+
+            <article className="exercise">
+              <div className="exercise-top">
+                <span className="exercise-number">E4</span>
+                <div>
+                  <h3>Show and hide content</h3>
+                  <p>Use a boolean state value to reveal optional content and expose the control state accessibly.</p>
+                </div>
+              </div>
+              <ToggleExercise />
+              <details className="code-details">
+                <summary>View React example</summary>
+                <pre><code>{`const [visible, setVisible] = useState(true);
+
+<button
+  aria-expanded={visible}
+  onClick={() => setVisible(v => !v)}
+>
+  {visible ? "Hide details" : "Show details"}
+</button>
+
+{visible && <p>State lets React update the UI.</p>}`}</code></pre>
+              </details>
+            </article>
+
+            <article className="exercise">
+              <div className="exercise-top">
+                <span className="exercise-number">E5</span>
+                <div>
+                  <h3>Complete and filter tasks</h3>
+                  <p>Use object updates to mark tasks complete, then filter the list by status.</p>
+                </div>
+              </div>
+              <TaskExercise />
+              <details className="code-details">
+                <summary>View React example</summary>
+                <pre><code>{`function toggleTask(id) {
+  setTasks(current =>
+    current.map(task =>
+      task.id === id
+        ? { ...task, done: !task.done }
+        : task
+    )
+  );
+}
+
+const filtered = tasks.filter(task => {
+  if (filter === "Active") return !task.done;
+  if (filter === "Done") return task.done;
+  return true;
+});`}</code></pre>
+              </details>
+            </article>
+
+            <article className="exercise">
+              <div className="exercise-top">
+                <span className="exercise-number">E6</span>
+                <div>
+                  <h3>Validate a controlled form</h3>
+                  <p>Keep two fields in one object and show a simple message after submission.</p>
+                </div>
+              </div>
+              <FormExercise />
+              <details className="code-details">
+                <summary>View React example</summary>
+                <pre><code>{`const [form, setForm] = useState({
+  name: "",
+  email: ""
+});
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  if (!form.name.trim() || !form.email.trim()) {
+    setMessage("Please fill in both fields.");
+    return;
+  }
+
+  setMessage("Profile saved successfully!");
+}`}</code></pre>
+              </details>
+            </article>
+
+            <article className="exercise">
+              <div className="exercise-top">
+                <span className="exercise-number">E7</span>
+                <div>
+                  <h3>Save a note in the browser</h3>
+                  <p>Use an effect to save state with localStorage whenever the note changes.</p>
+                </div>
+              </div>
+              <NotesExercise />
+              <details className="code-details">
+                <summary>View React example</summary>
+                <pre><code>{`const [note, setNote] = useState(
+  () => localStorage.getItem("quick-note") || ""
+);
+
+useEffect(() => {
+  localStorage.setItem("quick-note", note);
+}, [note]);`}</code></pre>
+              </details>
+            </article>
+
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Shrestha Puja · 202537250 · Gachon University</p>
+        <p>Web Programming · Week 11_2</p>
+      </footer>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
+
