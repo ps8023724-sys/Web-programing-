@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -163,6 +164,42 @@
         .pager a:hover { border-color: #55458C; background: #F0ECF8; }
 
         footer { text-align: center; color: #5A5368; font-size: 12px; margin-top: 70px; }
+
+        /* Elegant little details */
+        body {
+            background-image:
+                radial-gradient(circle at 8% 18%, rgba(218,203,235,.22), transparent 25%),
+                radial-gradient(circle at 92% 72%, rgba(244,220,231,.28), transparent 22%);
+        }
+
+        .tag { background: #F2EAF4; color: #76518B; }
+        .eyebrow::before { content: "✦"; color: #C28AAB; margin-right: 8px; }
+        h1 { letter-spacing: -.8px; }
+        .description { font-size: 15px; }
+        .chip { background: rgba(255,255,255,.82); border-color: #E7DCEB; }
+
+        .assignment {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(85,69,140,.035);
+        }
+
+        .assignment::after {
+            content: "✧";
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 34px;
+            color: #F0E8F4;
+            pointer-events: none;
+        }
+
+        .assignment:hover { background: linear-gradient(110deg, #fff, #FCF8FC); }
+        .num { background: linear-gradient(145deg, #F0EAF8, #F7EAF1); }
+        .pager a { box-shadow: 0 4px 14px rgba(85,69,140,.04); }
+        .pager a:hover { transform: translateY(-2px); }
+        footer { letter-spacing: .5px; }
 
         @media (max-width: 600px) {
             body { padding: 25px 5%; }
@@ -373,6 +410,15 @@
                 folder: "week11_1/",
                 tasks: [
                     "React components.html"
+                ]
+            },
+
+            week11_2: {
+                title: "Week 11_2 — React State and Events",
+                description: "Seven interactive React exercises covering state updates, event handling, controlled inputs, lists, forms, filtering, and local storage.",
+                folder: "week11_2/",
+                tasks: [
+                    "index.html"
                 ]
             }
         };
