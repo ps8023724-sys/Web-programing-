@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,6 +91,33 @@
 
         footer { border-top: 1px solid #E9E5F2; padding: 22px 0 30px; display: flex; justify-content: space-between; color: #5A5368; font-size: 12px; flex-wrap: wrap; gap: 8px; }
 
+        /* Soft, polished details */
+        .hero { isolation: isolate; }
+        .eyebrow::before { content: "✦"; color: #C28AAB; margin-right: 9px; font-size: 13px; }
+        .latest-card { position: relative; overflow: hidden; }
+        .latest-card::after { content: "✧"; position: absolute; right: 22px; bottom: -35px; color: #F0E8F7; font-size: 118px; line-height: 1; pointer-events: none; }
+        .latest-card > * { position: relative; z-index: 1; }
+        .latest-card .tagline { background: #F4E7EF; color: #80536F; }
+        .stat { position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s; }
+        .stat:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(85,69,140,.08); }
+        .stat strong { letter-spacing: -.6px; }
+        .week-card { position: relative; }
+        .cover { overflow: hidden; }
+        .cover::after { content: "✧"; position: absolute; right: 22px; top: 12px; color: rgba(85,69,140,.16); font-size: 54px; }
+        .cover span, .cover small, .cover .latest { position: relative; z-index: 1; }
+        .cover.c14 { background-color: #F3E8F2; background-image: radial-gradient(rgba(255,255,255,.8) 1.5px, transparent 1.5px), linear-gradient(135deg, #F5EAF2, #E9E4F7); }
+        .week-card:last-child .cover { background-image: radial-gradient(rgba(255,255,255,.85) 1.5px, transparent 1.5px), linear-gradient(135deg, #F7E8EF, #E8E4F8); }
+        .week-card:last-child { border-color: #DCCBE7; }
+        .week-card:last-child .week-info h3 { color: #76518B; }
+        .week-info .open { letter-spacing: .2px; }
+        .search input { transition: border-color .2s, box-shadow .2s; }
+        .search input:focus { border-color: #8061AE; box-shadow: 0 0 0 4px rgba(128,97,174,.12); outline: none; }
+        .about { position: relative; overflow: hidden; background: linear-gradient(120deg, #F1ECF8, #F8EEF3); }
+        .about::after { content: "♡"; position: absolute; right: 24px; top: -35px; color: rgba(128,97,174,.10); font-size: 150px; pointer-events: none; }
+        .about > * { position: relative; z-index: 1; }
+        .link-card { border-left-color: #C49AB5; }
+        footer { letter-spacing: .2px; }
+
         @media (max-width: 860px) {
             .hero { grid-template-columns: 1fr; padding: 60px 0 40px; }
             .week-grid { grid-template-columns: repeat(2, 1fr); }
@@ -138,20 +166,20 @@
                 </p>
                 <div class="hero-actions">
                     <a class="btn" href="#weeks">Browse assignments</a>
-                    <a class="btn alt" href="week.html?week=week11_1">See the latest week</a>
+                    <a class="btn alt" href="week.html?week=week11_2">See the latest week</a>
                 </div>
             </div>
 
             <aside class="latest-card" aria-label="Latest work">
                 <span class="tagline">Latest</span>
-                <h2>Week 11: React components</h2>
-                <p>Eight class exercises with their code and live output, plus a Course Catalog and two React apps.</p>
-                <a href="week.html?week=week11_1">Open Week 11 &rarr;</a>
+                <h2>Week 11_2: React State and Events</h2>
+                <p>Seven interactive React exercises covering state, events, forms, lists, and local storage.</p>
+                <a href="week.html?week=week11_2">Open Week 11_2 &rarr;</a>
             </aside>
         </section>
 
         <section class="stats" aria-label="At a glance">
-            <div class="stat"><strong>14</strong><span>weeks of assignments</span></div>
+            <div class="stat"><strong>15</strong><span>assignment sections</span></div>
             <div class="stat"><strong>HTML to React</strong><span>CSS, JavaScript, APIs and components</span></div>
             <div class="stat"><strong>Git &amp; GitHub</strong><span>commits, branches, pull requests, Pages</span></div>
         </section>
@@ -159,237 +187,240 @@
 </div>
 
 <div class="container">
-        <section id="weeks" aria-labelledby="weeks-title">
-            <div class="section-top">
-                <div>
-                    <div class="eyebrow">The collection</div>
-                    <h2 id="weeks-title">My Assignments</h2>
-                </div>
-                <label class="search">
-                    Find a week
-                    <input type="search" id="weekSearch" placeholder="Try: React, forms, APIs">
-                </label>
-            </div>
-            <p class="result-count" id="resultCount" aria-live="polite"></p>
-
-            <div class="week-grid" id="weekGrid">
-
-                <a class="week-card" href="week.html?week=week1">
-                    <div class="cover ">
-                        <span>01</span>
-                        <small>Getting started</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 1</h3>
-                        <p>HTML fundamentals</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week2">
-                    <div class="cover c2">
-                        <span>02</span>
-                        <small>Building blocks</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 2</h3>
-                        <p>HTML practice</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week3_1">
-                    <div class="cover c3">
-                        <span>03</span>
-                        <small>Part one</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 3 — Assignment 1</h3>
-                        <p>HTML exercises</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week3_2">
-                    <div class="cover c4">
-                        <span>03</span>
-                        <small>Part two</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 3 — Assignment 2</h3>
-                        <p>HTML exercises</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week4">
-                    <div class="cover c5">
-                        <span>04</span>
-                        <small>Practice</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 4</h3>
-                        <p>HTML tasks</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week5">
-                    <div class="cover c6">
-                        <span>05</span>
-                        <small>JavaScript</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 5</h3>
-                        <p>JavaScript practice</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week6">
-                    <div class="cover c7">
-                        <span>06</span>
-                        <small>Working with APIs</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 6</h3>
-                        <p>API-based projects</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week7">
-                    <div class="cover c8">
-                        <span>07</span>
-                        <small>Open Library</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 7</h3>
-                        <p>Working with external data</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week8_1">
-                    <div class="cover c9">
-                        <span>08</span>
-                        <small>Forms &amp; CSS</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 8 — Part 1</h3>
-                        <p>HTML forms and CSS</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week8_2">
-                    <div class="cover c10">
-                        <span>08</span>
-                        <small>Validation</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 8 — Part 2</h3>
-                        <p>Forms and validation</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week9">
-                    <div class="cover c11">
-                        <span>09</span>
-                        <small>Accessibility</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 9</h3>
-                        <p>Web accessibility</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week9_2">
-                    <div class="cover c12">
-                        <span>09</span>
-                        <small>Performance</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 9_2</h3>
-                        <p>Web performance</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week10">
-                    <div class="cover c13">
-                        <span>10</span>
-                        <small>Git and GitHub</small>
-                        
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 10 — Git and GitHub</h3>
-                        <p>Git, version control, and deployment</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-                <a class="week-card" href="week.html?week=week11_1">
-                    <div class="cover c14">
-                        <span>11</span>
-                        <small>React</small>
-                        <span class="latest">Latest</span>
-                    </div>
-                    <div class="week-info">
-                        <h3>Week 11 — React components</h3>
-                        <p>Components, props, state and a course catalog</p>
-                        <span class="open">Explore week ↗</span>
-                    </div>
-                </a>
-
-            </div>
-            <p class="no-results" id="noResults">No week matches that search. Try another word.</p>
-        </section>
-
-        <section class="links" id="elsewhere" aria-labelledby="links-title">
-            <h2 id="links-title">More of my work</h2>
-            <div class="link-grid">
-                <a class="link-card" href="https://ps8023724-sys.github.io/portfolio/" target="_blank" rel="noopener noreferrer">
-                    <strong>Personal portfolio</strong><span>My portfolio site, built commit by commit</span>
-                </a>
-                <a class="link-card" href="https://ps8023724-sys.github.io/portfolio-gallery/" target="_blank" rel="noopener noreferrer">
-                    <strong>Portfolio Gallery (React)</strong><span>Project cards with a technology filter</span>
-                </a>
-                <a class="link-card" href="https://github.com/ps8023724-sys" target="_blank" rel="noopener noreferrer">
-                    <strong>GitHub profile</strong><span>All my repositories and commits</span>
-                </a>
-            </div>
-        </section>
-
-        <section class="about" id="about">
+    <section id="weeks" aria-labelledby="weeks-title">
+        <div class="section-top">
             <div>
-                <h2>A little about this portfolio</h2>
-                <p>
-                    This website brings together my weekly assignments and projects
-                    as I continue learning web programming. Each folder represents
-                    another step in that journey.
-                </p>
+                <div class="eyebrow">The collection</div>
+                <h2 id="weeks-title">My Assignments</h2>
             </div>
+            <label class="search">
+                Find a week
+                <input type="search" id="weekSearch" placeholder="Try: React, forms, APIs">
+            </label>
+        </div>
+        <p class="result-count" id="resultCount" aria-live="polite"></p>
 
-            <div class="student-detail">
-                <strong>Shrestha Puja</strong><br>
-                Student ID · 202537250
-            </div>
-        </section>
+        <div class="week-grid" id="weekGrid">
+
+            <a class="week-card" href="week.html?week=week1">
+                <div class="cover">
+                    <span>01</span>
+                    <small>Getting started</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 1</h3>
+                    <p>HTML fundamentals</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week2">
+                <div class="cover c2">
+                    <span>02</span>
+                    <small>Building blocks</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 2</h3>
+                    <p>HTML practice</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week3_1">
+                <div class="cover c3">
+                    <span>03</span>
+                    <small>Part one</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 3 — Assignment 1</h3>
+                    <p>HTML exercises</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week3_2">
+                <div class="cover c4">
+                    <span>03</span>
+                    <small>Part two</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 3 — Assignment 2</h3>
+                    <p>HTML exercises</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week4">
+                <div class="cover c5">
+                    <span>04</span>
+                    <small>Practice</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 4</h3>
+                    <p>HTML tasks</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week5">
+                <div class="cover c6">
+                    <span>05</span>
+                    <small>JavaScript</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 5</h3>
+                    <p>JavaScript practice</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week6">
+                <div class="cover c7">
+                    <span>06</span>
+                    <small>Working with APIs</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 6</h3>
+                    <p>API-based projects</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week7">
+                <div class="cover c8">
+                    <span>07</span>
+                    <small>Open Library</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 7</h3>
+                    <p>Working with external data</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week8_1">
+                <div class="cover c9">
+                    <span>08</span>
+                    <small>Forms &amp; CSS</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 8 — Part 1</h3>
+                    <p>HTML forms and CSS</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week8_2">
+                <div class="cover c10">
+                    <span>08</span>
+                    <small>Validation</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 8 — Part 2</h3>
+                    <p>Forms and validation</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week9">
+                <div class="cover c11">
+                    <span>09</span>
+                    <small>Accessibility</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 9</h3>
+                    <p>Web accessibility</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week9_2">
+                <div class="cover c12">
+                    <span>09</span>
+                    <small>Performance</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 9_2</h3>
+                    <p>Web performance</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week10">
+                <div class="cover c13">
+                    <span>10</span>
+                    <small>Git and GitHub</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 10 — Git and GitHub</h3>
+                    <p>Git, version control, and deployment</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week11_1">
+                <div class="cover c14">
+                    <span>11</span>
+                    <small>React components</small>
+                </div>
+                <div class="week-info">
+                    <h3>Week 11 — React components</h3>
+                    <p>Components, props, state and a course catalog</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+            <a class="week-card" href="week.html?week=week11_2">
+                <div class="cover c14">
+                    <span>11</span>
+                    <small>React state &amp; events</small>
+                    <span class="latest">Latest</span>
+                </div>
+                <div class="week-info">
+                    <h3>Week 11_2 — React State and Events</h3>
+                    <p>Interactive components, forms, lists, and local storage</p>
+                    <span class="open">Explore week ↗</span>
+                </div>
+            </a>
+
+        </div>
+
+        <p class="no-results" id="noResults">No week matches that search. Try another word.</p>
+    </section>
+
+    <section class="links" id="elsewhere" aria-labelledby="links-title">
+        <h2 id="links-title">More of my work</h2>
+        <div class="link-grid">
+            <a class="link-card" href="https://ps8023724-sys.github.io/portfolio/" target="_blank" rel="noopener noreferrer">
+                <strong>Personal portfolio</strong>
+                <span>My portfolio site, built commit by commit</span>
+            </a>
+            <a class="link-card" href="https://ps8023724-sys.github.io/portfolio-gallery/" target="_blank" rel="noopener noreferrer">
+                <strong>Portfolio Gallery (React)</strong>
+                <span>Project cards with a technology filter</span>
+            </a>
+            <a class="link-card" href="https://github.com/ps8023724-sys" target="_blank" rel="noopener noreferrer">
+                <strong>GitHub profile</strong>
+                <span>All my repositories and commits</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div>
+            <h2>A little about this portfolio</h2>
+            <p>
+                This website brings together my weekly assignments and projects
+                as I continue learning web programming. Each folder represents
+                another step in that journey.
+            </p>
+        </div>
+
+        <div class="student-detail">
+            <strong>Shrestha Puja</strong><br>
+            Student ID · 202537250
+        </div>
+    </section>
 
     <footer>
         <span>Web Programming Portfolio</span>
@@ -403,16 +434,19 @@
         var cards = Array.prototype.slice.call(document.querySelectorAll(".week-card"));
         var count = document.getElementById("resultCount");
         var none = document.getElementById("noResults");
+
         input.addEventListener("input", function () {
             var q = input.value.trim().toLowerCase();
             var shown = 0;
+
             cards.forEach(function (card) {
                 var match = q === "" || card.textContent.toLowerCase().indexOf(q) !== -1;
                 card.style.display = match ? "" : "none";
                 if (match) shown++;
             });
+
             none.style.display = shown === 0 ? "block" : "none";
-            count.textContent = q === "" ? "" : shown + " of " + cards.length + " weeks match";
+            count.textContent = q === "" ? "" : shown + " of " + cards.length + " assignments match";
         });
     })();
 </script>
