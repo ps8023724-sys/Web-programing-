@@ -1,1 +1,1144 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 12_1 | React Practice Collection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    :root {
+      --cream: #fff8f3;
+      --paper: #fffdfb;
+
+      /* Brighter pink and red accents */
+      --rose: #e83e70;
+      --rose-light: #ffe3eb;
+      --pink: #d92f62;
+      --plum: #633c63;
+      --red: #c92c4b;
+
+      /* Decorative pastel colours */
+      --lilac: #eadcf3;
+      --blue: #dce7f2;
+      --yellow: #f8edc8;
+      --peach: #f7d9cd;
+
+      /* Readable text colours */
+      --brown: #302421;
+      --muted: #6d5b55;
+      --line: #e7d5ce;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 5% 10%, #f9e3df 0, transparent 30%),
+        radial-gradient(ellipse at 95% 45%, #f0e1f0 0, transparent 30%),
+        var(--cream);
+      color: var(--brown);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+    }
+
+    button, input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .announcement {
+      background: var(--plum);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .topbar {
+      max-width: 1150px;
+      margin: auto;
+      padding: 22px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      font-weight: 700;
+      color: var(--plum);
+    }
+
+    .logo em {
+      color: var(--rose);
+      font-weight: 600;
+    }
+
+    .logo-caption {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .top-link {
+      color: var(--plum);
+      text-decoration: none;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 10px 17px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .top-link:hover {
+      background: var(--rose-light);
+      border-color: var(--rose);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 75px 20px 60px;
+      position: relative;
+    }
+
+    .hero-kicker {
+      color: var(--plum);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      margin-bottom: 17px;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(42px, 7vw, 70px);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--brown);
+    }
+
+    .hero h1 em {
+      color: var(--rose);
+      font-weight: 600;
+    }
+
+    .hero-description {
+      max-width: 480px;
+      margin: 18px auto 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero-decoration {
+      color: var(--red);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .main-container {
+      width: 90%;
+      max-width: 1050px;
+      margin: 0 auto 80px;
+    }
+
+    .section-heading {
+      margin-bottom: 25px;
+      padding-bottom: 17px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .section-heading h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 43px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--plum);
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .exercise-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 27px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 25px #493c3208;
+    }
+
+    .exercise-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .exercise-number {
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 23px;
+      font-weight: 600;
+      color: #352421;
+    }
+
+    .number-1 { background: var(--peach); }
+    .number-2 { background: var(--lilac); }
+    .number-3 { background: var(--yellow); }
+    .number-4 { background: var(--blue); }
+    .number-5 { background: var(--rose-light); }
+
+    .exercise-header h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 23px;
+      font-weight: 600;
+      color: var(--brown);
+    }
+
+    .exercise-header p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .exercise-content {
+      padding-left: 58px;
+    }
+
+    .mini-cart {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+    }
+
+    .mini-product {
+      background: #fff6f2;
+      border: 1px solid var(--line);
+      padding: 16px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .mini-product-icon {
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .mini-product h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .mini-product p {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      margin: 5px 0 12px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .quantity-controls button {
+      border: 1px solid #e7b7c4;
+      background: white;
+      border-radius: 50%;
+      width: 27px;
+      height: 27px;
+      color: var(--red);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .quantity-controls button:hover {
+      background: var(--rose-light);
+    }
+
+    .quantity-value {
+      min-width: 16px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .cart-total {
+      margin-top: 17px;
+      padding: 16px;
+      background: #f4eaf2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+
+    .cart-total span {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cart-total strong {
+      font-family: "Playfair Display", serif;
+      font-size: 23px;
+      color: var(--plum);
+    }
+
+    .shopping-link-area {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .main-button {
+      display: inline-block;
+      border: none;
+      background: var(--rose);
+      color: white;
+      padding: 11px 20px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: .2s;
+    }
+
+    .main-button:hover {
+      background: var(--plum);
+    }
+
+    .demo-button {
+      border: none;
+      background: var(--rose);
+      color: white;
+      padding: 11px 19px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .demo-button:hover {
+      background: var(--plum);
+    }
+
+    .secondary-button {
+      border: 1px solid #d9c4d5;
+      background: white;
+      color: var(--plum);
+      padding: 10px 17px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .secondary-button:hover {
+      background: var(--lilac);
+    }
+
+    .demo-box {
+      background: #fff8f4;
+      border: 1px dashed #dcb7c1;
+      padding: 23px;
+      border-radius: 6px;
+    }
+
+    .demo-box p {
+      font-size: 13px;
+      color: var(--brown);
+      margin-bottom: 15px;
+    }
+
+    .status-text {
+      color: var(--plum);
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    .task-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 17px;
+    }
+
+    .task-form input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 12px;
+      background: white;
+      color: var(--brown);
+      outline: none;
+      font-size: 12px;
+    }
+
+    .task-form input:focus {
+      border-color: var(--rose);
+    }
+
+    .task-list {
+      list-style: none;
+    }
+
+    .task-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      background: #fff4f0;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+    }
+
+    .task-list li:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+
+    .task-list li:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+
+    .task-list button {
+      border: none;
+      background: transparent;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .empty-message {
+      color: var(--muted);
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .player-card {
+      padding: 22px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .player-one {
+      background: #ffe7eb;
+    }
+
+    .player-two {
+      background: #eee1f2;
+    }
+
+    .player-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .player-score {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 53px;
+      font-weight: 600;
+      color: var(--plum);
+      line-height: 1.2;
+      margin: 8px 0 14px;
+    }
+
+    .score-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .score-buttons button {
+      border: 1px solid #d9b9c7;
+      background: white;
+      color: var(--plum);
+      border-radius: 4px;
+      padding: 7px 13px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .score-buttons button:hover {
+      background: var(--rose-light);
+    }
+
+    .score-total {
+      margin-top: 17px;
+      padding: 14px;
+      background: #f4eaf2;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .score-total span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .score-total strong {
+      display: block;
+      color: var(--plum);
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
+    }
+
+    .counter-display {
+      text-align: center;
+      padding: 18px;
+    }
+
+    .counter-number {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--rose);
+      font-size: 65px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .counter-label {
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 17px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .counter-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .history-area {
+      margin-top: 20px;
+      border-top: 1px dashed #dfc9d1;
+      padding-top: 15px;
+    }
+
+    .history-area h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .history-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .history-item {
+      background: var(--rose-light);
+      color: #9d244c;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .footer {
+      background: #f1e4e8;
+      text-align: center;
+      padding: 34px 15px;
+      color: var(--muted);
+    }
+
+    .footer-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--plum);
+      margin-bottom: 6px;
+    }
+
+    .footer p {
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 700px) {
+      .exercise-content {
+        padding-left: 0;
+      }
+
+      .mini-cart {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .exercise-card {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .scoreboard {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .top-link {
+        font-size: 9px;
+        padding: 9px 11px;
+      }
+
+      .task-form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    // Exercise 1: Shopping Cart Counter
+    const initialProducts = [
+      { id: 1, name: "Coffee", price: 4500, emoji: "☕" },
+      { id: 2, name: "Sandwich", price: 7000, emoji: "🥪" },
+      { id: 3, name: "Water", price: 1500, emoji: "💧" }
+    ];
+
+    function formatPrice(price) {
+      return "₩" + price.toLocaleString("ko-KR");
+    }
+
+    function MiniProduct({ product, quantity, onIncrease, onDecrease }) {
+      return (
+        <div className="mini-product">
+          <div className="mini-product-icon">{product.emoji}</div>
+          <h3>{product.name}</h3>
+          <p>{formatPrice(product.price)}</p>
+
+          <div className="quantity-controls">
+            <button
+              onClick={() => onDecrease(product.id)}
+              aria-label={"Decrease " + product.name}
+            >
+              −
+            </button>
+
+            <span className="quantity-value">{quantity}</span>
+
+            <button
+              onClick={() => onIncrease(product.id)}
+              aria-label={"Increase " + product.name}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    function ShoppingCartExercise() {
+      const [cart, setCart] = useState(
+        initialProducts.map(product => ({
+          ...product,
+          quantity: 0
+        }))
+      );
+
+      function increaseQuantity(id) {
+        setCart(prevCart =>
+          prevCart.map(item =>
+            item.id === id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        );
+      }
+
+      function decreaseQuantity(id) {
+        setCart(prevCart =>
+          prevCart.map(item =>
+            item.id === id
+              ? {
+                  ...item,
+                  quantity: Math.max(0, item.quantity - 1)
+                }
+              : item
+          )
+        );
+      }
+
+      const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+
+      return (
+        <section className="exercise-card">
+          <div className="exercise-header">
+            <div className="exercise-number number-1">01</div>
+            <div>
+              <h2>Shopping Cart Counter</h2>
+              <p>Manage product quantities and calculate the total.</p>
+            </div>
+          </div>
+
+          <div className="exercise-content">
+            <div className="mini-cart">
+              {cart.map(product => (
+                <MiniProduct
+                  key={product.id}
+                  product={product}
+                  quantity={product.quantity}
+                  onIncrease={increaseQuantity}
+                  onDecrease={decreaseQuantity}
+                />
+              ))}
+            </div>
+
+            <div className="cart-total">
+              <span>Total Price</span>
+              <strong>{formatPrice(total)}</strong>
+            </div>
+
+            <div className="shopping-link-area">
+              <a className="main-button" href="Shopping%20Cart.html">
+                Open Shopping Cart →
+              </a>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Exercise 2: Toggle Visibility
+    function ToggleVisibility() {
+      const [isVisible, setIsVisible] = useState(false);
+
+      return (
+        <section className="exercise-card">
+          <div className="exercise-header">
+            <div className="exercise-number number-2">02</div>
+            <div>
+              <h2>Toggle Visibility</h2>
+              <p>Show or hide a message using boolean state.</p>
+            </div>
+          </div>
+
+          <div className="exercise-content">
+            <div className="demo-box">
+              <button
+                className="demo-button"
+                onClick={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ? "Hide Message" : "Show Message"}
+              </button>
+
+              {isVisible && (
+                <p style={{marginTop: "18px", marginBottom: 0}}>
+                  ✿ Hello! Welcome to my Week 12_1 React exercises.
+                  This message appears and disappears using useState.
+                </p>
+              )}
+
+              <div className="status-text">
+                Message is currently {isVisible ? "visible" : "hidden"}.
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Exercise 3: Task List
+    function TaskList() {
+      const [tasks, setTasks] = useState([
+        { id: 1, text: "Review React useState" },
+        { id: 2, text: "Practice array methods" },
+        { id: 3, text: "Finish Week 12_1 assignment" }
+      ]);
+
+      const [newTask, setNewTask] = useState("");
+
+      function addTask() {
+        const trimmedTask = newTask.trim();
+
+        if (trimmedTask === "") {
+          return;
+        }
+
+        const task = {
+          id: Date.now(),
+          text: trimmedTask
+        };
+
+        setTasks(prevTasks => [...prevTasks, task]);
+        setNewTask("");
+      }
+
+      function removeTask(id) {
+        setTasks(prevTasks =>
+          prevTasks.filter(task => task.id !== id)
+        );
+      }
+
+      function handleSubmit(event) {
+        event.preventDefault();
+        addTask();
+      }
+
+      return (
+        <section className="exercise-card">
+          <div className="exercise-header">
+            <div className="exercise-number number-3">03</div>
+            <div>
+              <h2>My Task List</h2>
+              <p>Add new tasks and remove completed tasks.</p>
+            </div>
+          </div>
+
+          <div className="exercise-content">
+            <div className="demo-box">
+              <form className="task-form" onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Write a new task..."
+                  value={newTask}
+                  onChange={event => setNewTask(event.target.value)}
+                />
+
+                <button className="demo-button" type="submit">
+                  + Add Task
+                </button>
+              </form>
+
+              {tasks.length === 0 ? (
+                <div className="empty-message">
+                  No tasks yet. Add something to get started!
+                </div>
+              ) : (
+                <ul className="task-list">
+                  {tasks.map(task => (
+                    <li key={task.id}>
+                      <span>✿ {task.text}</span>
+                      <button onClick={() => removeTask(task.id)}>
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div className="status-text">
+                {tasks.length} {tasks.length === 1 ? "task" : "tasks"} remaining
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Exercise 4: Scoreboard
+    function PlayerScore({ name, score, onIncrease, onDecrease, colorClass }) {
+      return (
+        <div className={"player-card " + colorClass}>
+          <h3>{name}</h3>
+
+          <div className="player-score">{score}</div>
+
+          <div className="score-buttons">
+            <button onClick={onDecrease}>− 1</button>
+            <button onClick={onIncrease}>+ 1</button>
+          </div>
+        </div>
+      );
+    }
+
+    function Scoreboard() {
+      const [playerOneScore, setPlayerOneScore] = useState(0);
+      const [playerTwoScore, setPlayerTwoScore] = useState(0);
+
+      const totalScore = playerOneScore + playerTwoScore;
+
+      return (
+        <section className="exercise-card">
+          <div className="exercise-header">
+            <div className="exercise-number number-4">04</div>
+            <div>
+              <h2>Scoreboard</h2>
+              <p>Pass player scores through props and update the total.</p>
+            </div>
+          </div>
+
+          <div className="exercise-content">
+            <div className="scoreboard">
+              <PlayerScore
+                name="Player One"
+                score={playerOneScore}
+                onIncrease={() => setPlayerOneScore(prev => prev + 1)}
+                onDecrease={() => setPlayerOneScore(prev => Math.max(0, prev - 1))}
+                colorClass="player-one"
+              />
+
+              <PlayerScore
+                name="Player Two"
+                score={playerTwoScore}
+                onIncrease={() => setPlayerTwoScore(prev => prev + 1)}
+                onDecrease={() => setPlayerTwoScore(prev => Math.max(0, prev - 1))}
+                colorClass="player-two"
+              />
+            </div>
+
+            <div className="score-total">
+              <span>Combined Team Score</span>
+              <strong>{totalScore}</strong>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Exercise 5: Counter with History and Undo
+    function CounterHistory() {
+      const [count, setCount] = useState(0);
+      const [history, setHistory] = useState([0]);
+
+      function updateCount(newCount) {
+        setCount(newCount);
+
+        setHistory(prevHistory =>
+          [...prevHistory, newCount].slice(-5)
+        );
+      }
+
+      function increment() {
+        updateCount(count + 1);
+      }
+
+      function decrement() {
+        updateCount(count - 1);
+      }
+
+      function undo() {
+        if (history.length <= 1) {
+          return;
+        }
+
+        const previousCount = history[history.length - 2];
+
+        setCount(previousCount);
+        setHistory(prevHistory => prevHistory.slice(0, -1));
+      }
+
+      function reset() {
+        setCount(0);
+        setHistory([0]);
+      }
+
+      return (
+        <section className="exercise-card">
+          <div className="exercise-header">
+            <div className="exercise-number number-5">05</div>
+            <div>
+              <h2>Counter with History & Undo</h2>
+              <p>Track previous values and return to the last count.</p>
+            </div>
+          </div>
+
+          <div className="exercise-content">
+            <div className="demo-box">
+              <div className="counter-display">
+                <div className="counter-number">{count}</div>
+                <div className="counter-label">CURRENT COUNT</div>
+
+                <div className="counter-buttons">
+                  <button className="demo-button" onClick={increment}>
+                    + Increase
+                  </button>
+
+                  <button className="secondary-button" onClick={decrement}>
+                    − Decrease
+                  </button>
+
+                  <button
+                    className="secondary-button"
+                    onClick={undo}
+                    disabled={history.length <= 1}
+                    style={{
+                      opacity: history.length <= 1 ? 0.45 : 1
+                    }}
+                  >
+                    ↶ Undo
+                  </button>
+
+                  <button className="secondary-button" onClick={reset}>
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              <div className="history-area">
+                <h3>Recent History</h3>
+
+                <div className="history-list">
+                  {history.map((value, index) => (
+                    <span className="history-item" key={index}>
+                      {value}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="status-text">
+                  Showing the latest {history.length} values.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Main Week 12_1 page
+    function App() {
+      return (
+        <>
+          <div className="announcement">
+            React State & Components · Week 12_1
+          </div>
+
+          <header className="topbar">
+            <div>
+              <div className="logo">
+                React <em>Practice.</em>
+              </div>
+              <div className="logo-caption">
+                Web Programming · Week 12_1
+              </div>
+            </div>
+
+            <a className="top-link" href="Shopping%20Cart.html">
+              Shopping Cart →
+            </a>
+          </header>
+
+          <section className="hero">
+            <div className="hero-kicker">
+              REACT STATE & COMPONENTS
+            </div>
+
+            <h1>
+              Practice makes<br />
+              <em>progress.</em>
+            </h1>
+
+            <p className="hero-description">
+              Five exercises exploring React state, components,
+              props, arrays and interactive interfaces.
+            </p>
+
+            <div className="hero-decoration">
+              Learn · Create · Improve
+            </div>
+          </section>
+
+          <main className="main-container">
+            <div className="section-heading">
+              <div>
+                <h2>React Practice Collection</h2>
+                <p>Week 12_1 · State Practice Exercises</p>
+              </div>
+
+              <p>01 — 05</p>
+            </div>
+
+            <ShoppingCartExercise />
+            <ToggleVisibility />
+            <TaskList />
+            <Scoreboard />
+            <CounterHistory />
+
+            <div className="shopping-link-area">
+              <a href="Shopping%20Cart.html" className="main-button">
+                Open Shopping Cart →
+              </a>
+            </div>
+          </main>
+
+          <footer className="footer">
+            <div className="footer-brand">
+              Web Programming
+            </div>
+
+            <p>WEEK 12_1 · REACT STATE PRACTICE</p>
+
+            <p style={{marginTop: "12px"}}>
+              REACT STATE · COMPONENTS · PROPS
+            </p>
+          </footer>
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(
+      document.getElementById("root")
+    );
+
+    root.render(<App />);
+  </script>
+</body>
+</html>
+
