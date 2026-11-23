@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,26 +13,22 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'DM Sans', sans-serif;
-            background: #FAF8FC;
-            color: #302944;
+            font-family: "DM Sans", sans-serif;
+            background: #FFF9FA;
+            color: #302333;
             min-height: 100vh;
             padding: 35px 7%;
             position: relative;
             overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 8% 18%, rgba(244, 174, 197, .22), transparent 25%),
+                radial-gradient(circle at 92% 72%, rgba(211, 191, 236, .25), transparent 22%);
         }
 
-        body::before {
-            content: "";
-            position: absolute;
-            width: 480px; height: 480px;
-            right: -160px; top: -160px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(169, 148, 208, 0.30), transparent 65%);
-            z-index: 0;
+        a:focus-visible {
+            outline: 3px solid #C52F65;
+            outline-offset: 3px;
         }
-
-        a:focus-visible { outline: 3px solid #55458C; outline-offset: 3px; }
 
         .top, main, footer { position: relative; z-index: 1; }
 
@@ -42,14 +37,20 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 60px;
+            gap: 15px;
         }
 
-        .back { color: #55458C; text-decoration: none; font-weight: 600; }
-        .back:hover { text-decoration: underline; }
+        .back {
+            color: #A51F50;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .back:hover { color: #D52E69; text-decoration: underline; }
 
         .tag {
-            background: #E9E5F7;
-            color: #55458C;
+            background: #FCE0E9;
+            color: #A51F50;
             padding: 9px 17px;
             border-radius: 30px;
             font-size: 12px;
@@ -60,7 +61,7 @@
         main { max-width: 950px; margin: auto; }
 
         .eyebrow {
-            color: #62468F;
+            color: #A51F50;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 2px;
@@ -68,27 +69,39 @@
             margin-bottom: 15px;
         }
 
+        .eyebrow::before {
+            content: "✦";
+            color: #E23B78;
+            margin-right: 8px;
+        }
+
         h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: "Playfair Display", serif;
             font-size: clamp(36px, 6vw, 56px);
-            color: #55458C;
+            color: #762044;
             margin-bottom: 14px;
             line-height: 1.15;
         }
 
         .description {
-            color: #5A5368;
+            color: #51414A;
             line-height: 1.7;
             margin-bottom: 18px;
-            max-width: 62ch;
+            max-width: 65ch;
+            font-size: 15px;
         }
 
-        .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 36px;
+        }
 
         .chip {
-            background: #fff;
-            border: 1px solid #E4DCF2;
-            color: #55458C;
+            background: white;
+            border: 1px solid #E8A9C0;
+            color: #92234D;
             font-size: 12px;
             font-weight: 700;
             padding: 6px 14px;
@@ -103,44 +116,63 @@
             justify-content: space-between;
             gap: 20px;
             background: white;
-            border: 1px solid #E9E5F7;
+            border: 1px solid #F0DCE4;
             border-radius: 16px;
             padding: 22px 25px;
             text-decoration: none;
-            color: #302944;
-            transition: 0.2s ease;
+            color: #302333;
+            transition: .2s ease;
+            box-shadow: 0 5px 18px rgba(125, 35, 70, .04);
         }
 
         .assignment:hover {
-            border-color: #8061AE;
+            border-color: #D95B87;
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(85, 69, 140, 0.10);
+            box-shadow: 0 8px 24px rgba(165, 31, 80, .12);
+            background: linear-gradient(110deg, white, #FFF5F8);
         }
 
-        .assignment .left { display: flex; align-items: center; gap: 18px; }
+        .assignment .left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
 
         .num {
-            width: 46px; height: 46px;
+            width: 46px;
+            height: 46px;
             flex: none;
             border-radius: 14px;
-            background: #E9E5F7;
-            color: #55458C;
-            font-family: 'Playfair Display', serif;
+            background: linear-gradient(145deg, #F9DDE7, #F0E3F3);
+            color: #92234D;
+            font-family: "Playfair Display", serif;
             font-weight: 700;
             font-size: 18px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .assignment h2 { font-size: 17px; margin-bottom: 4px; }
-        .assignment p { color: #5A5368; font-size: 13px; }
-        .arrow { color: #55458C; font-size: 22px; }
+        .assignment h2 {
+            font-size: 17px;
+            margin-bottom: 4px;
+            color: #762044;
+        }
+
+        .assignment p { color: #51414A; font-size: 13px; }
+
+        .arrow {
+            color: #B51F58;
+            font-size: 22px;
+            flex: none;
+        }
 
         .empty {
             background: white;
-            border: 1px solid #E9E5F7;
+            border: 1px solid #F0DCE4;
             border-radius: 16px;
             padding: 25px;
-            color: #5A5368;
+            color: #51414A;
         }
 
         .pager {
@@ -153,54 +185,29 @@
 
         .pager a {
             text-decoration: none;
-            color: #55458C;
+            color: #A51F50;
             font-weight: 700;
             font-size: 14px;
-            background: #fff;
-            border: 2px solid #E4DCF2;
+            background: white;
+            border: 2px solid #F0C8D7;
             border-radius: 999px;
             padding: 10px 20px;
-            transition: 0.2s;
+            transition: .2s;
         }
 
-        .pager a:hover { border-color: #55458C; background: #F0ECF8; }
-
-        footer { text-align: center; color: #5A5368; font-size: 12px; margin-top: 70px; }
-
-        body {
-            background-image:
-                radial-gradient(circle at 8% 18%, rgba(218,203,235,.22), transparent 25%),
-                radial-gradient(circle at 92% 72%, rgba(244,220,231,.28), transparent 22%);
+        .pager a:hover {
+            border-color: #C52F65;
+            background: #FFF0F4;
+            transform: translateY(-2px);
         }
 
-        .tag { background: #F2EAF4; color: #76518B; }
-        .eyebrow::before { content: "✦"; color: #C28AAB; margin-right: 8px; }
-        h1 { letter-spacing: -.8px; }
-        .description { font-size: 15px; }
-        .chip { background: rgba(255,255,255,.82); border-color: #E7DCEB; }
-
-        .assignment {
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 18px rgba(85,69,140,.035);
+        footer {
+            text-align: center;
+            color: #51414A;
+            font-size: 12px;
+            margin-top: 70px;
+            letter-spacing: .5px;
         }
-
-        .assignment::after {
-            content: "✧";
-            position: absolute;
-            right: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 34px;
-            color: #F0E8F4;
-            pointer-events: none;
-        }
-
-        .assignment:hover { background: linear-gradient(110deg, #fff, #FCF8FC); }
-        .num { background: linear-gradient(145deg, #F0EAF8, #F7EAF1); }
-        .pager a { box-shadow: 0 4px 14px rgba(85,69,140,.04); }
-        .pager a:hover { transform: translateY(-2px); }
-        footer { letter-spacing: .5px; }
 
         @media (max-width: 600px) {
             body { padding: 25px 5%; }
@@ -211,273 +218,299 @@
 
         @media (prefers-reduced-motion: reduce) {
             .assignment, .pager a { transition: none; }
-            .assignment:hover { transform: none; }
+            .assignment:hover, .pager a:hover { transform: none; }
         }
     </style>
 </head>
 
 <body>
 
-    <header class="top">
-        <a class="back" href="index.html">← Back to portfolio</a>
-        <span class="tag">WEB PROGRAMMING</span>
-    </header>
+<header class="top">
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <span class="tag">WEB PROGRAMMING</span>
+</header>
 
-    <main>
-        <p class="eyebrow" id="weekLabel">MY COURSEWORK</p>
+<main>
+    <p class="eyebrow" id="weekLabel">MY COURSEWORK</p>
 
-        <h1 id="weekTitle">Assignments</h1>
+    <h1 id="weekTitle">Assignments</h1>
 
-        <p class="description" id="weekDescription">
-            Explore the exercises and projects completed during this week.
-        </p>
+    <p class="description" id="weekDescription">
+        Explore the exercises and projects completed during this week.
+    </p>
 
-        <div class="meta" id="weekMeta"></div>
+    <div class="meta" id="weekMeta"></div>
 
-        <section class="assignment-list" id="assignmentList"
-                 aria-label="Weekly assignments">
-        </section>
+    <section class="assignment-list" id="assignmentList"
+             aria-label="Weekly assignments">
+    </section>
 
-        <nav class="pager" id="pager" aria-label="Other weeks"></nav>
-    </main>
+    <nav class="pager" id="pager" aria-label="Other weeks"></nav>
+</main>
 
-    <footer>
-        SHRESTHA PUJA · 202537250 · GACHON UNIVERSITY
-    </footer>
+<footer>
+    SHRESTHA PUJA · 202537250 · GACHON UNIVERSITY
+</footer>
 
-    <script>
-        const weeks = {
-            week1: {
-                title: "Week 1",
-                description: "My first steps in HTML and building web pages.",
-                folder: "Week%201/",
-                tasks: [
-                    "profile.html", "recipe.html", "hobby.html",
-                    "navigation.html", "task1.html", "Task7.html", "Image.html"
-                ]
-            },
+<script>
+    const weeks = {
+        week1: {
+            title: "Week 1",
+            description: "My first steps in HTML and building web pages.",
+            folder: "Week%201/",
+            tasks: [
+                "profile.html",
+                "recipe.html",
+                "hobby.html",
+                "navigation.html",
+                "task1.html",
+                "Task7.html",
+                "Image.html"
+            ]
+        },
 
-            week2: {
-                title: "Week 2",
-                description: "Practicing HTML structure and web page elements.",
-                folder: "week%202/",
-                tasks: [
-                    "task1.html", "task2.html", "task3.html", "task4.html",
-                    "task5.html", "task6.html", "task7.html", "task8.html"
-                ]
-            },
+        week2: {
+            title: "Week 2",
+            description: "Practicing HTML structure and web page elements.",
+            folder: "week%202/",
+            tasks: [
+                "task1.html", "task2.html", "task3.html", "task4.html",
+                "task5.html", "task6.html", "task7.html", "task8.html"
+            ]
+        },
 
-            week3_1: {
-                title: "Week 3 — Assignment 1",
-                description: "Exploring CSS and improving page design.",
-                folder: "week3_1/",
-                tasks: [
-                    "task1.html", "task2.html", "task3.html", "task4.html",
-                    "task5.html", "task6.html", "task7.html", "task8.html"
-                ]
-            },
+        week3_1: {
+            title: "Week 3 — Assignment 1",
+            description: "Exploring CSS and improving page design.",
+            folder: "week3_1/",
+            tasks: [
+                "task1.html", "task2.html", "task3.html", "task4.html",
+                "task5.html", "task6.html", "task7.html", "task8.html"
+            ]
+        },
 
-            week3_2: {
-                title: "Week 3 — Assignment 2",
-                description: "More practice with HTML and CSS.",
-                folder: "week3_2/",
-                tasks: [
-                    "task1.html", "task2.html", "task3.html", "task4.html",
-                    "task5.html", "task6.html", "task7.html"
-                ]
-            },
+        week3_2: {
+            title: "Week 3 — Assignment 2",
+            description: "More practice with HTML and CSS.",
+            folder: "week3_2/",
+            tasks: [
+                "task1.html", "task2.html", "task3.html", "task4.html",
+                "task5.html", "task6.html", "task7.html"
+            ]
+        },
 
-            week4: {
-                title: "Week 4",
-                description: "Working with interactive web page features.",
-                folder: "week4/",
-                tasks: ["Task1.html", "Task2.html", "Task3.html", "Task4.html"]
-            },
+        week4: {
+            title: "Week 4",
+            description: "Working with interactive web page features.",
+            folder: "week4/",
+            tasks: [
+                "Task1.html", "Task2.html", "Task3.html", "Task4.html"
+            ]
+        },
 
-            week5: {
-                title: "Week 5",
-                description: "JavaScript exercises and interactive features.",
-                folder: "week5/",
-                tasks: ["Task1.html", "Task2.html"]
-            },
+        week5: {
+            title: "Week 5",
+            description: "JavaScript exercises and interactive features.",
+            folder: "week5/",
+            tasks: ["Task1.html", "Task2.html"]
+        },
 
-            week6: {
-                title: "Week 6",
-                description: "Exploring APIs and working with dynamic data.",
-                folder: "week6/",
-                tasks: [
-                    "CatExplorer.html", "Country.html", "Jokes.html",
-                    "Meteo.html", "Placeholder.html", "Random.html"
-                ]
-            },
+        week6: {
+            title: "Week 6",
+            description: "Exploring APIs and working with dynamic data.",
+            folder: "week6/",
+            tasks: [
+                "CatExplorer.html",
+                "Country.html",
+                "Jokes.html",
+                "Meteo.html",
+                "Placeholder.html",
+                "Random.html"
+            ]
+        },
 
-            week7: {
-                title: "Week 7",
-                description: "Working with external book data and APIs.",
-                folder: "week7/",
-                tasks: ["Open Library.html"]
-            },
+        week7: {
+            title: "Week 7",
+            description: "Working with external book data and APIs.",
+            folder: "week7/",
+            tasks: ["Open Library.html"]
+        },
 
-            week8_1: {
-                title: "Week 8 — Part 1",
-                description: "Forms, styling, and accessible web development.",
-                folder: "week8-1/",
-                tasks: [
-                    "Add CSS.html", "attributes.html",
-                    "Login Form.html", "Student Registration.html"
-                ]
-            },
+        week8_1: {
+            title: "Week 8 — Part 1",
+            description: "Forms, styling, and accessible web development.",
+            folder: "week8-1/",
+            tasks: [
+                "Add CSS.html",
+                "attributes.html",
+                "Login Form.html",
+                "Student Registration.html"
+            ]
+        },
 
-            week8_2: {
-                title: "Week 8 — Part 2",
-                description: "Form validation and interactive registration.",
-                folder: "week8-2/",
-                tasks: [
-                    "Login form.html", "Password confirmation.html",
-                    "Upgraded Registration.html", "Validation.html"
-                ]
-            },
+        week8_2: {
+            title: "Week 8 — Part 2",
+            description: "Form validation and interactive registration.",
+            folder: "week8-2/",
+            tasks: [
+                "Login form.html",
+                "Password confirmation.html",
+                "Upgraded Registration.html",
+                "Validation.html"
+            ]
+        },
 
-            week9: {
-                title: "Week 9",
-                description: "Learning about web accessibility.",
-                folder: "week9/",
-                tasks: ["Accessibility.html"]
-            },
+        week9: {
+            title: "Week 9",
+            description: "Learning about web accessibility.",
+            folder: "week9/",
+            tasks: ["Accessibility.html"]
+        },
 
-            week9_2: {
-                title: "Week 9_2",
-                description: "Learning about web performance optimization.",
-                folder: "week9_2/",
-                tasks: ["Performance.html"]
-            },
+        week9_2: {
+            title: "Week 9_2",
+            description: "Learning about web performance optimization.",
+            folder: "week9_2/",
+            tasks: ["Performance.html"]
+        },
 
-            week10: {
-                title: "Week 10 — Git and GitHub",
-                description: "Git exercises, GitHub repositories, GitHub Pages, and homework assignments.",
-                folder: "week10/",
-                tasks: ["index.html"]
-            },
+        week10: {
+            title: "Week 10 — Git and GitHub",
+            description: "Git exercises, GitHub repositories, GitHub Pages, and homework assignments.",
+            folder: "week10/",
+            tasks: ["index.html"]
+        },
 
-            week11_1: {
-                title: "Week 11 — React components",
-                description: "Components, props and state: eight class exercises with their code and live output, a Course Catalog, and links to my two React homework apps.",
-                folder: "week11_1/",
-                tasks: ["React components.html"]
-            },
+        week11_1: {
+            title: "Week 11_1 — React Components",
+            description: "Components, props and state: class exercises, a Course Catalog, and React homework.",
+            folder: "week11_1/",
+            tasks: ["React components.html"]
+        },
 
-            week11_2: {
-                title: "Week 11_2 — React State and Events",
-                description: "Seven interactive React exercises covering state updates, event handling, controlled inputs, lists, forms, filtering, and local storage.",
-                folder: "week11_2/",
-                tasks: ["React State and Events.html"
-                ]
-            }
-        };
+        week11_2: {
+            title: "Week 11_2 — React State and Events",
+            description: "Seven interactive React exercises covering state updates, event handling, controlled inputs, lists, forms, filtering, and local storage.",
+            folder: "week11_2/",
+            tasks: ["React State and Events.html"]
+        },
 
-        const params = new URLSearchParams(window.location.search);
-        const weekKey = params.get("week");
-        const week = weeks[weekKey];
-
-        const title = document.getElementById("weekTitle");
-        const label = document.getElementById("weekLabel");
-        const description = document.getElementById("weekDescription");
-        const list = document.getElementById("assignmentList");
-        const meta = document.getElementById("weekMeta");
-        const pager = document.getElementById("pager");
-
-        function addChip(text) {
-            const chip = document.createElement("span");
-            chip.className = "chip";
-            chip.textContent = text;
-            meta.appendChild(chip);
+        week12_1: {
+            title: "Week 12_1 — React State & Effects",
+            description: "Practicing React state and effects through interactive exercises, component updates, and a shopping cart project.",
+            folder: "week12_1/",
+            tasks: [
+                "React state & effects.html",
+                "Shopping Cart.html"
+            ]
         }
+    };
 
-        function addPagerLink(text, key) {
+    const params = new URLSearchParams(window.location.search);
+    const weekKey = params.get("week");
+    const week = weeks[weekKey];
+
+    const title = document.getElementById("weekTitle");
+    const label = document.getElementById("weekLabel");
+    const description = document.getElementById("weekDescription");
+    const list = document.getElementById("assignmentList");
+    const meta = document.getElementById("weekMeta");
+    const pager = document.getElementById("pager");
+
+    function addChip(text) {
+        const chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = text;
+        meta.appendChild(chip);
+    }
+
+    function addPagerLink(text, key) {
+        const link = document.createElement("a");
+        link.href = "week.html?week=" + key;
+        link.textContent = text;
+        pager.appendChild(link);
+    }
+
+    if (week) {
+        document.title = week.title + " | Web Programming";
+
+        title.textContent = week.title;
+        label.textContent = "MY COURSEWORK";
+        description.textContent = week.description;
+
+        const keys = Object.keys(weeks);
+        const position = keys.indexOf(weekKey);
+
+        addChip("Assignment section " + (position + 1) + " of " + keys.length);
+        addChip(week.tasks.length + (week.tasks.length === 1 ? " page" : " pages"));
+
+        week.tasks.forEach((task, index) => {
             const link = document.createElement("a");
-            link.href = "week.html?week=" + key;
-            link.textContent = text;
-            pager.appendChild(link);
+            link.className = "assignment";
+
+            // Encode filenames so spaces work correctly in the URL.
+            link.href = week.folder + encodeURIComponent(task);
+
+            const left = document.createElement("div");
+            left.className = "left";
+
+            const num = document.createElement("span");
+            num.className = "num";
+            num.textContent = String(index + 1).padStart(2, "0");
+
+            const info = document.createElement("div");
+
+            const heading = document.createElement("h2");
+            heading.textContent =
+                weekKey === "week12_1"
+                    ? (index === 0 ? "React State & Effects" : "Shopping Cart Project")
+                    : "Exercise " + String(index + 1).padStart(2, "0");
+
+            const detail = document.createElement("p");
+            detail.textContent = task;
+
+            info.appendChild(heading);
+            info.appendChild(detail);
+
+            left.appendChild(num);
+            left.appendChild(info);
+
+            const arrow = document.createElement("span");
+            arrow.className = "arrow";
+            arrow.setAttribute("aria-hidden", "true");
+            arrow.textContent = "→";
+
+            link.appendChild(left);
+            link.appendChild(arrow);
+
+            list.appendChild(link);
+        });
+
+        if (position > 0) {
+            addPagerLink(
+                "← " + weeks[keys[position - 1]].title,
+                keys[position - 1]
+            );
         }
 
-        if (week) {
-            document.title = week.title + " | Web Programming";
-
-            title.textContent = week.title;
-            label.textContent = "MY COURSEWORK";
-            description.textContent = week.description;
-
-            const keys = Object.keys(weeks);
-            const position = keys.indexOf(weekKey);
-
-            addChip("Week " + (position + 1) + " of " + keys.length);
-            addChip(week.tasks.length + (week.tasks.length === 1 ? " page" : " pages"));
-
-            week.tasks.forEach((task, index) => {
-                const link = document.createElement("a");
-                link.className = "assignment";
-
-                // Encode the filename so spaces work correctly in the URL.
-                link.href = week.folder + encodeURIComponent(task);
-
-                const left = document.createElement("div");
-                left.className = "left";
-
-                const num = document.createElement("span");
-                num.className = "num";
-                num.textContent = String(index + 1).padStart(2, "0");
-
-                const info = document.createElement("div");
-
-                const heading = document.createElement("h2");
-                heading.textContent =
-                    "Exercise " + String(index + 1).padStart(2, "0");
-
-                const detail = document.createElement("p");
-                detail.textContent = task;
-
-                info.appendChild(heading);
-                info.appendChild(detail);
-
-                left.appendChild(num);
-                left.appendChild(info);
-
-                const arrow = document.createElement("span");
-                arrow.className = "arrow";
-                arrow.setAttribute("aria-hidden", "true");
-                arrow.textContent = "→";
-
-                link.appendChild(left);
-                link.appendChild(arrow);
-
-                list.appendChild(link);
-            });
-
-            if (position > 0) {
-                addPagerLink(
-                    "← " + weeks[keys[position - 1]].title,
-                    keys[position - 1]
-                );
-            }
-
-            if (position < keys.length - 1) {
-                addPagerLink(
-                    weeks[keys[position + 1]].title + " →",
-                    keys[position + 1]
-                );
-            }
-
-        } else {
-            title.textContent = "Week not found";
-            label.textContent = "OOPS!";
-
-            description.textContent =
-                "This week could not be found. Please return to the portfolio.";
-
-            list.innerHTML =
-                '<div class="empty">Please select a valid week from the homepage.</div>';
+        if (position < keys.length - 1) {
+            addPagerLink(
+                weeks[keys[position + 1]].title + " →",
+                keys[position + 1]
+            );
         }
-    </script>
+
+    } else {
+        title.textContent = "Week not found";
+        label.textContent = "OOPS!";
+
+        description.textContent =
+            "This week could not be found. Please return to the portfolio.";
+
+        list.innerHTML =
+            '<div class="empty">Please select a valid week from the homepage.</div>';
+    }
+</script>
 
 </body>
 </html>
