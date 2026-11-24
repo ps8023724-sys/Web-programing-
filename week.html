@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -403,6 +404,16 @@
                 "React state & effects.html",
                 "Shopping Cart.html"
             ]
+        },
+
+        week12_2: {
+            title: "Week 12_2 — React useEffect",
+            description: "Practicing React useEffect through a Weather Dashboard and five interactive exercises covering API requests, cleanup functions, browser updates, timers, and character counting.",
+            folder: "week12_2/",
+            tasks: [
+                "Weather Dashboard.html",
+                "useEffect Practice.html"
+            ]
         }
     };
 
@@ -461,10 +472,18 @@
             const info = document.createElement("div");
 
             const heading = document.createElement("h2");
-            heading.textContent =
-                weekKey === "week12_1"
-                    ? (index === 0 ? "React State & Effects" : "Shopping Cart Project")
-                    : "Exercise " + String(index + 1).padStart(2, "0");
+
+            if (weekKey === "week12_1") {
+                heading.textContent = index === 0
+                    ? "React State & Effects"
+                    : "Shopping Cart Project";
+            } else if (weekKey === "week12_2") {
+                heading.textContent = index === 0
+                    ? "Weather Dashboard"
+                    : "React useEffect Practice";
+            } else {
+                heading.textContent = "Exercise " + String(index + 1).padStart(2, "0");
+            }
 
             const detail = document.createElement("p");
             detail.textContent = task;
