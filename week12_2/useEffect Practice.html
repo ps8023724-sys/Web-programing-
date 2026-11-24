@@ -1,1 +1,1230 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friday Practice | React Learning Journal</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --purple: #7563a8;
+      --purple-dark: #514276;
+      --lavender: #eee9f8;
+      --lavender-light: #f8f6fc;
+      --blue: #e7f0fa;
+      --mint: #e8f3ed;
+      --cream: #faf2df;
+      --peach: #f8e9e2;
+      --text: #373348;
+      --muted: #817c91;
+      --border: #e9e4f0;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 8%, #eee8fa 0, transparent 28%),
+        radial-gradient(circle at 94% 38%, #e8f2f5 0, transparent 25%),
+        #faf9fc;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1050px, 92%);
+      margin: 0 auto;
+      padding: 45px 0 70px;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 38px;
+    }
+
+    .brand {
+      color: var(--purple-dark);
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .course-tag {
+      background: var(--lavender);
+      color: var(--purple-dark);
+      padding: 7px 13px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      background: linear-gradient(125deg, #eee9f8, #f6f2fb 60%, #eaf2f8);
+      border: 1px solid #e5deef;
+      border-radius: 25px;
+      padding: 42px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border: 1px solid rgba(117, 99, 168, 0.18);
+      border-radius: 50%;
+      right: -55px;
+      top: -65px;
+      box-shadow: 0 0 0 18px rgba(117, 99, 168, 0.035),
+                  0 0 0 38px rgba(117, 99, 168, 0.025);
+    }
+
+    .eyebrow {
+      color: var(--purple);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+
+    h1, h2, h3, .script-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    h1 {
+      color: var(--purple-dark);
+      font-size: clamp(34px, 6vw, 52px);
+      line-height: 1.15;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .hero-description {
+      color: #686178;
+      max-width: 600px;
+      margin: 16px 0 0;
+      font-size: 14px;
+    }
+
+    .hero-line {
+      width: 65px;
+      height: 3px;
+      background: #a99acb;
+      border-radius: 5px;
+      margin-top: 24px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .intro-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: white;
+    }
+
+    .intro-card h3 {
+      color: var(--purple-dark);
+      font-size: 19px;
+      margin: 0 0 8px;
+    }
+
+    .intro-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .learning-card {
+      background: var(--mint);
+      border-color: #dcebe1;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+      margin: 40px 0 18px;
+    }
+
+    .section-heading h2 {
+      font-size: 28px;
+      color: var(--purple-dark);
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .exercise {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 7px 24px rgba(62, 48, 91, 0.045);
+    }
+
+    .exercise-top {
+      padding: 23px 25px 18px;
+      border-bottom: 1px solid #f0edf4;
+    }
+
+    .exercise-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 7px;
+    }
+
+    .exercise-number {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: var(--lavender);
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .exercise-label span:last-child {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .exercise h3 {
+      font-size: 23px;
+      color: var(--purple-dark);
+      margin: 0 0 5px;
+      font-weight: 600;
+    }
+
+    .exercise-description {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .exercise-content {
+      padding: 24px 25px;
+    }
+
+    .demo-box {
+      background: var(--lavender-light);
+      border: 1px solid #ece6f5;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .demo-title {
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 13px;
+      margin: 0 0 14px;
+    }
+
+    .inline-form {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    input {
+      min-width: 0;
+      flex: 1;
+      padding: 11px 13px;
+      border: 1px solid #ddd6e9;
+      border-radius: 10px;
+      background: white;
+      color: var(--text);
+      outline: none;
+      font-size: 13px;
+    }
+
+    input:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(117, 99, 168, 0.11);
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 17px;
+      background: var(--purple);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--purple-dark);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: #e9e4f1;
+      color: var(--purple-dark);
+    }
+
+    button.secondary:hover {
+      background: #ddd5eb;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .message {
+      font-size: 13px;
+      margin: 13px 0 0;
+      color: var(--muted);
+    }
+
+    .error {
+      color: #b54f5b;
+    }
+
+    .success {
+      color: #39805e;
+    }
+
+    .profile {
+      display: flex;
+      align-items: flex-start;
+      gap: 17px;
+      margin-top: 18px;
+      padding: 17px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+
+    .profile img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid var(--lavender);
+    }
+
+    .profile h4 {
+      margin: 0;
+      color: var(--purple-dark);
+      font-size: 17px;
+    }
+
+    .profile p {
+      margin: 5px 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .profile a {
+      color: var(--purple);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .stat {
+      background: var(--blue);
+      padding: 5px 9px;
+      border-radius: 7px;
+      color: #526d89;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .code-details {
+      border-top: 1px solid #f0edf4;
+      background: #fcfbfd;
+    }
+
+    .code-details summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--purple-dark);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .code-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .code-details summary::after {
+      content: "+";
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--purple);
+    }
+
+    .code-details[open] summary::after {
+      content: "−";
+    }
+
+    .code-content {
+      padding: 0 20px 20px;
+    }
+
+    .code-note {
+      color: var(--muted);
+      font-size: 11px;
+      margin: 0 0 10px;
+    }
+
+    pre {
+      margin: 0;
+      padding: 18px;
+      overflow-x: auto;
+      background: #292638;
+      color: #eeeaf8;
+      border-radius: 12px;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 11px;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .timer-display {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 48px;
+      color: var(--purple-dark);
+      text-align: center;
+      margin: 12px 0 18px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .counter-display {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 35px;
+      color: var(--purple-dark);
+      margin: 12px 0 0;
+    }
+
+    .counter-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .user-info {
+      margin-top: 15px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .user-info h4 {
+      color: var(--purple-dark);
+      margin: 0 0 5px;
+    }
+
+    .user-info p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 3px 0;
+    }
+
+    .footer {
+      margin-top: 45px;
+      padding: 22px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer strong {
+      color: var(--purple-dark);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 15px;
+    }
+
+    @media (max-width: 650px) {
+      .page {
+        padding-top: 25px;
+      }
+
+      .hero {
+        padding: 28px 23px;
+      }
+
+      .intro {
+        grid-template-columns: 1fr;
+      }
+
+      .exercise-top,
+      .exercise-content {
+        padding-left: 17px;
+        padding-right: 17px;
+      }
+
+      .code-details summary {
+        padding-left: 17px;
+        padding-right: 17px;
+      }
+
+      .code-content {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .profile {
+        flex-direction: column;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // F1: GitHub user lookup
+    function GitHubLookup() {
+      const [input, setInput] = useState('');
+      const [username, setUsername] = useState('');
+      const [user, setUser] = useState(null);
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState('');
+
+      useEffect(() => {
+        if (!username) return;
+
+        const controller = new AbortController();
+
+        async function fetchUser() {
+          setLoading(true);
+          setError('');
+          setUser(null);
+
+          try {
+            const response = await fetch(
+              `https://api.github.com/users/${encodeURIComponent(username)}`,
+              { signal: controller.signal }
+            );
+
+            if (response.status === 404) {
+              throw new Error(`No GitHub user called "${username}" (404).`);
+            }
+
+            if (response.status === 403 || response.status === 429) {
+              throw new Error('GitHub rate limit reached. Please try again later.');
+            }
+
+            if (!response.ok) {
+              throw new Error(`Request failed (${response.status}).`);
+            }
+
+            const data = await response.json();
+            setUser(data);
+          } catch (err) {
+            if (err.name === 'AbortError') return;
+
+            if (err instanceof TypeError) {
+              setError('Network problem. Please check your connection.');
+            } else {
+              setError(err.message);
+            }
+          } finally {
+            if (!controller.signal.aborted) {
+              setLoading(false);
+            }
+          }
+        }
+
+        fetchUser();
+
+        return () => controller.abort();
+      }, [username]);
+
+      function handleSearch(event) {
+        event.preventDefault();
+        const cleanName = input.trim();
+
+        if (cleanName) {
+          setUsername(cleanName);
+        }
+      }
+
+      return (
+        <div className="demo-box">
+          <p className="demo-title">Search for a GitHub account</p>
+
+          <form className="inline-form" onSubmit={handleSearch}>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Try octocat"
+              aria-label="GitHub username"
+            />
+            <button type="submit" disabled={!input.trim() || loading}>
+              Search
+            </button>
+          </form>
+
+          <div aria-live="polite">
+            {loading && <p className="message">Loading GitHub profile...</p>}
+            {error && <p className="message error">{error}</p>}
+
+            {user && (
+              <div className="profile">
+                <img src={user.avatar_url} alt="GitHub profile avatar" />
+                <div>
+                  <h4>{user.name || user.login}</h4>
+                  <p>@{user.login}</p>
+                  {user.bio && <p>{user.bio}</p>}
+
+                  <div className="stats">
+                    <span className="stat">{user.followers} followers</span>
+                    <span className="stat">{user.public_repos} public repos</span>
+                  </div>
+
+                  <p>
+                    <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+                      View GitHub profile
+                    </a>
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // F2: Change browser tab title while typing
+    function TitleEditor() {
+      const [text, setText] = useState('');
+
+      useEffect(() => {
+        const originalTitle = document.title;
+
+        document.title = text
+          ? `${text} | React Learning Journal`
+          : 'Friday Practice | React Learning Journal';
+
+        return () => {
+          document.title = originalTitle;
+        };
+      }, [text]);
+
+      return (
+        <div className="demo-box">
+          <p className="demo-title">Type something to change the browser tab title</p>
+
+          <input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Type your title here..."
+            aria-label="New browser tab title"
+          />
+
+          <p className="message">
+            Current tab title: <strong>{text || 'Friday Practice | React Learning Journal'}</strong>
+          </p>
+        </div>
+      );
+    }
+
+    // F3: Fetch and display a user when the component loads
+    function FetchUser() {
+      const [user, setUser] = useState(null);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState('');
+
+      useEffect(() => {
+        const controller = new AbortController();
+
+        async function loadUser() {
+          try {
+            const response = await fetch(
+              'https://jsonplaceholder.typicode.com/users/1',
+              { signal: controller.signal }
+            );
+
+            if (!response.ok) {
+              throw new Error(`Could not load user (${response.status}).`);
+            }
+
+            const data = await response.json();
+            setUser(data);
+          } catch (err) {
+            if (err.name === 'AbortError') return;
+            setError('Unable to fetch user information. Please try again.');
+          } finally {
+            if (!controller.signal.aborted) {
+              setLoading(false);
+            }
+          }
+        }
+
+        loadUser();
+
+        return () => controller.abort();
+      }, []);
+
+      return (
+        <div className="demo-box">
+          <p className="demo-title">User information fetched from an API</p>
+
+          {loading && <p className="message">Fetching user information...</p>}
+          {error && <p className="message error">{error}</p>}
+
+          {user && (
+            <div className="user-info">
+              <h4>{user.name}</h4>
+              <p><strong>Username:</strong> {user.username}</p>
+              <p><strong>Email:</strong> {user.email}</p>
+              <p><strong>Website:</strong> {user.website}</p>
+              <p><strong>Company:</strong> {user.company.name}</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // F4: Stopwatch using setInterval and cleanup
+    function Stopwatch() {
+      const [seconds, setSeconds] = useState(0);
+      const [running, setRunning] = useState(false);
+
+      useEffect(() => {
+        if (!running) return;
+
+        const interval = setInterval(() => {
+          setSeconds((previous) => previous + 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+      }, [running]);
+
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+
+      const formattedTime =
+        String(minutes).padStart(2, '0') + ':' +
+        String(remainingSeconds).padStart(2, '0');
+
+      function reset() {
+        setRunning(false);
+        setSeconds(0);
+      }
+
+      return (
+        <div className="demo-box">
+          <p className="demo-title">Interactive stopwatch</p>
+
+          <div className="timer-display">{formattedTime}</div>
+
+          <div className="timer-controls">
+            <button onClick={() => setRunning(true)} disabled={running}>
+              Start
+            </button>
+
+            <button
+              className="secondary"
+              onClick={() => setRunning(false)}
+              disabled={!running}
+            >
+              Pause
+            </button>
+
+            <button className="secondary" onClick={reset}>
+              Reset
+            </button>
+          </div>
+
+          <p className="message" style={{ textAlign: 'center' }}>
+            Status: {running ? 'Running' : 'Paused'}
+          </p>
+        </div>
+      );
+    }
+
+    // F5: Live character counter using useEffect
+    function CharCountEffect() {
+      const [text, setText] = useState('');
+      const [count, setCount] = useState(0);
+
+      useEffect(() => {
+        setCount(text.length);
+      }, [text]);
+
+      return (
+        <div className="demo-box">
+          <p className="demo-title">Write something and watch the count update</p>
+
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Start typing here..."
+            aria-label="Character counter text"
+            rows="4"
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: '1px solid #ddd6e9',
+              borderRadius: '10px',
+              resize: 'vertical',
+              font: 'inherit',
+              fontSize: '13px',
+              outlineColor: '#7563a8'
+            }}
+          />
+
+          <div className="counter-display">{count}</div>
+          <div className="counter-label">Characters typed</div>
+        </div>
+      );
+    }
+
+    // Reusable layout for each exercise
+    function Exercise({ number, title, description, children, source, color }) {
+      return (
+        <section className="exercise">
+          <div className="exercise-top">
+            <div className="exercise-label">
+              <span
+                className="exercise-number"
+                style={{ background: color }}
+              >
+                {number}
+              </span>
+              <span>FRIDAY CODE CHALLENGE</span>
+            </div>
+
+            <h3>{title}</h3>
+            <p className="exercise-description">{description}</p>
+          </div>
+
+          <div className="exercise-content">
+            {children}
+          </div>
+
+          <details className="code-details">
+            <summary>View Source Code</summary>
+            <div className="code-content">
+              <p className="code-note">
+                React component source code for this exercise.
+              </p>
+              <pre><code>{source}</code></pre>
+            </div>
+          </details>
+        </section>
+      );
+    }
+
+    function App() {
+      const githubSource = `import { useEffect, useState } from 'react';
+
+function GitHubLookup() {
+  const [input, setInput] = useState('');
+  const [username, setUsername] = useState('');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (!username) return;
+
+    const controller = new AbortController();
+
+    async function fetchUser() {
+      setLoading(true);
+      setError('');
+      setUser(null);
+
+      try {
+        const response = await fetch(
+          \`https://api.github.com/users/\${encodeURIComponent(username)}\`,
+          { signal: controller.signal }
+        );
+
+        if (response.status === 404) {
+          throw new Error('GitHub user not found (404).');
+        }
+
+        if (response.status === 403 || response.status === 429) {
+          throw new Error('GitHub rate limit reached.');
+        }
+
+        if (!response.ok) {
+          throw new Error(\`Request failed (\${response.status}).\`);
+        }
+
+        const data = await response.json();
+        setUser(data);
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+
+        setError(
+          err instanceof TypeError
+            ? 'Network problem. Check your connection.'
+            : err.message
+        );
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchUser();
+
+    return () => controller.abort();
+  }, [username]);
+
+  function search(event) {
+    event.preventDefault();
+    setUsername(input.trim());
+  }
+
+  return (
+    <div>
+      <form onSubmit={search}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="GitHub username"
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
+      {user && (
+        <div>
+          <img src={user.avatar_url} alt="" />
+          <h3>{user.name || user.login}</h3>
+          <p>{user.bio}</p>
+          <p>{user.followers} followers</p>
+          <p>{user.public_repos} public repositories</p>
+          <a href={user.html_url}>GitHub profile</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default GitHubLookup;`;
+
+      const titleSource = `import { useEffect, useState } from 'react';
+
+function TitleEditor() {
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    const originalTitle = document.title;
+
+    document.title = text
+      ? \`\${text} | React Learning Journal\`
+      : 'Friday Practice | React Learning Journal';
+
+    return () => {
+      document.title = originalTitle;
+    };
+  }, [text]);
+
+  return (
+    <input
+      value={text}
+      onChange={(e) => setText(e.target.value)}
+      placeholder="Type a new tab title"
+    />
+  );
+}
+
+export default TitleEditor;`;
+
+      const fetchSource = `import { useEffect, useState } from 'react';
+
+function FetchUser() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadUser() {
+      try {
+        const response = await fetch(
+          'https://jsonplaceholder.typicode.com/users/1',
+          { signal: controller.signal }
+        );
+
+        if (!response.ok) {
+          throw new Error('Could not load user.');
+        }
+
+        const data = await response.json();
+        setUser(data);
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+        setError('Unable to fetch user information.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadUser();
+
+    return () => controller.abort();
+  }, []);
+
+  return (
+    <div>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {user && (
+        <div>
+          <h3>{user.name}</h3>
+          <p>{user.email}</p>
+          <p>{user.website}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default FetchUser;`;
+
+      const stopwatchSource = `import { useEffect, useState } from 'react';
+
+function Stopwatch() {
+  const [seconds, setSeconds] = useState(0);
+  const [running, setRunning] = useState(false);
+
+  useEffect(() => {
+    if (!running) return;
+
+    const interval = setInterval(() => {
+      setSeconds((previous) => previous + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [running]);
+
+  function reset() {
+    setRunning(false);
+    setSeconds(0);
+  }
+
+  return (
+    <div>
+      <p>{seconds} seconds</p>
+      <button onClick={() => setRunning(true)}>Start</button>
+      <button onClick={() => setRunning(false)}>Pause</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
+}
+
+export default Stopwatch;`;
+
+      const counterSource = `import { useEffect, useState } from 'react';
+
+function CharCountEffect() {
+  const [text, setText] = useState('');
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setCount(text.length);
+  }, [text]);
+
+  return (
+    <div>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <p>Characters: {count}</p>
+    </div>
+  );
+}
+
+export default CharCountEffect;`;
+
+      return (
+        <main className="page">
+          <div className="topline">
+            <div className="brand">Web Programming · React</div>
+            <div className="course-tag">WEEK 12 · FRIDAY</div>
+          </div>
+
+          <header className="hero">
+            <p className="eyebrow">FRIDAY PRACTICE SESSION</p>
+            <h1>Learning useEffect</h1>
+            <p className="hero-description">
+              Exploring side effects in React through API requests,
+              browser updates, timers, and live user interactions.
+            </p>
+            <div className="hero-line"></div>
+          </header>
+
+          <section className="intro">
+            <div className="intro-card">
+              <h3 className="script-heading">Understanding useEffect</h3>
+              <p>
+                The useEffect Hook lets React components perform side effects.
+                It can be used to fetch data, update the browser document,
+                create timers, and manage actions outside the component.
+              </p>
+            </div>
+
+            <div className="intro-card learning-card">
+              <h3 className="script-heading">What I practised</h3>
+              <p>
+                Effect dependencies, API fetching, loading and error states,
+                cleanup functions, and managing intervals.
+              </p>
+            </div>
+          </section>
+
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">HANDS-ON EXERCISES</p>
+              <h2>Friday Code Challenges</h2>
+            </div>
+            <p>Five interactive React exercises</p>
+          </div>
+
+          <Exercise
+            number="F1"
+            title="GitHub User Lookup"
+            description="Search for a GitHub username and display profile information using the GitHub API."
+            source={githubSource}
+            color="#eee8f8"
+          >
+            <GitHubLookup />
+          </Exercise>
+
+          <Exercise
+            number="F2"
+            title="Change Browser Tab Title"
+            description="Update the browser tab title whenever the input text changes, then restore the original title during cleanup."
+            source={titleSource}
+            color="#e7f0fa"
+          >
+            <TitleEditor />
+          </Exercise>
+
+          <Exercise
+            number="F3"
+            title="Fetch and Display a User"
+            description="Fetch user information from an API when the component first loads."
+            source={fetchSource}
+            color="#e8f3ed"
+          >
+            <FetchUser />
+          </Exercise>
+
+          <Exercise
+            number="F4"
+            title="Stopwatch"
+            description="Use setInterval to update a timer every second and clearInterval to stop it when the effect is cleaned up."
+            source={stopwatchSource}
+            color="#faf2df"
+          >
+            <Stopwatch />
+          </Exercise>
+
+          <Exercise
+            number="F5"
+            title="Live Character Counter"
+            description="Use an effect to update the character count whenever the text input changes."
+            source={counterSource}
+            color="#f8e9e2"
+          >
+            <CharCountEffect />
+          </Exercise>
+
+          <footer className="footer">
+            <strong>React Learning Journal</strong>
+            <p>Week 12 · Friday Practice · useEffect</p>
+            <p>Web Programming Coursework</p>
+          </footer>
+        </main>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
